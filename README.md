@@ -92,5 +92,5 @@ php artisan imperator:install
 
 ## License
 
-`laravel-imperator`  is licensed under [The MIT License (MIT)](https://github.com/z-song/laravel-admin/blob/master/LICENSE).
+`laravel-imperator`  is licensed under [The MIT License (MIT)](https://github.com/chyis/laravel-imperator/LICENSE).
 
