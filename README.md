@@ -1,4 +1,4 @@
-# laravel-imperator
+laravel-imperator
 
 laravel-imperator 是基于 laravel 编写的多功能内容管理及发布系统。使用它可以快速的搭建文章发布系统、电商系统、小程序及微信公众号系统。
 
@@ -62,7 +62,7 @@ php artisan vendor:publish --provider="Chyis\Imperator\PublishServiceProvider"
 php artisan imperator:install 
 ```
 
-打开你配置的网址（默认是http://yoursitename/imperator），然后用用户名 `admin` 和密码 `admin` 登录操作台。
+打开你配置的网址（默认是 http://yoursitename/imperator ），然后用用户名 `admin` 和密码 `admin` 登录操作台。
 
 ## 指令运行
 
@@ -80,17 +80,15 @@ php artisan imperator:install
 
 配置文件 `config/imperator.php` 包含一系列可以自定义的配置项，通过这些配置项你可以自主选配所要搭建的系统。
 
-| 配置名称                                                     | 说明         |      |
-| ------------------------------------------------------------ | ------------ | ---- |
-| [siteName](https://github.com/chyis/laravel-admin-extensions/helpers) | 系统名称     | ~1.0 |
-| [appName](https://github.com/laravel-admin-extensions/media-manager) | 生成位置     | ~1.0 |
-| [facades](https://github.com/chyis/laravel-imperator-extensions/api-tester) | 生成外观类型 | ~1.0 |
-|                                                              |              |      |
-|                                                              |              |      |
+| 配置名称 | 说明         |      |
+| -------- | ------------ | ---- |
+| siteName | 系统名称     | ~1.0 |
+| appName  | 生成位置     | ~1.0 |
+| facades  | 生成外观类型 | ~1.0 |
+|          |              |      |
+|          |              |      |
 
-## 开发者及贡献者
 
-感谢所有对这个体系做出分享和贡献的人！ 🙏 [[成为开发者](https://www.yuncong.com/laravel-imperator#backer)]
 
 ## License
 

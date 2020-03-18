@@ -68,7 +68,7 @@ php artisan vendor:publish --provider="Chyis\Imperator\PublishServiceProvider"
 php artisan imperator:install 
 ```
 
-打开你配置的网址（默认是http://yoursitename/imperator），然后用用户名 `admin` 和密码 `admin` 登录操作台。
+打开你配置的网址（默认是 http://yoursitename/imperator ），然后用用户名 `admin` 和密码 `admin` 登录操作台。
 
 
 
@@ -90,33 +90,13 @@ php artisan imperator:install
 
 配置文件 `config/imperator.php` 包含一系列可以自定义的配置项，通过这些配置项你可以自主选配所要搭建的系统。
 
-| 配置名称                                                     | 说明         |      |
-| ------------------------------------------------------------ | ------------ | ---- |
-| [siteName](https://github.com/chyis/laravel-admin-extensions/helpers) | 系统名称     | ~1.0 |
-| [appName](https://github.com/laravel-admin-extensions/media-manager) | 生成位置     | ~1.0 |
-| [facades](https://github.com/chyis/laravel-imperator-extensions/api-tester) | 生成外观类型 | ~1.0 |
-|                                                              |              |      |
-|                                                              |              |      |
-
-
-
-## 奉献者
-
-感谢那些对我们的项目无私奉献的人们。谢谢你们，我们会继续努力。 [[捐赠](https://github.com/chyis/laravel-imperator/blob/master/CONTRIBUTING.md)].
-
-
-
-## 开发者及贡献者
-
-感谢所有对这个体系做出分享和贡献的人！ 🙏 [[成为开发者](https://www.yuncong.com/laravel-imperator#backer)]
-
-
-
-## 合作商
-
-成为合作商家，互换链接，将logo展示在站点中。 [[成为合作商](https://opencollective.com/laravel-admin#sponsor)]
-
-
+| 配置名称 | 说明         |      |
+| -------- | ------------ | ---- |
+| siteName | 系统名称     | ~1.0 |
+| appName  | 生成位置     | ~1.0 |
+| facades  | 生成外观类型 | ~1.0 |
+|          |              |      |
+|          |              |      |
 
 ## License
 
