@@ -32,7 +32,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Chyis\\Imperator\\LaravleImperatorServiceProvider"
+                "Chyis\\Imperator\\LaravelImperatorServiceProvider"
             ]
         }
     },
