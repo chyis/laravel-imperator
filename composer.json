@@ -38,6 +38,13 @@
             "database/factories"
         ]
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Chyis\\Imperator\\LaravleImperatorServiceProvider"
+            ]
+        }
+    },
     "autoload-dev": {
         "psr-4": {
             "Chyis\\Imperator\\Tests\\": "tests/"
