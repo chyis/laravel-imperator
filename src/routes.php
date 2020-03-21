@@ -14,7 +14,7 @@ Route::get('/admin/test', function () {
     app('imperator')->printRunning();
 });
 // 管理后台地址解析
-Route::group(['prefix' => 'admin', 'namespace'=>'Chyis\Imperator\Controllers'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['web'], 'namespace'=>'Chyis\Imperator\Controllers'], function(){
 //Route::group(['middleware' => ['admin']], function(){
     Route::get('login', 'LoginController@index')->name('admin.login');
     Route::post('login', 'LoginController@signin')->name('admin.signin');
