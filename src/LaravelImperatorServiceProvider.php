@@ -29,7 +29,12 @@ class LaravelImperatorServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'Chyis/Imperator/Controllers');
 
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
+//        if (file_exists($routes = admin_path('routes.php'))) {
+//            $this->loadRoutesFrom($routes);
+//        }
     }
 
     public function register()

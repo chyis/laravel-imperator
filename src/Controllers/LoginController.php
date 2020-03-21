@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
 
     public function index()
     {
