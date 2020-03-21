@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        return view('admin.login')
+        return view('Imperator::login')
             ->with('pageName', '管理登录');
     }
 
