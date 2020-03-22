@@ -11,5 +11,5 @@
             <li> <a href="{{ URL::route('admin.logout') }}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
         </ul>
     </li>
-    
+
 </ul>

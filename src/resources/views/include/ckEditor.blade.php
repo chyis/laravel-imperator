@@ -64,13 +64,13 @@
 </div>
 </main>
 <textarea name="content" id="content" style="display: none;">{!! $entity->content ?? '' !!}</textarea>
-<script src="/statics/ckeditor5/ckeditor.js"></script>
+<script src="{{$staticDir}}/ckeditor5/ckeditor.js"></script>
 <script type="text/javascript">
     DecoupledEditor
         .create( document.querySelector( '#editor' ), {
             toolbar: ["heading", "|", "alignment:left", "alignment:center", "alignment:right", "alignment:adjust", "|", "bold", "italic", "blockQuote", "link", "|", "bulletedList", "numberedList", "imageUpload", "|", "undo", "redo"],
             ckfinder: {
-                uploadUrl: "http://www:mywork.com/admin/attachment/uploadimage"
+                uploadUrl: "/admin/attachment/uploadimage"
             }
         })
         .then( editor => {
