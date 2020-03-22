@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
   菜单修改
@@ -113,10 +113,10 @@
 
 @section('javascript')
   @parent
-  <script type="text/javascript" src="{{ $staticdir }}js/jquery-validate/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/extends/form.func.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $("#mainForm").validate({

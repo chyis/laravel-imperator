@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Chyis\Imperator\Controllers;
 
-
-use App\Models\Menu;
+use App\Http\Controllers\Controller;
+use Chyis\Imperator\Models\Menu;
 
 class AdminController extends Controller
 {

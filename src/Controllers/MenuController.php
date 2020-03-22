@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Requests\MenuRequest;
-use App\Models\Dictionary;
-use App\Models\Menu;
-use App\Models\Privilege;
+
+use Chyis\Imperator\Requests\MenuRequest;
+use Chyis\Imperator\Models\Dictionary;
+use Chyis\Imperator\Models\Menu;
+use Chyis\Imperator\Models\Privilege;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -35,7 +35,7 @@ class MenuController extends AdminController
             ->orderby('order', 'asc')
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.menu.index')
+        return view('Imperator::menu.index')
             ->with('pageName', '菜单管理')
             ->with('lists', $list)
             ->with('request', $request->toArray());
@@ -53,7 +53,7 @@ class MenuController extends AdminController
         $pos = Dictionary::posType()->get();
         $priUnits = Dictionary::privType()->get();
 
-        return view('admin.menu.create')
+        return view('Imperator::menu.create')
             ->with('parents', $parents)
             ->with('types', $types)
             ->with('pos', $pos)
@@ -90,7 +90,7 @@ class MenuController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Menu  $menu
+     * @param  \Chyis\Imperator\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
     public function show(Menu $menu)
@@ -113,7 +113,7 @@ class MenuController extends AdminController
         $pos = Dictionary::posType()->get();
         $priUnits = Dictionary::privType()->get();
 
-        return view('admin.menu.edit')
+        return view('Imperator::menu.edit')
             ->with('pageName', '菜单修改')
             ->with('entity', $menu)
             ->with('parents', $parents)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -68,7 +68,7 @@ class Role extends Model
 
     function privileges()
     {
-        return $this->hasOne('App\Models\RolePrivilege', 'role_id','id');
+        return $this->hasOne('Chyis\Imperator\Models\RolePrivilege', 'role_id','id');
     }
 
 }

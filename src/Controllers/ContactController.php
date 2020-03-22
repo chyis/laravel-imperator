@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Models\Contacts;
+
+use Chyis\Imperator\Models\Contacts;
 use Illuminate\Http\Request;
 
 class ContactController extends AdminController
@@ -30,7 +30,7 @@ class ContactController extends AdminController
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.contact.index')
+        return view('Imperator::contact.index')
             ->with('lists', $list)
             ->with('pageName', '反馈管理')
             ->with('request', $request->toArray());
@@ -60,7 +60,7 @@ class ContactController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Contacts  $contacts
+     * @param  \Chyis\Imperator\Models\Contacts  $contacts
      * @return \Illuminate\Http\Response
      */
     public function show(Contacts $contacts)
@@ -71,7 +71,7 @@ class ContactController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Contacts  $contacts
+     * @param  \Chyis\Imperator\Models\Contacts  $contacts
      * @return \Illuminate\Http\Response
      */
     public function edit(Contacts $contacts)
@@ -83,7 +83,7 @@ class ContactController extends AdminController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contacts  $contacts
+     * @param  \Chyis\Imperator\Models\Contacts  $contacts
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Contacts $contacts)
@@ -94,7 +94,7 @@ class ContactController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Contacts  $contacts
+     * @param  \Chyis\Imperator\Models\Contacts  $contacts
      * @return \Illuminate\Http\Response
      */
     public function destroy(Contacts $contacts)

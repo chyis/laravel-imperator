@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
     模板管理 - 系统管理

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Requests\SettingRequest;
+
+use Chyis\Imperator\Requests\SettingRequest;
 use Illuminate\Http\Request;
-use App\Models\Setting;
+use Chyis\Imperator\Models\Setting;
 
 
 class SettingController extends AdminController
@@ -15,7 +15,7 @@ class SettingController extends AdminController
     {
         $setting = Setting::getCode();
 
-        return view('admin.setting.base')
+        return view('Imperator::setting.base')
             ->with('setting', $setting);
     }
 
@@ -23,7 +23,7 @@ class SettingController extends AdminController
     {
         $setting = Setting::getCode();
 
-        return view('admin.setting.system')
+        return view('Imperator::setting.system')
             ->with('setting', $setting);
     }
 
@@ -31,7 +31,7 @@ class SettingController extends AdminController
     {
         $setting = Setting::getCode();
 
-        return view('admin.setting.upload')
+        return view('Imperator::setting.upload')
             ->with('setting', $setting);
     }
 

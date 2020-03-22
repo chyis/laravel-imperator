@@ -1,7 +1,7 @@
 <aside class="lyear-layout-sidebar">
     <!-- logo -->
     <div id="logo" class="sidebar-header">
-        <a href="/"><img src="{{ $staticdir }}images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
+        <a href="/"><img src="{{$staticDir}}/images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
     </div>
     <div class="lyear-layout-sidebar-scroll">
         <nav class="sidebar-main">

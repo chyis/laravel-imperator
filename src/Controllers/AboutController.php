@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Models\Setting;
+
+use Chyis\Imperator\Models\Setting;
 use Illuminate\Http\Request;
 
 class AboutController extends AdminController
@@ -18,7 +18,7 @@ class AboutController extends AdminController
     {
         $setting = Setting::getCode();
 
-        return view('admin.about.edit')
+        return view('Imperator::about.edit')
             ->with('setting', $setting);
     }
 

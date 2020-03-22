@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
     内容列表 - 内容管理
@@ -68,7 +68,7 @@
                                         <td><font class="text-success">正常</font></td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-xs btn-default" href="{{ URL::action('Admin\NewsController@edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.news.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.news.destroy', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>
@@ -79,7 +79,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @include('admin.include.pagination')
+                            @include('Imperator::include.pagination')
                         </div>
                     </div>
                 </div>

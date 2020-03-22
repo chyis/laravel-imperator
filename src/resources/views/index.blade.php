@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
   首页面板
@@ -7,7 +7,7 @@
 @section('content')
     <!--页面主要内容-->
     <main class="lyear-layout-content">
-      
+
       <div class="container-fluid">
         
         <div class="row">
@@ -61,7 +61,7 @@
         </div>
         
         <div class="row">
-          
+
           <div class="col-lg-6"> 
             <div class="card">
               <div class="card-header">
@@ -72,7 +72,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col-lg-6"> 
             <div class="card">
               <div class="card-header">
@@ -83,7 +83,7 @@
               </div>
             </div>
           </div>
-           
+
         </div>
         
         <div class="row">
@@ -137,18 +137,15 @@
               </div>
             </div>
           </div>
-          
         </div>
-        
       </div>
-      
     </main>
 @stop
 
 @section('javascript')
   @parent
   <!--图表插件-->
-  <script type="text/javascript" src="{{ $staticdir }}js/Chart.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/Chart.js"></script>
   <script type="text/javascript">
     $(document).ready(function(e) {
       var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' ),

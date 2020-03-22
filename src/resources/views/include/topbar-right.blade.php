@@ -1,7 +1,7 @@
 <ul class="topbar-right">
     <li class="dropdown dropdown-profile">
         <a href="javascript:void(0)" data-toggle="dropdown">
-            <img class="img-avatar img-avatar-48 m-r-10" src="{{ $staticdir }}images/users/avatar.jpg" alt="{{$loginUser->nick_name}}" />
+            <img class="img-avatar img-avatar-48 m-r-10" src="{{$staticDir}}/images/users/avatar.jpg" alt="{{$loginUser->nick_name}}" />
             <span>{{$loginUser->nick_name}} <span class="caret"></span></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">

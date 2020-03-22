@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +17,6 @@ class IndexController extends AdminController
 //            return 'checked';
 //        }
 //        return array(Request()->session());
-        return view('admin.index');
+        return view('Imperator::index');
     }
 }

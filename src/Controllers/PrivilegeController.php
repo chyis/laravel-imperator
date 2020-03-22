@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Requests\PrivilegeRequest;
-use App\Models\Privilege;
-use App\Models\Dictionary;
+
+use Chyis\Imperator\Requests\PrivilegeRequest;
+use Chyis\Imperator\Models\Privilege;
+use Chyis\Imperator\Models\Dictionary;
 use Illuminate\Http\Request;
 
 class PrivilegeController extends AdminController
@@ -36,7 +36,7 @@ class PrivilegeController extends AdminController
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.privilege.index')
+        return view('Imperator::privilege.index')
             ->with('lists', $list)
             ->with('pageName', '权限管理')
             ->with('request', $request->toArray());
@@ -52,7 +52,7 @@ class PrivilegeController extends AdminController
         $prigroup = Dictionary::where('var_code', 'prigroup')
             ->where('parent_id', '>', 0)
             ->get();
-        return view('admin.privilege.create')
+        return view('Imperator::privilege.create')
             ->with('pageName', '权限添加')
             ->with('parents', $prigroup);
     }
@@ -60,7 +60,7 @@ class PrivilegeController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\PrivilegeRequest  $request
+     * @param  Chyis\Imperator\Requests\PrivilegeRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PrivilegeRequest $request)
@@ -100,7 +100,7 @@ class PrivilegeController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Privilege  $privilege
+     * @param  \Chyis\Imperator\Models\Privilege  $privilege
      * @return \Illuminate\Http\Response
      */
     public function show(Privilege $privilege)
@@ -111,7 +111,7 @@ class PrivilegeController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Privilege  $privilege
+     * @param  \Chyis\Imperator\Models\Privilege  $privilege
      * @return \Illuminate\Http\Response
      */
     public function edit(int $privilege)
@@ -124,7 +124,7 @@ class PrivilegeController extends AdminController
 
         if ($privilege)
         {
-            return view('admin.privilege.edit')
+            return view('Imperator::privilege.edit')
                 ->with('parents', $prigroup)
                 ->with('pageName', '权限修改')
                 ->with('entity', $privilege);
@@ -137,7 +137,7 @@ class PrivilegeController extends AdminController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Privilege  $privilege
+     * @param  \Chyis\Imperator\Models\Privilege  $privilege
      * @return \Illuminate\Http\Response
      */
     public function update(int $privilege, PrivilegeRequest $request)
@@ -162,7 +162,7 @@ class PrivilegeController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Privilege  $privilege
+     * @param  \Chyis\Imperator\Models\Privilege  $privilege
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $privilege)

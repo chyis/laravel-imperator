@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Attachment;
+use Chyis\Imperator\Models\Attachment;
 
 class ImagesController extends Controller
 {

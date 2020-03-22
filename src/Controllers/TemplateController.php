@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
+
 use Illuminate\Http\Request;
 
 class TemplateController extends AdminController
@@ -18,7 +18,7 @@ class TemplateController extends AdminController
     {
         $views = $this->readViews();
 
-        return view('admin.template.index')
+        return view('Imperator::template.index')
             ->with('template', $views);
     }
 

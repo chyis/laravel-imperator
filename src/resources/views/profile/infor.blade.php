@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
   首页面板
@@ -27,7 +27,7 @@
                   <form id="mainForm" method="post" action="{{ URL:: route('admin.profile.save') }}" class="site-form">
                     {{csrf_field()}}
                 <div class="edit-avatar">
-                  <img src="@if(empty($loginUser->avatar)) {{ $staticdir }}images/users/avatar.jpg @else /statics/uploads/{{$loginUser->avatar}} @endif" alt="..." class="img-avatar">
+                  <img src="@if(empty($loginUser->avatar)) {{$staticDir}}/images/users/avatar.jpg @else /statics/uploads/{{$loginUser->avatar}} @endif" alt="..." class="img-avatar">
                   <div class="avatar-divider"></div>
                   <div class="edit-avatar-content">
                     <button class="btn btn-default">修改头像</button>
@@ -69,10 +69,10 @@
 
 @section('javascript')
   @parent
-  <script type="text/javascript" src="{{ $staticdir }}js/jquery-validate/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/extends/form.func.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $("#mainForm").validate({

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -69,7 +69,7 @@ class Article extends Model
 
     function category()
     {
-        return $this->hasOne('App\Models\Category', 'id','cate_id');
+        return $this->hasOne('Chyis\Imperator\Models\Category', 'id','cate_id');
     }
 
     function top10()

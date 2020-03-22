@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use App\Models\Link;
+use Chyis\Imperator\Models\Link;
+
 class LinkRequest extends FormRequest
 {
     /**

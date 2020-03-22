@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Chyis\Imperator\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Menu;
-
+use Chyis\Imperator\Models\Menu;
 
 class AdminMiddleware
 {

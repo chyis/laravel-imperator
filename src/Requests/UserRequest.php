@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
-use App\Models\Users;
+use Chyis\Imperator\Models\Users;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 

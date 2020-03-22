@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
+
 use Illuminate\Http\Request;
-use App\Models\Dictionary;
-use App\Models\Advertise;
-use App\Http\Requests\AdvertiseRequest;
+use Chyis\Imperator\Models\Dictionary;
+use Chyis\Imperator\Models\Advertise;
+use Chyis\Imperator\Requests\AdvertiseRequest;
 
 
 class AdvertiseController extends AdminController
@@ -33,7 +33,7 @@ class AdvertiseController extends AdminController
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.advertise.index')
+        return view('Imperator::advertise.index')
             ->with('pageName', '广告管理')
             ->with('lists', $list)
             ->with('request', $request->toArray());
@@ -48,7 +48,7 @@ class AdvertiseController extends AdminController
     {
         $types = Dictionary::menuType()->get();
 
-        return view('admin.advertise.create')
+        return view('Imperator::advertise.create')
             ->with('types', $types)
             ->with('pageName', '菜单添加');
     }
@@ -56,7 +56,7 @@ class AdvertiseController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\AdvertiseRequest  $request
+     * @param  \Chyis\Imperator\Requests\AdvertiseRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AdvertiseRequest $request)
@@ -82,28 +82,28 @@ class AdvertiseController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Advertise  $advertise
+     * @param  \Chyis\Imperator\Models\Advertise  $advertise
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Advertise $advertise)
     {
 
-        return view('admin.advertise.show')
+        return view('Imperator::advertise.show')
             ->with('advertise', $advertise);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Advertise  $advertise
+     * @param  \Chyis\Imperator\Models\Advertise  $advertise
      * @return \Illuminate\Http\Response
      */
     public function edit(Advertise $advertise)
     {
         $types = Dictionary::menuType()->get();
 
-        return view('admin.advertise.edit')
+        return view('Imperator::advertise.edit')
             ->with('types', $types)
             ->with('pageName', '广告修改')
             ->with('entity', $advertise);
@@ -112,8 +112,8 @@ class AdvertiseController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\AdvertiseRequest  $request
-     * @param  \App\Models\Advertise  $advertise
+     * @param  \Chyis\Imperator\Requests\AdvertiseRequest  $request
+     * @param  \Chyis\Imperator\Models\Advertise  $advertise
      *
      * @return \Illuminate\Http\Response
      */
@@ -139,7 +139,7 @@ class AdvertiseController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Advertise  $advertise
+     * @param  \Chyis\Imperator\Models\Advertise  $advertise
      *
      * @return \Illuminate\Http\Response
      */

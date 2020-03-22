@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
     信息管理 - 信息反馈
@@ -68,7 +68,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @include('admin.include.pagination')
+                            @include('Imperator::include.pagination')
                         </div>
                     </div>
                 </div>

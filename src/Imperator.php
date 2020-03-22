@@ -10,20 +10,41 @@ class Imperator {
      * @var string
      */
     const VERSION = '0.1.0';
+    const APPNAME = 'Laravel-Imperator';
 
     protected $moduleEnabled = [];
 
     public function printRunning()
     {
-        echo 'Laravel-imperator is running ..........' . "\n";
+        echo self::getVersion().' is running ..........' . "\n";
     }
 
     /**
-     * Returns the long version of Laravel-admin.
+     * Returns the Name of Laravel-imperator.
+     *
+     * @return string The application name
+     */
+    public static function getAppName()
+    {
+        return self::APPNAME;
+    }
+
+    /**
+     * Returns the version of Laravel-imperator.
+     *
+     * @return string The application version
+     */
+    public static function getVersion()
+    {
+        return self::VERSION;
+    }
+
+    /**
+     * Returns the long version of Laravel-imperator.
      *
      * @return string The long application version
      */
-    public static function getVersion()
+    public static function getLongVersion()
     {
         return sprintf('Laravel-imperator <comment>version</comment> <info>%s</info>', self::VERSION);
     }
@@ -43,9 +64,9 @@ class Imperator {
      *
      * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
      */
-    public function guard()
+    public static function guard()
     {
-        $guard = config('imperator.auth.guard') ?: 'manage';
+        $guard = config('imperator.auth.guard') ?: 'admin';
 
         return Auth::guard($guard);
     }
@@ -119,6 +140,12 @@ class Imperator {
                 $router->resource('actionLogs', 'ActionLogController', ['only' => ['index', 'destroy']])->names('admin.logs');
             });
         });
+    }
+
+
+    public static  function username()
+    {
+        return 'user_name';
     }
 
 }

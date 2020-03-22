@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
     权限管理 - 管理员管理
@@ -55,7 +55,7 @@
                                         <td>- {{$value -> group_name}} -</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-xs btn-default" href="{{ URL::action('Admin\PrivilegeController@edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.privilege.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.privilege.destroy', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>
@@ -69,7 +69,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @include('admin.include.pagination')
+                            @include('Imperator::include.pagination')
                         </div>
                     </div>
                 </div>

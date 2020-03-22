@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Models\Category;
-use App\Models\Dictionary;
+
+use Chyis\Imperator\Models\Category;
+use Chyis\Imperator\Models\Dictionary;
 use Illuminate\Http\Request;
-use App\Http\Requests\CategoryRequest;
+use Chyis\Imperator\Requests\CategoryRequest;
 
 class CategoryController extends AdminController
 {
@@ -32,7 +32,7 @@ class CategoryController extends AdminController
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.category.index')
+        return view('Imperator::category.index')
             ->with('lists', $list)
             ->with('pageName', '栏目管理')
             ->with('request', $request->toArray());
@@ -48,7 +48,7 @@ class CategoryController extends AdminController
         $parents = Category::root()->get();
         $types = Dictionary::ContentType()->get();
 
-        return view('admin.category.create')
+        return view('Imperator::category.create')
             ->with('pageName', '栏目添加')
             ->with('types', $types)
             ->with('parents', $parents);
@@ -81,7 +81,7 @@ class CategoryController extends AdminController
     /*
      * Display the specified resource.
      *
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function show(int $id)
@@ -94,7 +94,7 @@ class CategoryController extends AdminController
     /*
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function edit(int $id)
@@ -105,7 +105,7 @@ class CategoryController extends AdminController
         $cate = Category::findOrFail($id);
         if ($cate)
         {
-            return view('admin.category.edit')
+            return view('Imperator::category.edit')
                 ->with('pageName', '栏目修改')
                 ->with('parents', $parents)
                 ->with('types', $types)
@@ -119,7 +119,7 @@ class CategoryController extends AdminController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, int $category)
@@ -143,7 +143,7 @@ class CategoryController extends AdminController
     /*
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $category)

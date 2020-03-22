@@ -9,29 +9,28 @@
     <meta name="author" content="{{ $siteAuthor }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @section('stylesheet')
-    <link href="{{ $staticdir }}css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ $staticdir }}css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="{{ $staticdir }}css/style.min.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/style.min.css" rel="stylesheet">
     @show
-    <script type="text/javascript" src="{{ $staticdir }}js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{$staticDir}}/js/jquery.min.js"></script>
 </head>
 <body>
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
         @section('sidebar')
             <!--左侧导航-->
-            @include('admin.include.sidebar')
+            @include('Imperator::include.sidebar')
             <!--End 左侧导航-->
         @show
 
         @section('head')
         <!--头部信息-->
         <header class="lyear-layout-header">
-
             <nav class="navbar navbar-default">
                 <div class="topbar">
-                    @include('admin.include.topbar-left')
-                    @include('admin.include.topbar-right')
+                    @include('Imperator::include.topbar-left')
+                    @include('Imperator::include.topbar-right')
                 </div>
             </nav>
         </header>
@@ -129,10 +128,10 @@
 
 
 @section('javascript')
-<script type="text/javascript" src="{{ $staticdir }}js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/perfect-scrollbar.min.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/main.min.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/extends/table.func.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/main.min.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/extends/table.func.js"></script>
 <script type="text/javascript">
     $(function(){
         $('.search-bar .dropdown-menu a').click(function() {

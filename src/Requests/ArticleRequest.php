@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
-use App\Models\Article;
+use Chyis\Imperator\Models\Article;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleRequest extends FormRequest

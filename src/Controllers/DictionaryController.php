@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Requests\DictionaryRequest;
-use App\Models\Dictionary;
+
+use Chyis\Imperator\Requests\DictionaryRequest;
+use Chyis\Imperator\Models\Dictionary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -36,7 +36,7 @@ class DictionaryController extends AdminController
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.dictionary.index')
+        return view('Imperator::dictionary.index')
             ->with('lists', $list)
             ->with('pageName', '字典管理')
             ->with('request', $request->toArray());
@@ -51,7 +51,7 @@ class DictionaryController extends AdminController
     {
         $menuRoot = Dictionary::where('parent_id', 0)
             ->get();
-        return view('admin.dictionary.create')
+        return view('Imperator::dictionary.create')
             ->with('pageName', '字典添加')
             ->with('parents', $menuRoot);
     }
@@ -105,7 +105,7 @@ class DictionaryController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function show(Dictionary $dictionary)
@@ -116,7 +116,7 @@ class DictionaryController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function edit(int $dictionary)
@@ -127,7 +127,7 @@ class DictionaryController extends AdminController
             ->get();
         if ($dictionary)
         {
-            return view('admin.dictionary.edit')
+            return view('Imperator::dictionary.edit')
                 ->with('parents', $menuRoot)
                 ->with('pageName', '字典修改')
                 ->with('entity', $dictionary);
@@ -140,7 +140,7 @@ class DictionaryController extends AdminController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function update(int $dictionary, DictionaryRequest $request)
@@ -189,7 +189,7 @@ class DictionaryController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dictionary  $dictionary
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $dictionary)

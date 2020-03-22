@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
-use App\Models\Menu;
+use Chyis\Imperator\Models\Menu;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
-use App\Models\Privilege;
+use Chyis\Imperator\Models\Privilege;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
+use Chyis\Imperator\Models\Setting;
 use Illuminate\Http\Request;
-use App\Models\Attachment;
+use Chyis\Imperator\Models\Attachment;
 
 /**
  * @package App\Http\Controllers\Admin
@@ -47,7 +47,7 @@ class AttachmentController extends Controller
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.attachment.index')
+        return view('Imperator::attachment.index')
             ->with('pageName', '附件管理')
             ->with('lists', $list)
             ->with('request', $request->toArray());

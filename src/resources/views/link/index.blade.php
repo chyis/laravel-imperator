@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
     合作伙伴管理 - 系统管理
@@ -65,7 +65,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-xs btn-default" href="{{ URL::action('Admin\LinksController@edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.links.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.links.destroy', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>
@@ -79,7 +79,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @include('admin.include.pagination')
+                            @include('Imperator::include.pagination')
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use App\Models\Dictionary;
+use Chyis\Imperator\Models\Dictionary;
 
 class DictionaryRequest extends FormRequest
 {

@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
     模块管理 - 系统管理
@@ -96,7 +96,7 @@
                             <ul class="card-actions">
                                 <li>
                                     {{--<button type="button" data-toggle="tooltip" title="修改信息"><i class="mdi mdi-pencil"></i></button>--}}
-                                    <a title="修改信息" href="{{ URL::action("Admin\ModuleController@edit", $module->id) }}"><i class="mdi mdi-pencil"></i> </a>
+                                    <a title="修改信息" href="{{ URL::action("admin.module.edit", $module->id) }}"><i class="mdi mdi-pencil"></i> </a>
                                 </li>
                                 <li class="dropdown">
                                     <button type="button" data-toggle="dropdown">更多 <span class="caret"></span></button>
@@ -144,10 +144,10 @@
 
 @section('javascript')
 @parent
-<script type="text/javascript" src="{{ $staticdir }}js/jquery-validate/jquery.validate.min.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/extends/form.func.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/lightyear.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#mainForm").validate({
@@ -256,8 +256,8 @@
 
 @section('stylesheet')
     @parent
-    <link href="{{ $staticdir }}css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="{{ $staticdir }}css/animate.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/animate.css" rel="stylesheet">
 @stop
 
 @section('copyRight')

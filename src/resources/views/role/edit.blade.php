@@ -1,9 +1,9 @@
-@extends('admin.layouts.form')
+@extends('Imperator::layouts.form')
 
 @section('stylesheet')
   @parent
   <!--标签插件-->
-  <link rel="stylesheet" href="{{ $staticdir }}js/jquery-tags-input/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.css">
 @stop
 
 @section('pageTitle')
@@ -414,8 +414,8 @@
 @section('javascript')
   @parent
   <!--标签插件-->
-  <script src="{{ $staticdir }}js/jquery-tags-input/jquery.tagsinput.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/perfect-scrollbar.min.js"></script>
+  <script src="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/perfect-scrollbar.min.js"></script>
 
   <script type="text/javascript" src="js/chosen.jquery.min.js"></script>
   <script type="text/javascript">

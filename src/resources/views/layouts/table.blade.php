@@ -1,2 +1,2 @@
-@extends('admin.layouts.framework')
+@extends('Imperator::layouts.framework')
 

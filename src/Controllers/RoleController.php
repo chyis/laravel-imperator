@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class RoleController extends Controller
     public function index()
     {
 
-        return view('admin.role.index')
+        return view('Imperator::role.index')
             ->with('pageName', '角色管理');
     }
 
@@ -25,7 +25,7 @@ class RoleController extends Controller
     public function create()
     {
         //
-        return view('admin.role.create')
+        return view('Imperator::role.create')
             ->with('pageName', '角色添加');
     }
 
@@ -57,7 +57,7 @@ class RoleController extends Controller
     public function edit($id)
     {
 
-        return view('admin.role.edit')
+        return view('Imperator::role.edit')
             ->with('pageName', '角色修改');
     }
 

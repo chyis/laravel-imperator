@@ -18,6 +18,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web'], 'namespace'=>'Chyis\
 //Route::group(['middleware' => ['admin']], function(){
     Route::get('login', 'LoginController@index')->name('admin.login');
     Route::post('login', 'LoginController@signin')->name('admin.signin');
+Route::group(['middleware' => ['admin']], function(){
     //首页看板
     Route::get('/index', 'IndexController@index')->name('admin.main');
     Route::get('/', 'IndexController@index')->name('admin.main');
@@ -64,4 +65,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web'], 'namespace'=>'Chyis\
     //模板管理选择
     Route::resource('module', 'ModuleController', ['as'=>'admin']);
     Route::get('template', 'TemplateController@index')->name('admin.template');
+});
 });

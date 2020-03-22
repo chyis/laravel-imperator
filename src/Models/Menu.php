@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\UserPrivilege;
+use Chyis\Imperator\Models\UserPrivilege;
 
 class Menu extends Model
 {

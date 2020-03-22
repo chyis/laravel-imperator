@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Requests\UserRequest;
-use App\Models\Role;
+
+use Chyis\Imperator\Requests\UserRequest;
+use Chyis\Imperator\Models\Role;
 use Illuminate\Http\Request;
-use App\Models\Users;
+use Chyis\Imperator\Models\Users;
 
 class ManagerController extends AdminController
 {
@@ -34,7 +34,7 @@ class ManagerController extends AdminController
 
         $roles = Role::getNames();
 
-        return view('admin.user.index')
+        return view('Imperator::user.index')
             ->with('pageName', '用户管理')
             ->with('roles', $roles)
             ->with('lists', $list)
@@ -50,7 +50,7 @@ class ManagerController extends AdminController
     {
         $roles = Role::getNames();
 
-        return view('admin.user.create')
+        return view('Imperator::user.create')
             ->with('roles', $roles)
             ->with('pageName', '用户添加');
     }
@@ -58,7 +58,7 @@ class ManagerController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\UserRequest  $request
+     * @param  \Chyis\Imperator\Requests\UserRequest  $request
      *
      * @return \Illuminate\Http\Response
      **/
@@ -104,7 +104,7 @@ class ManagerController extends AdminController
         $user = Users::find($id);
         $roles = Role::getNames();
 
-        return view('admin.user.edit')
+        return view('Imperator::user.edit')
             ->with('entity', $user)
             ->with('roles', $roles)
             ->with('pageName', '用户修改');
@@ -113,8 +113,8 @@ class ManagerController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UserRequest  $request
-     * @param  \App\Models\Users  $user
+     * @param  \Chyis\Imperator\Requests\UserRequest  $request
+     * @param  \Chyis\Imperator\Models\Users  $user
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, Users $user)

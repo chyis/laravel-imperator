@@ -3,9 +3,10 @@
 namespace Chyis\Imperator\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use Chyis\Imperator\Imperator;
+use Chyis\Imperator\Requests\LoginRequest;
 use Illuminate\Http\Request;
-use App\Models\Users;
+use Chyis\Imperator\Models\Users;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,11 +55,11 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('admin');
+        return Imperator::guard();
     }
 
     public function username()
     {
-        return 'user_name';
+        return Imperator::username();
     }
 }

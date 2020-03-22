@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -62,7 +62,7 @@ class Category extends Model
 
     function article()
     {
-        return $this->hasMany(App\Models\Article, 'cate_id', 'id');
+        return $this->hasMany(Chyis\Imperator\Models\Article, 'cate_id', 'id');
     }
 
     function articleCount()

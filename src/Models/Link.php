@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Dictionary;
-use App\Models\Users;
+use Chyis\Imperator\Models\Dictionary;
+use Chyis\Imperator\Models\Users;
 
 class Link extends Model
 {

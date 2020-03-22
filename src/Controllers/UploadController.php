@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

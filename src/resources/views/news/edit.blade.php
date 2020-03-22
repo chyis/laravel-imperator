@@ -1,8 +1,8 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('stylesheet')
   @parent
-  <link rel="stylesheet" href="{{ $staticdir }}js/jquery-tags-input/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.css">
 @stop
 
 @section('pageTitle')
@@ -63,7 +63,7 @@
                       @foreach( $gallery as $image)
                         <li class="col-xs-4 col-sm-3 col-md-2">
                           <figure>
-                            <img src="{{ $staticdir }}images/gallery/16.jpg" alt="图片二">
+                            <img src="{{$staticDir}}/images/gallery/16.jpg" alt="图片二">
                             <figcaption>
                               <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
                               <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
@@ -117,11 +117,11 @@
 @section('javascript')
   @parent
 
-  <script type="text/javascript" src="{{ $staticdir }}js/jquery-tags-input/jquery.tagsinput.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/jquery-validate/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/extends/form.func.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#mainForm").validate({

@@ -1,8 +1,8 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('stylesheet')
   @parent
-  <link rel="stylesheet" href="{{ $staticdir }}js/jquery-tags-input/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.css">
 @stop
 
 @section('pageTitle')
@@ -103,11 +103,11 @@
 @section('javascript')
   @parent
 
-  <script type="text/javascript" src="{{ $staticdir }}js/jquery-tags-input/jquery.tagsinput.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/jquery-validate/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/extends/form.func.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{ $staticdir }}js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#mainForm").validate({

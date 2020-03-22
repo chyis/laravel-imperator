@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
+
 use Illuminate\Http\Request;
-use App\Models\Link;
-use App\Models\Dictionary;
-use App\Http\Requests\LinkRequest;
+use Chyis\Imperator\Models\Link;
+use Chyis\Imperator\Models\Dictionary;
+use Chyis\Imperator\Requests\LinkRequest;
 
 class LinksController extends AdminController
 {
@@ -32,7 +32,7 @@ class LinksController extends AdminController
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.link.index')
+        return view('Imperator::link.index')
             ->with('pageName', '合作伙伴管理')
             ->with('lists', $list)
             ->with('request', $request->toArray());
@@ -47,7 +47,7 @@ class LinksController extends AdminController
     {
         $types = Dictionary::partnerType()->get();
 
-        return view('admin.link.create')
+        return view('Imperator::link.create')
             ->with('types', $types)
             ->with('pageName', '合作伙伴添加');
     }
@@ -79,7 +79,7 @@ class LinksController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Menu  $link
+     * @param  \Chyis\Imperator\Models\Menu  $link
      * @return \Illuminate\Http\Response
      */
     public function show(Menu $link)
@@ -99,7 +99,7 @@ class LinksController extends AdminController
         $link = Link::find($id);
         $types = Dictionary::partnerType()->get();
 
-        return view('admin.link.edit')
+        return view('Imperator::link.edit')
             ->with('pageName', '合作伙伴修改')
             ->with('entity', $link)
             ->with('types', $types);

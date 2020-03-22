@@ -27,12 +27,12 @@ class ImperatorCommand extends Command
      * @var string
      */
     public static $logo = <<<LOGO
-    __   ___ _____   ____       ___      ___        _      ______        
-   / / /  __ __  / /  __  \  /  ___ / /  __  \    / _ \  | _   _ |         
-  / / / / / / / / / | _ / / / /___\  / / _/  /   / /_\ \    | |            
- / / / / / / / / / / __ /  / /___   / / __  \   /  ___  \   | |           
-/_/ /_/ /_/ /_/ /_/       / ____ / /_/    \ _\ /_/     \_\  |_|            
-
+    __   ___ _____   ____       ___      __      _     _____      __       __         
+   / / /  __ __  / /  __  \  /  ___ / / __  \  / _ \ | _   _ | /  _  \   / __  \      
+  / / / / / / / / / | _ / / / /___\  / /_/ /  / /_\ \   | |   / /  \  | / /_/ /       
+ / / / / / / / / / / __ /  / /___   / /_ \   /  ___  \  | |   | \  / / / /_ \        
+/_/ /_/ /_/ /_/ /_/       / ____ / /_/  \_\ /_/     \_\ |_|    \  _ / /_/  \_\       
+                                                                                       
 LOGO;
 
     /**
@@ -57,7 +57,7 @@ LOGO;
     protected function listAdminCommands()
     {
         $commands = collect(Artisan::all())->mapWithKeys(function ($command, $key) {
-            if (Str::startsWith($key, 'admin:')) {
+            if (Str::startsWith($key, 'imperator:')) {
                 return [$key => $command];
             }
 

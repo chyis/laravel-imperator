@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Models\Users;
+
+use Chyis\Imperator\Models\Users;
 use Illuminate\Http\Request;
 
 class UserController extends AdminController
@@ -11,7 +11,7 @@ class UserController extends AdminController
 
     public function password()
     {
-        return view('admin.profile.pwd');
+        return view('Imperator::profile.pwd');
     }
 
     public function setPass(Request $request)
@@ -50,7 +50,7 @@ class UserController extends AdminController
 
     public function edit()
     {
-        return view('admin.profile.infor');
+        return view('Imperator::profile.infor');
     }
 
     public function update(Request $request)

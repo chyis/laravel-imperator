@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
-use App\Models\Advertise;
+use Chyis\Imperator\Models\Advertise;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AdvertiseRequest extends FormRequest

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Chyis\Imperator\Requests;
 
-use App\Models\Module;
+use Chyis\Imperator\Models\Module;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ModuleRequest extends FormRequest

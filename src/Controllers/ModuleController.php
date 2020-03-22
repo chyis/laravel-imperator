@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Requests\ModuleRequest;
+
+use Chyis\Imperator\Requests\ModuleRequest;
 use Illuminate\Http\Request;
-use App\Models\Dictionary;
-use App\Models\Module;
+use Chyis\Imperator\Models\Dictionary;
+use Chyis\Imperator\Models\Module;
 
 class ModuleController extends AdminController
 {
@@ -35,7 +35,7 @@ class ModuleController extends AdminController
             ->paginate(config('admin.tools.perPage'));
         $pages = Dictionary::pageType()->get();
 
-        return view('admin.module.index')
+        return view('Imperator::module.index')
             ->with('pageName', '页面模块管理')
             ->with('lists', $list)
             ->with('pages', $pages)
@@ -51,7 +51,7 @@ class ModuleController extends AdminController
     {
         $pages = Dictionary::pageType()->get();
 
-        return view('admin.module.create')
+        return view('Imperator::module.create')
             ->with('pages', $pages)
             ->with('pageName', '页面模块添加');
     }
@@ -59,7 +59,7 @@ class ModuleController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\ModuleRequest $request
+     * @param  \Chyis\Imperator\Requests\ModuleRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -93,20 +93,20 @@ class ModuleController extends AdminController
     {
         $pages = Dictionary::pageType()->get();
 
-        return view('admin.module.show');
+        return view('Imperator::module.show');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Module  $module
+     * @param  \Chyis\Imperator\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
     public function edit(Module $module)
     {
         $pages = Dictionary::pageType()->get();
 
-        return view('admin.module.edit')
+        return view('Imperator::module.edit')
             ->with('pageName', '页面模块修改')
             ->with('entity', $module)
             ->with('pages', $pages);
@@ -115,8 +115,8 @@ class ModuleController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\ModuleRequest $request
-     * @param  \App\Models\Module  $module
+     * @param  \Chyis\Imperator\Requests\ModuleRequest $request
+     * @param  \Chyis\Imperator\Models\Module  $module
      *
      * @return \Illuminate\Http\Response
      */
@@ -142,7 +142,7 @@ class ModuleController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Module  $module
+     * @param  \Chyis\Imperator\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
     public function destroy(Module $module)

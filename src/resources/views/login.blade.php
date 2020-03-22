@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>登录页- </title>
-  <link rel="icon" href="/favicon.ico" type="image/ico">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="{{ $staticDir }}/favicon.ico" type="image/ico">
+  <link rel="shortcut icon" href="{{ $staticDir }}/favicon.ico" type="image/x-icon" />
   <meta name="author" content="">
-  <link href="{{ $staticDir }}css/bootstrap.min.css" rel="stylesheet">
-  <link href="{{ $staticDir }}css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="{{ $staticDir }}css/style.min.css" rel="stylesheet">
+  <link href="{{ $staticDir }}/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ $staticDir }}/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="{{ $staticDir }}/css/style.min.css" rel="stylesheet">
 <style>
 .lyear-wrapper {
     position: relative;
@@ -53,7 +53,7 @@
   <div class="lyear-login">
     <div class="login-center">
       <div class="login-header text-center">
-        <a href="index.html"> <img alt="light year admin" src="{{ $staticDir }}images/logo-sidebar.png"> </a>
+        <a href="index.html"> <img alt="light year admin" src="{{ $staticDir }}/images/logo-sidebar.png"> </a>
       </div>
       @if (isset($errors) && count($errors) > 0)
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -95,8 +95,8 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="{{ $staticDir }}js/jquery.min.js"></script>
-<script type="text/javascript" src="{{ $staticDir }}js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     function checkLogin() {
 

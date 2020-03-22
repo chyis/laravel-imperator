@@ -34,7 +34,10 @@
         "laravel": {
             "providers": [
                 "Chyis\\Imperator\\LaravelImperatorServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Admin": "Chyis\\Imperator\\Admin"
+            }
         }
     },
     "autoload-dev": {

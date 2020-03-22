@@ -1,4 +1,4 @@
-@extends('admin.layouts.form')
+@extends('Imperator::layouts.form')
 
 @section('stylesheet')
   @parent

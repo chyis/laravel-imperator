@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Requests\ArticleRequest;
-use App\Models\Article;
-use App\Models\ArticleContent;
-use App\Models\Category;
+use Chyis\Imperator\Requests\ArticleRequest;
+use Chyis\Imperator\Models\Article;
+use Chyis\Imperator\Models\ArticleContent;
+use Chyis\Imperator\Models\Category;
 use Illuminate\Http\Request;
 
 class NewsController extends AdminController
@@ -29,7 +28,7 @@ class NewsController extends AdminController
         $list = $query
             ->paginate(config('admin.tools.perPage'));
 
-        return view('admin.news.index')
+        return view('Imperator::news.index')
             ->with('lists', $list)
             ->with('pageName', '内容管理')
             ->with('request', $request->toArray());
@@ -46,7 +45,7 @@ class NewsController extends AdminController
     {
         $category = Category::dirRoot();
 
-        return view('admin.news.create')
+        return view('Imperator::news.create')
             ->with('pageName', '文档添加')
             ->with('category', $category);
     }
@@ -114,7 +113,7 @@ class NewsController extends AdminController
         $category = Category::dirRoot();
         $article = Article::find($id);
 
-        return view('admin.news.edit')
+        return view('Imperator::news.edit')
             ->with('pageName', '文档添加')
             ->with('entity', $article)
             ->with('gallery', [])

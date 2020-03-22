@@ -7,11 +7,11 @@
     <link rel="icon" href="/favicon.ico" type="image/ico">
     <meta name="author" content="{{ $siteAuthor }}">
     @section('stylesheet')
-    <link href="{{ $staticdir }}css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ $staticdir }}css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="{{ $staticdir }}css/style.min.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="{{$staticDir}}/css/style.min.css" rel="stylesheet">
     @show
-    <script type="text/javascript" src="{{ $staticdir }}js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{$staticDir}}/js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
     <div class="lyear-layout-container">
     @section('sidebar')
         <!--左侧导航-->
-        @include('admin.include.sidebar')
+        @include('Imperator::include.sidebar')
         <!--End 左侧导航-->
     @show
 
@@ -29,8 +29,8 @@
                 <nav class="navbar navbar-default">
                     <div class="topbar">
 
-                        @include('admin.include.topbar-left')
-                        @include('admin.include.topbar-right')
+                        @include('Imperator::include.topbar-left')
+                        @include('Imperator::include.topbar-right')
 
                     </div>
                 </nav>
@@ -66,9 +66,9 @@
 </div>
 
 @section('javascript')
-    <script type="text/javascript" src="{{ $staticdir }}js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{ $staticdir }}js/perfect-scrollbar.min.js"></script>
-    <script type="text/javascript" src="{{ $staticdir }}js/main.min.js"></script>
+    <script type="text/javascript" src="{{$staticDir}}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{$staticDir}}/js/perfect-scrollbar.min.js"></script>
+    <script type="text/javascript" src="{{$staticDir}}/js/main.min.js"></script>
 @show
 </body>
 </html>

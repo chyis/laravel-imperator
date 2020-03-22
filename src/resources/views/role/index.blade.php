@@ -1,4 +1,4 @@
-@extends('admin/layouts/framework')
+@extends('Imperator::layouts.framework')
 
 @section('pageTitle')
     角色列表 - 权限组管理
@@ -56,8 +56,8 @@
                                         <td><font class="text-success">正常</font></td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.role.edit', ['id'=>$value->id]) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.role.delete', ['id'=>$value->id]) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.role.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.role.delete', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -68,7 +68,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @include('admin.include.pagination')
+                            @include('Imperator::include.pagination')
                         </div>
                     </div>
                 </div>
