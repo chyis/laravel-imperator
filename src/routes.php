@@ -42,6 +42,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::post('reply', 'ContactController@reply')->name('admin.contact.reply');
     //字典
     Route::resource('dictionary','DictionaryController', ['as'=>'admin']);
+    Route::get('dictionary/{dictionary}/child','DictionaryController@child')->name('admin.dictionary.child');
     //菜单管理
     Route::resource('menu', 'MenuController', ['as'=>'admin']);
     //合作伙伴

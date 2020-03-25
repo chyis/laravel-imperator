@@ -53,7 +53,7 @@ class DictionaryController extends AdminController
             ->get();
         return view('Imperator::dictionary.create')
             ->with('pageName', '字典添加')
-            ->with('parents', $menuRoot);
+            ->with('dictRoot', $menuRoot);
     }
 
     /**
@@ -64,17 +64,23 @@ class DictionaryController extends AdminController
      */
     public function store(DictionaryRequest $request)
     {
+        $dictRoot = $request->input('root_id');
         $dict = new Dictionary();
         $dict->var_name = $request->input('var_name');
-        $dict->parent_id = intval($request->input('parent_id'));
         $dict->var_code = $request->input('var_code') == '' ? '' : $request->input('var_code');
         $dict->var_value = $request->input('var_value') == '' ? '' : $request->input('var_value');
         $dict->sort = intval($request->input('sort'));
-        if ($request->input('parent_id') > 0)
+        if ($request->input('root_id') > 0)
         {
-            $parent = Dictionary::find($request->input('parent_id'));
+            $root = Dictionary::find($request->input('root_id'));
+            if ($request->input('parent_id') > 0) {
+                $parent = Dictionary::find($request->input('parent_id'));
+            } else {
+                $parent = $root;
+            }
+            $dict->parent_id = $parent->id;
             $dict->var_code = $parent->var_code;
-            $dict->type = 1; //子分支【理论上可以根据上级type+1】
+            $dict->type = $parent->type + 1; //子分支【理论上可以根据上级type+1】
             if ($dict->var_value == '')
             {
                 return $this->error("非独立字典必须填写字典值");
@@ -85,6 +91,7 @@ class DictionaryController extends AdminController
             }
         } else {
             $dict->type = 0; //根
+            $dict->parent_id = 0;
             if ($dict->var_code == '')
             {
                 return $this->error("独立字典必须填写字典标识");
@@ -111,6 +118,21 @@ class DictionaryController extends AdminController
     public function show(Dictionary $dictionary)
     {
         return [];
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
+     * @return \Illuminate\Http\Response
+     */
+    public function child(Dictionary $dictionary)
+    {
+//        return $dictionary;
+        $data = Dictionary::where('parent_id' , $dictionary->id)->get('var_name','id')->all();
+//        return $data;
+
+        return $this->messge('获取成功', 0, $data);
     }
 
     /**
@@ -146,18 +168,22 @@ class DictionaryController extends AdminController
     public function update(int $dictionary, DictionaryRequest $request)
     {
         $dict = Dictionary::findOrFail($dictionary);
-
         $dict->var_name = $request->input('var_name');
-        $dict->parent_id = intval($request->input('parent_id'));
         $dict->var_code = $request->input('var_code') == '' ? '' : $request->input('var_code');
         $dict->var_value = $request->input('var_value') == '' ? '' : $request->input('var_value');
         $dict->sort = intval($request->input('sort'));
 
-        if ($request->input('parent_id') > 0)
+        if ($request->input('root_id') > 0)
         {
-            $parent = Dictionary::find($request->input('parent_id'));
+            $root = Dictionary::find($request->input('root_id'));
+            if ($request->input('parent_id') > 0) {
+                $parent = Dictionary::find($request->input('parent_id'));
+            } else {
+                $parent = $root;
+            }
+            $dict->parent_id = $parent->id;
             $dict->var_code = $parent->var_code;
-            $dict->type = 1; //子分支【理论上可以根据上级type+1】
+            $dict->type = $parent->type + 1; //子分支【理论上可以根据上级type+1】
             $dict->var_value = $request->input('var_value');
             if ($dict->var_value == '')
             {
@@ -169,6 +195,7 @@ class DictionaryController extends AdminController
             }
         } else {
             $dict->type = 0; //根
+            $dict->parent_id = 0;
             $dict->var_value = '';
             if ($dict->var_code == '')
             {
@@ -199,9 +226,9 @@ class DictionaryController extends AdminController
         {
             $dictionary->delete();
 
-            $this->success('删除成功');
+            return $this->success('删除成功');
         } else {
-            $this->error('该内容不存在');
+            return $this->error('该内容不存在');
         }
     }
 }

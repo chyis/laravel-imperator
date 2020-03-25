@@ -3,6 +3,8 @@
 namespace Chyis\Imperator\Controllers;
 
 use App\Http\Controllers\Controller;
+use Chyis\Imperator\Models\Privilege;
+use Chyis\Imperator\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -10,8 +12,22 @@ class RoleController extends Controller
 
     public function index()
     {
+        $keyWord = Request()->input('keyword');
+        $condition = [];
 
+        if ($keyWord != '')
+        {
+            $condition[] = ['title', $keyWord];
+        }
+        $query = Role::orderBy('sort', 'asc');
+        if (!empty($query))
+        {
+            $query->where($condition);
+        }
+        $list = $query
+            ->paginate(config('admin.tools.perPage'));
         return view('Imperator::role.index')
+            ->with('lists', $list)
             ->with('pageName', '角色管理');
     }
 
@@ -24,8 +40,10 @@ class RoleController extends Controller
 
     public function create()
     {
-        //
+        $privileges = Privilege::getTree();
+
         return view('Imperator::role.create')
+            ->with('privTree', $privileges)
             ->with('pageName', '角色添加');
     }
 

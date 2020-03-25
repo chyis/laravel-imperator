@@ -77,7 +77,7 @@ class MenuController extends AdminController
         $menu->position = $request->input('pos');
         $menu->order = $request->input('order');
         $menu->privilege_id = intval($request->input('priv_id'));
-        $menu->icon = '';
+        $menu->icon = $request->input('menu_icon') ??  '';
         $res = $menu->saveOrFail();
         if ($res)
         {
@@ -139,7 +139,7 @@ class MenuController extends AdminController
         $menu->position = $request->input('pos');
         $menu->order = $request->input('order');
         $menu->privilege_id = intval($request->input('priv_id'));
-        $menu->icon = '';
+        $menu->icon = $request->input('menu_icon') ??  '';
         $res = $menu->saveOrFail();
         if ($res)
         {

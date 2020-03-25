@@ -53,7 +53,7 @@
 
                 <div class="form-group">
                   <label for="content">内容</label>
-                  @include('admin.include.ckEditor')
+                  @include('Imperator::include.ckEditor')
                 </div>
                 <div class="form-group">
                   <label>多图上传</label>

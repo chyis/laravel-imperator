@@ -59,9 +59,28 @@ class Privilege extends Model
     public static $http_method = ['get', 'put', 'post', 'delete', 'options', 'connect', 'head', 'trace'];
     public static $sourceMethod = ['index', 'create', 'edit', 'delete', 'show'];
 
-    public function getByCode()
+    public static function getTree()
     {
+        $privGroup = Dictionary::PrivType()->pluck('var_name','id')->all();
+        
+        $privileges = Privilege::get(['id','name']);
 
+        foreach ($privileges as $key=>$value) {
+            $privGroup[$value->group_id]['child'][$value->id] = $value;
+        }
+
+        return $privGroup;
+    }
+
+
+    public function getByCode($code = '')
+    {
+        if ($code != '')
+        {
+            return self::where('code', $code)->first();
+        }
+
+        return null;
     }
 
     public function getGroupNameAttribute()

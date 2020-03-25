@@ -96,7 +96,7 @@
                             <ul class="card-actions">
                                 <li>
                                     {{--<button type="button" data-toggle="tooltip" title="修改信息"><i class="mdi mdi-pencil"></i></button>--}}
-                                    <a title="修改信息" href="{{ URL::action("admin.module.edit", $module->id) }}"><i class="mdi mdi-pencil"></i> </a>
+                                    <a title="修改信息" href="{{ URL::route("admin.module.edit", $module->id) }}"><i class="mdi mdi-pencil"></i> </a>
                                 </li>
                                 <li class="dropdown">
                                     <button type="button" data-toggle="dropdown">更多 <span class="caret"></span></button>

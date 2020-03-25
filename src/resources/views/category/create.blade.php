@@ -164,7 +164,7 @@
         });
         $.ajax({
           type: "post",
-          url: "{{ route('admin.dictionary.store') }}",
+          url: "{{ route('admin.category.store') }}",
           dataType: 'json',
           processData: false,
           contentType: "application/json;charset=UTF-8",

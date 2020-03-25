@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                   <label for="content">详细内容</label>
-                  @include('admin.include.ckEditor')
+                  @include('Imperator::include.ckEditor')
                 </div>
                 <div class="form-group">
                   <label>封面图</label>

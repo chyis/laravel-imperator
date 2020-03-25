@@ -36,11 +36,11 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="parent_id">字典父类</label>
+                    <label for="root_id">字典类型</label>
                     <div class="form-controls">
-                        <select name="parent_id" class="form-control" id="parent_id" onchange="onSelectParent();">
-                          <option value="0">独立字典</option>
-                          @foreach( $parents as $parent)
+                        <select name="root_id" class="form-control" id="root_id">
+                          <option value="0" selected>新建根类型</option>
+                          @foreach( $dictRoot as $parent)
                             <option value="{{ $parent->id }}">{{ $parent->var_name }}</option>
                           @endforeach
                         </select>
@@ -52,7 +52,17 @@
                     <input type="text" class="form-control" name="var_code" id="var_code" placeholder="输入字典标识" value="" />
                   </div>
 
-                  <div  id="parent-attr" class="hidden">
+                  <div id="parent-attr" class="hidden">
+                      <div class="form-group ">
+                          <label for="parent_id">字典上级</label>
+                          <div class="form-controls">
+                              <select name="parent_id" class="form-control" id="parent_id">
+                                  <option value="0">无上级</option>
+
+                              </select>
+                          </div>
+                      </div>
+
                     <div class="form-group">
                       <label for="var_value">字典值</label>
                       <input type="text" class="form-control" name="var_value" id="var_value" placeholder="输入字典值" value="" />
@@ -84,13 +94,14 @@
 
 @section('javascript')
   @parent
-<script type="text/javascript" src="{{ $staticdir }}js/jquery-validate/jquery.validate.min.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/extends/form.func.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="{{ $staticdir }}js/lightyear.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/jquery-validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/extends/form.func.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/lightyear.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $("#parentID").find("option[value=0]").attr("selected",true);
+    $("#parent_id").find("option[value=0]").attr("selected",true);
+    $("#root_id").find("option[value=0]").attr("selected",true);
     $("#no-parent-attr").removeClass('hidden');
 
     $("#mainForm").validate({
@@ -187,17 +198,48 @@
               }
           });
       }
-    })
+    });
+    $("#root_id").change(function () {
+        var root_id = $(this).val();
+        if (root_id == 0) {
+            $("#no-parent-attr").removeClass('hidden');
+            $("#parent-attr").addClass('hidden');
+        } else {
+            $("#no-parent-attr").addClass('hidden');
+            $("#parent-attr").removeClass('hidden');
+            var optionHtml = '<option selected value="0">无上级</option>';
+            $.ajax({
+                type: "get",
+                url: "/admin/dictionary/"+ root_id+"/child",
+                dataType: 'json',
+                processData: false,
+                contentType: "application/json;charset=UTF-8",
+                cache: false,
+                async : false,    //同步
+                success:function (res) {
+                    if(res.code==0) {
+                        if (res.data){
+                            $("#parent_id").empty();
+                            $("#parent_id").append(optionHtml);
+                            let data = res.data;
+                            for (let i in data) {
+                                $("#parent_id").append("<option value='"+data[i].id+"'>"+data[i].var_name+"</option>");
+                            }
+                        }
+                    } else if(res.code > 0) {
+                        error(res.msg);
+                    } else {
+                        alert(res.code);
+                    }
+                },
+                //请求失败，包含具体的错误信息
+                error : function(e){
+                    error("error occurred!");
+                }
+            });
+        }
+    });
   });
-  function onSelectParent() {
-    var parentID = $("#parent_id").val();
-    if (parentID == 0) {
-      $("#no-parent-attr").removeClass('hidden');
-      $("#parent-attr").addClass('hidden');
-    } else {
-      $("#no-parent-attr").addClass('hidden');
-      $("#parent-attr").removeClass('hidden');
-    }
-  }
+
 </script>
 @endsection

@@ -63,9 +63,9 @@ class CategoryController extends AdminController
     public function store(CategoryRequest $request)
     {
         $cate = new Category();
-        $cate->cate_name = $request->input('cateName');
-        $cate->parent_id = $request->input('parentID');
-        $cate->type_id = $request->input('typeID');
+        $cate->cate_name = $request->input('cate_name');
+        $cate->parent_id = $request->input('parent_id');
+        $cate->type_id = $request->input('type_id');
         $cate->sort = $request->input('sort');
         $cate->image = '';
         $cate->create_uid = 1;

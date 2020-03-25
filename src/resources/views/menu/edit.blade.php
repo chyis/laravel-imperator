@@ -37,6 +37,7 @@
 
                   <div class="form-group">
                     <label for="nickname">菜单图标</label>
+                    <input type="text" class="form-control" name="menu_icon" id="menu_icon" placeholder="图标样式" value="{{ $entity->icon }}" />
                     <input type="file" id="menu_icon" name="menu_icon">
                   </div>
 

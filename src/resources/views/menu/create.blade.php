@@ -74,7 +74,7 @@
                       <select name="pos" class="form-control" id="pos">
                         <option value="">无</option>
                         @foreach($pos as $p)
-                          <option value="{{ $pos->var_value }}" attr-code="{{$p->code}}">{{$p->var_name}}</option>
+                          <option value="{{ $p->var_value }}" attr-code="{{$p->code}}">{{$p->var_name}}</option>
                         @endforeach
                       </select>
                     </div>

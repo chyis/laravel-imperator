@@ -40,7 +40,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(isset($lists))
+                                    @if(count($lists) != 0)
                                     @foreach($lists as $value)
                                     <tr>
                                         <td>
