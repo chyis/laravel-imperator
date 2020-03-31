@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -35,19 +35,27 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="sort">排序</label>
-                    <input class="form-control" type="text" id="sort" name="sort" value="{{old('sort', '')}}" />
+                    <label for="partner_icon">图标</label>
+
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="partner_icon" id="partner_icon" placeholder="图标样式" value="{{old('icon', '')}}" />
+                      <div class="input-group-btn">
+                        <button class="btn btn-default file-btn" type="button">
+                          <input widget-type="auto-upload" data-target="partner_icon" target-type="input" type="file" id="img-upload" name="img-upload" />
+                          点击上传图片
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="partner_icon">菜单图标</label>
-                    <input type="text" class="form-control" name="partner_icon" id="partner_icon" placeholder="图标样式" value="" />
-                    <input type="file" id="file_icon" name="file_icon">
-                  </div>
-
-                  <div class="form-group col-md-12">
                     <label for="description">描述</label>
                     <textarea class="form-control" id="description" name="description" rows="5" value="" placeholder="描述"></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="sort">排序</label>
+                    <input class="form-control" type="text" id="sort" name="sort" value="{{old('sort', '')}}" />
                   </div>
 
                   <div class="form-group">
@@ -83,7 +91,7 @@
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#parentID").find("option[value=0]").attr("selected",true);

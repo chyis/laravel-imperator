@@ -15,11 +15,11 @@ class CreateActionLogsTable extends Migration
     {
         Schema::create(config('admin.tables.action_logs'), function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->string('path');
-            $table->string('method', 10);
-            $table->string('ip');
-            $table->text('request');
+            $table->integer('user_id')->comment('用户ID');
+            $table->string('path')->comment('访问地址');
+            $table->string('method', 10)->comment('请求方式');
+            $table->string('ip')->comment('IP地址');
+            $table->text('request')->comment('请求内容');
 
             $table->index('user_id');
             $table->timestamps();

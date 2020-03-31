@@ -67,7 +67,7 @@ class CategoryController extends AdminController
         $cate->parent_id = $request->input('parent_id');
         $cate->type_id = $request->input('type_id');
         $cate->sort = $request->input('sort');
-        $cate->image = '';
+        $cate->image = $request->input('image') ?? '';
         $cate->create_uid = 1;
         $res = $cate->saveOrFail();
         if ($res)
@@ -130,7 +130,7 @@ class CategoryController extends AdminController
         $category->parent_id = $request->input('parent_id');
         $category->type_id = $request->input('type_id');
         $category->sort = $request->input('sort');
-        $category->image = '';
+        $category->image = $request->input('image') ?? '';
         $res = $category->saveOrFail();
         if ($res)
         {

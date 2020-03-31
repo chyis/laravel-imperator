@@ -31,19 +31,19 @@ jQuery.validator.addMethod("isPwd", function(value, element) {
 }, "以字母开头，长度在6-12之间，必须包含数字和特殊字符。");
 
 function success(msg,  url="") {
-    lightyear.loading('show');
+    kkadmin.loading('show');
     // 假设ajax提交操作
     setTimeout(function() {
-        lightyear.loading('hide');
-        lightyear.notify(msg, 'success', 3000);
+        kkadmin.loading('hide');
+        kkadmin.notify(msg, 'success', 3000);
     }, 1e3)
 }
 
 function error(msg, url="") {
-    lightyear.loading('show');
+    kkadmin.loading('show');
     // 假设ajax提交操作
     setTimeout(function() {
-        lightyear.loading('hide');
-        lightyear.notify(msg, 'danger', 100);
+        kkadmin.loading('hide');
+        kkadmin.notify(msg, 'danger', 100);
     }, 1e3)
 }

@@ -60,9 +60,9 @@ class AttachmentController extends Controller
      */
     public function uploadImage(Request $request)
     {
-        if($request->hasFile('file') && $request->file('file')->isValid())
+        if($request->hasFile('upload') && $request->file('upload')->isValid())
         {
-            $file=$request->file('file');
+            $file=$request->file('upload');
             $allowed_extensions = explode(',', Setting::getValueByCode('upload_image_ext'));
             if (!in_array($file->getClientOriginalExtension(), $allowed_extensions))
             {
@@ -84,8 +84,9 @@ class AttachmentController extends Controller
                     'tags'=>'',
                     'size'=>$fileSize,
                     'ext'=>$extension,
-                    'article_id'=>'',
-                    'cate_id'=>'',
+                    'article_id'=>0,
+                    'cate_id'=>0,
+                    'ref_count'=>0,
                 ]);
 
                 return $this->returnResult("true", "上传成功", $filePath);

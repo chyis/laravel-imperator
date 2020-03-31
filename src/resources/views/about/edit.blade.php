@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -34,8 +34,16 @@
 
                   <div class="form-group">
                     <label for="com_logo">Logo：</label>
-                    <input type="text" class="form-control" name="file[com_logo]" id="com_logo" value="{{$setting['com_logo']}}" />
-                    <div class="input-group-btn"><button class="btn btn-default" type="button">上传图片</button></div>
+
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="file[com_logo]" id="com_logo" value="{{$setting['com_logo']}}" />
+                      <div class="input-group-btn">
+                        <button class="btn btn-default file-btn" type="button">
+                          <input widget-type="auto-upload" data-target="com_logo" target-type="input" type="file" id="img-upload" name="img-upload" />
+                          点击上传图片
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="form-group">
@@ -87,7 +95,7 @@
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $("#mainForm").validate({

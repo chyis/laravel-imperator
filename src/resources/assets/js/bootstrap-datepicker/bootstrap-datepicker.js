@@ -19,11 +19,11 @@
 	}
 	function UTCToday(){
 		var today = new Date();
-		return UTCDate(today.getFullYear(), today.getMonth(), today.getDate());
+		return UTCDate(today.getFulkkadmin(), today.getMonth(), today.getDate());
 	}
 	function isUTCEquals(date1, date2) {
 		return (
-			date1.getUTCFullYear() === date2.getUTCFullYear() &&
+			date1.getUTCFulkkadmin() === date2.getUTCFulkkadmin() &&
 			date1.getUTCMonth() === date2.getUTCMonth() &&
 			date1.getUTCDate() === date2.getUTCDate()
 		);
@@ -310,7 +310,7 @@
 				o.orientation.y = _plc[0] || 'auto';
 			}
 			if (o.defaultViewDate) {
-				var year = o.defaultViewDate.year || new Date().getFullYear();
+				var year = o.defaultViewDate.year || new Date().getFulkkadmin();
 				var month = o.defaultViewDate.month || 0;
 				var day = o.defaultViewDate.day || 1;
 				o.defaultViewDate = UTCDate(year, month, day);
@@ -535,10 +535,10 @@
 			return local && new Date(local.getTime() - (local.getTimezoneOffset()*60000));
 		},
 		_zero_time: function(local){
-			return local && new Date(local.getFullYear(), local.getMonth(), local.getDate());
+			return local && new Date(local.getFulkkadmin(), local.getMonth(), local.getDate());
 		},
 		_zero_utc_time: function(utc){
-			return utc && new Date(Date.UTC(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate()));
+			return utc && new Date(Date.UTC(utc.getUTCFulkkadmin(), utc.getUTCMonth(), utc.getUTCDate()));
 		},
 
 		getDates: function(){
@@ -846,20 +846,20 @@
 
 		getClassNames: function(date){
 			var cls = [],
-				year = this.viewDate.getUTCFullYear(),
+				year = this.viewDate.getUTCFulkkadmin(),
 				month = this.viewDate.getUTCMonth(),
 				today = new Date();
-			if (date.getUTCFullYear() < year || (date.getUTCFullYear() === year && date.getUTCMonth() < month)){
+			if (date.getUTCFulkkadmin() < year || (date.getUTCFulkkadmin() === year && date.getUTCMonth() < month)){
 				cls.push('old');
 			}
-			else if (date.getUTCFullYear() > year || (date.getUTCFullYear() === year && date.getUTCMonth() > month)){
+			else if (date.getUTCFulkkadmin() > year || (date.getUTCFulkkadmin() === year && date.getUTCMonth() > month)){
 				cls.push('new');
 			}
 			if (this.focusDate && date.valueOf() === this.focusDate.valueOf())
 				cls.push('focused');
 			// Compare internal UTC date with local today, not UTC today
 			if (this.o.todayHighlight &&
-				date.getUTCFullYear() === today.getFullYear() &&
+				date.getUTCFulkkadmin() === today.getFulkkadmin() &&
 				date.getUTCMonth() === today.getMonth() &&
 				date.getUTCDate() === today.getDate()){
 				cls.push('today');
@@ -902,7 +902,7 @@
 			startStep = parseInt(startYear / step, 10) * step;
 			endStep   = parseInt(endYear / step, 10) * step;
 			steps     = $.map(this.dates, function(d){
-				return parseInt(d.getUTCFullYear() / step, 10) * step;
+				return parseInt(d.getUTCFulkkadmin() / step, 10) * step;
 			});
 
 			view.find('.datepicker-switch').text(year + '-' + (year + step * 9));
@@ -923,7 +923,7 @@
 				if (thisYear < startStep || thisYear > endStep) {
 					classes.push('disabled');
 				}
-        if (thisYear === this.viewDate.getFullYear()) {
+        if (thisYear === this.viewDate.getFulkkadmin()) {
 				  classes.push('focused');
         }
 
@@ -955,11 +955,11 @@
 
 		fill: function(){
 			var d = new Date(this.viewDate),
-				year = d.getUTCFullYear(),
+				year = d.getUTCFulkkadmin(),
 				month = d.getUTCMonth(),
-				startYear = this.o.startDate !== -Infinity ? this.o.startDate.getUTCFullYear() : -Infinity,
+				startYear = this.o.startDate !== -Infinity ? this.o.startDate.getUTCFulkkadmin() : -Infinity,
 				startMonth = this.o.startDate !== -Infinity ? this.o.startDate.getUTCMonth() : -Infinity,
-				endYear = this.o.endDate !== Infinity ? this.o.endDate.getUTCFullYear() : Infinity,
+				endYear = this.o.endDate !== Infinity ? this.o.endDate.getUTCFulkkadmin() : Infinity,
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
@@ -982,12 +982,12 @@
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28),
-				day = DPGlobal.getDaysInMonth(prevMonth.getUTCFullYear(), prevMonth.getUTCMonth());
+				day = DPGlobal.getDaysInMonth(prevMonth.getUTCFulkkadmin(), prevMonth.getUTCMonth());
 			prevMonth.setUTCDate(day);
 			prevMonth.setUTCDate(day - (prevMonth.getUTCDay() - this.o.weekStart + 7)%7);
 			var nextMonth = new Date(prevMonth);
-			if (prevMonth.getUTCFullYear() < 100){
-        nextMonth.setUTCFullYear(prevMonth.getUTCFullYear());
+			if (prevMonth.getUTCFulkkadmin() < 100){
+        nextMonth.setUTCFulkkadmin(prevMonth.getUTCFulkkadmin());
       }
 			nextMonth.setUTCDate(nextMonth.getUTCDate() + 42);
 			nextMonth = nextMonth.valueOf();
@@ -1005,7 +1005,7 @@
 							// Thursday of this week
 							th = new Date(Number(ws) + (7 + 4 - ws.getUTCDay()) % 7 * 864e5),
 							// First Thursday of year, year from thursday
-							yth = new Date(Number(yth = UTCDate(th.getUTCFullYear(), 0, 1)) + (7 + 4 - yth.getUTCDay())%7*864e5),
+							yth = new Date(Number(yth = UTCDate(th.getUTCFulkkadmin(), 0, 1)) + (7 + 4 - yth.getUTCDay())%7*864e5),
 							// Calendar week: ms between thursdays, div ms per day, div 7 days
 							calWeek =  (th - yth) / 864e5 / 7 + 1;
 						html.push('<td class="cw">'+ calWeek +'</td>');
@@ -1048,7 +1048,7 @@
 						.find('span').removeClass('active');
 
 			$.each(this.dates, function(i, d){
-				if (d.getUTCFullYear() === year)
+				if (d.getUTCFulkkadmin() === year)
 					months.eq(d.getUTCMonth()).addClass('active');
 			});
 
@@ -1124,17 +1124,17 @@
 				return;
 
 			var d = new Date(this.viewDate),
-				year = d.getUTCFullYear(),
+				year = d.getUTCFulkkadmin(),
 				month = d.getUTCMonth();
 			switch (this.viewMode){
 				case 0:
-					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() && month <= this.o.startDate.getUTCMonth()){
+					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFulkkadmin() && month <= this.o.startDate.getUTCMonth()){
 						this.picker.find('.prev').css({visibility: 'hidden'});
 					}
 					else {
 						this.picker.find('.prev').css({visibility: 'visible'});
 					}
-					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() && month >= this.o.endDate.getUTCMonth()){
+					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFulkkadmin() && month >= this.o.endDate.getUTCMonth()){
 						this.picker.find('.next').css({visibility: 'hidden'});
 					}
 					else {
@@ -1145,13 +1145,13 @@
 				case 2:
 				case 3:
 				case 4:
-					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() || this.o.maxViewMode < 2){
+					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFulkkadmin() || this.o.maxViewMode < 2){
 						this.picker.find('.prev').css({visibility: 'hidden'});
 					}
 					else {
 						this.picker.find('.prev').css({visibility: 'visible'});
 					}
-					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() || this.o.maxViewMode < 2){
+					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFulkkadmin() || this.o.maxViewMode < 2){
 						this.picker.find('.next').css({visibility: 'hidden'});
 					}
 					else {
@@ -1204,7 +1204,7 @@
 				// Clicked on a day
 				if (target.hasClass('day')){
 					day = parseInt(target.text(), 10) || 1;
-					year = this.viewDate.getUTCFullYear();
+					year = this.viewDate.getUTCFulkkadmin();
 					month = this.viewDate.getUTCMonth();
 
 					// From last month
@@ -1246,7 +1246,7 @@
 					this.viewDate.setUTCDate(1);
 					day = 1;
 					month = target.parent().find('span').index(target);
-					year = this.viewDate.getUTCFullYear();
+					year = this.viewDate.getUTCFulkkadmin();
 					this.viewDate.setUTCMonth(month);
 					this._trigger('changeMonth', this.viewDate);
 					if (this.o.minViewMode === 1){
@@ -1267,7 +1267,7 @@
 					day = 1;
 					month = 0;
 					year = parseInt(target.text(), 10)||0;
-					this.viewDate.setUTCFullYear(year);
+					this.viewDate.setUTCFulkkadmin(year);
 
 					if (target.hasClass('year')){
 						this._trigger('changeYear', this.viewDate);
@@ -1785,12 +1785,12 @@
 			},
 			{
 				clsName: 'months',
-				navFnc: 'FullYear',
+				navFnc: 'Fulkkadmin',
 				navStep: 1
 			},
 			{
 				clsName: 'years',
-				navFnc: 'FullYear',
+				navFnc: 'Fulkkadmin',
 				navStep: 10
 			},
 			{
@@ -1854,7 +1854,7 @@
 					fn = fn_map[part[2]];
 					date = Datepicker.prototype[fn](date, dir);
 				}
-				return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+				return UTCDate(date.getUTCFulkkadmin(), date.getUTCMonth(), date.getUTCDate());
 			}
 
 			if (typeof dateAliases[date] !== 'undefined') {
@@ -1870,7 +1870,7 @@
 						date = Datepicker.prototype[fn](date, dir);
 				  	}
 
-			  		return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+			  		return UTCDate(date.getUTCFulkkadmin(), date.getUTCMonth(), date.getUTCDate());
 				}
 			}
 
@@ -1885,7 +1885,7 @@
 				if (year < 100){
 					year += 2000;
 					// if the new year is more than threshold years in advance, use last century
-					if (year > ((new Date()).getFullYear()+threshold)){
+					if (year > ((new Date()).getFulkkadmin()+threshold)){
 						year -= 100;
 					}
 				}
@@ -1897,10 +1897,10 @@
 				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
 				setters_map = {
 					yyyy: function(d,v){
-						return d.setUTCFullYear(assumeNearby ? applyNearbyYear(v, assumeNearby) : v);
+						return d.setUTCFulkkadmin(assumeNearby ? applyNearbyYear(v, assumeNearby) : v);
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(assumeNearby ? applyNearbyYear(v, assumeNearby) : v);
+						return d.setUTCFulkkadmin(assumeNearby ? applyNearbyYear(v, assumeNearby) : v);
 					},
 					m: function(d,v){
 						if (isNaN(d))
@@ -1980,8 +1980,8 @@
 				m: date.getUTCMonth() + 1,
 				M: dates[language].monthsShort[date.getUTCMonth()],
 				MM: dates[language].months[date.getUTCMonth()],
-				yy: date.getUTCFullYear().toString().substring(2),
-				yyyy: date.getUTCFullYear()
+				yy: date.getUTCFulkkadmin().toString().substring(2),
+				yyyy: date.getUTCFulkkadmin()
 			};
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;

@@ -2451,7 +2451,7 @@ module.exports = {
 
     // MOMENTS
 
-    var getSetYear = makeGetSet('FullYear', true);
+    var getSetYear = makeGetSet('Fulkkadmin', true);
 
     function getIsLeapYear () {
         return isLeapYear(this.year());
@@ -2476,7 +2476,7 @@ module.exports = {
 
     function set$1 (mom, unit, value) {
         if (mom.isValid() && !isNaN(value)) {
-            if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
+            if (unit === 'Fulkkadmin' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
                 mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
             }
             else {
@@ -2812,8 +2812,8 @@ module.exports = {
         var date = new Date(y, m, d, h, M, s, ms);
 
         // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
-            date.setFullYear(y);
+        if (y < 100 && y >= 0 && isFinite(date.getFulkkadmin())) {
+            date.setFulkkadmin(y);
         }
         return date;
     }
@@ -2822,8 +2822,8 @@ module.exports = {
         var date = new Date(Date.UTC.apply(null, arguments));
 
         // the Date.UTC function remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
-            date.setUTCFullYear(y);
+        if (y < 100 && y >= 0 && isFinite(date.getUTCFulkkadmin())) {
+            date.setUTCFulkkadmin(y);
         }
         return date;
     }
@@ -3688,9 +3688,9 @@ module.exports = {
         // hooks is actually the exported moment object
         var nowValue = new Date(hooks.now());
         if (config._useUTC) {
-            return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
+            return [nowValue.getUTCFulkkadmin(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
         }
-        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+        return [nowValue.getFulkkadmin(), nowValue.getMonth(), nowValue.getDate()];
     }
 
     // convert an array to a date.
@@ -5287,7 +5287,7 @@ module.exports = {
         var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
             date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
 
-        this.year(date.getUTCFullYear());
+        this.year(date.getUTCFulkkadmin());
         this.month(date.getUTCMonth());
         this.date(date.getUTCDate());
         return this;

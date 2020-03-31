@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
         <div class="container-fluid">
             <div class="alert alert-info" role="alert">
                 以下为系统监测到的可用模板，当前使用的模板是 <code>default</code> ，如需添加新的模板内容请阅读 <a href="/admin/help/template">模板向导</a>。

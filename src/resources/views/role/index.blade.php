@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -26,14 +26,12 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            <label class="lyear-checkbox checkbox-primary">
+                                            <label class="kkadmin-checkbox checkbox-primary">
                                                 <input type="checkbox" id="check-all"><span></span>
                                             </label>
                                         </th>
                                         <th>编号</th>
                                         <th>组名称</th>
-                                        <th>类型</th>
-                                        <th>说明</th>
                                         <th>成员数</th>
                                         <th>状态</th>
                                         <th>操作</th>
@@ -44,14 +42,12 @@
                                     @foreach($lists as $value)
                                     <tr>
                                         <td>
-                                            <label class="lyear-checkbox checkbox-primary">
+                                            <label class="kkadmin-checkbox checkbox-primary">
                                                 <input type="checkbox" name="ids[]" value="{{$value -> id}}"><span></span>
                                             </label>
                                         </td>
-                                        <td>10</td>
+                                        <td>{{$value -> id}}</td>
                                         <td>{{$value -> title}}</td>
-                                        <td>《{{$value -> category}}》</td>
-                                        <td>{{$value -> description}}</td>
                                         <td>{{$value -> members}}</td>
                                         <td><font class="text-success">正常</font></td>
                                         <td>
@@ -63,7 +59,7 @@
                                     </tr>
                                     @endforeach
                                     @else
-                                        <tr><td colspan="8" align="center">暂无数据</td></tr>
+                                        <tr><td colspan="6" align="center">暂无数据</td></tr>
                                     @endif
                                     </tbody>
                                 </table>

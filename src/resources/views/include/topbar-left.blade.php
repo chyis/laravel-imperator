@@ -1,8 +1,8 @@
 <div class="topbar-left">
-    <div class="lyear-aside-toggler">
-        <span class="lyear-toggler-bar"></span>
-        <span class="lyear-toggler-bar"></span>
-        <span class="lyear-toggler-bar"></span>
+    <div class="kkadmin-aside-toggler">
+        <span class="kkadmin-toggler-bar"></span>
+        <span class="kkadmin-toggler-bar"></span>
+        <span class="kkadmin-toggler-bar"></span>
     </div>
     <span class="navbar-page-title"> @yield('pageTitle') </span>
 </div>

@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -55,7 +55,8 @@
 
                   <div class="form-group">
                     <label for="cate_icon">栏目图标</label>
-                    <input type="file" id="cate_icon" name="cate_icon">
+                    <input class="form-control" type="text" id="cate_icon" name="cate_icon" value="">
+                    <input class="image-up-field" widget-type="auto-upload" data-target="cate_icon" target-type="input" type="file" id="img-upload" name="img-upload">
                   </div>
 
                   <div class="form-group">
@@ -88,7 +89,7 @@
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $("#parentID").find("option[value=0]").attr("selected",true);

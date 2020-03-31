@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -47,10 +47,9 @@
 
                   <div class="form-group">
                     <label for="file">广告图</label>
-                    <div class="input-group">
                       <input type="text" class="form-control" name="file" id="file" value="">
-                      <div class="input-group-btn"><button class="btn btn-default" type="button">上传图片</button></div>
-                    </div>
+                      <input class="image-up-field" widget-type="auto-upload" data-target="file" target-type="input" type="file" type="file" id="dict_icon" name="dict_icon">
+
                   </div>
 
                   <div class="form-group">
@@ -76,10 +75,10 @@
 
 @section('javascript')
   @parent
-  <script type="text/javascript" src="{{ $staticDir }}js/jquery-validate/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/extends/form.func.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/lightyear.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/jquery-validate/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/extends/form.func.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/bootstrap-notify.min.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/kkadmin.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#parentID").find("option[value=0]").attr("selected",true);

@@ -59,6 +59,8 @@ Route::group(['middleware' => ['admin']], function(){
     //图片上传
     Route::get('upload','UploadController@upload')->name('admin.upload');
     Route::post('upload','UploadController@doupload')->name('admin.do-upload');
+    Route::post('attachment/uploadimage','AttachmentController@uploadimage')->name('admin.editor-upload');
+    Route::post('upload/image','UploadController@image')->name('admin.do-image-upload');
     //分组角色管理
     Route::resource('role', 'RoleController', ['as'=>'admin']);
     Route::resource('privilege', 'PrivilegeController', ['as'=>'admin']);

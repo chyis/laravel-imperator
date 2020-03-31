@@ -15,8 +15,8 @@ class CreateRolePrivilegeTable extends Migration
     {
         Schema::create(config('admin.tables.role_pri'), function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('role_id');
-            $table->integer('pri_id');
+            $table->integer('role_id')->comment('角色ID');
+            $table->integer('pri_id')->comment('权限ID');
             $table->index('role_id');
         });
     }

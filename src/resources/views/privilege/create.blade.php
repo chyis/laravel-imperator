@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -33,9 +33,14 @@
                     <label for="group_id">权限分组</label>
                     <div class="form-controls">
                         <select name="group_id" class="form-control" id="group_id">
-                          <option value="0">- 新建同名分组 -</option>
-                          @foreach( $parents as $parent)
-                            <option value="{{ $parent->id }}">{{ $parent->var_name }}</option>
+                          @foreach( $parents as $k=>$parent)
+                              @if(!empty($parent['child']))
+                                <optgroup label="{{ $parent['var_name'] }}">
+                                    @foreach( $parent['child'] as $key=> $child)
+                                        <option value="{{ $child['id']}}">{{ $child['var_name'] }}</option>
+                                    @endforeach
+                                </optgroup>
+                              @endif
                           @endforeach
                         </select>
                     </div>
@@ -46,6 +51,7 @@
                         <div class="form-controls">
                             <select name="http_method" class="form-control" id="http_method">
                                 <option value="view">- 非HTTP请求 -</option>
+                                <option value="all">- 全部请求 -</option>
                                 <option value="source">- source请求集合 -</option>
                                 <option value="get">- GET【查看或管理】 -</option>
                                 <option value="put">- PUT【修改】 -</option>
@@ -97,7 +103,7 @@
 <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
 <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $("#parentID").find("option[value=0]").attr("selected",true);

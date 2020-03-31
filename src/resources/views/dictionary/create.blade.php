@@ -1,12 +1,12 @@
 @extends('Imperator::layouts.framework')
 
 @section('pageTitle')
-  字典添加
+    开发者配置 - 字典管理 - 字典添加
 @stop
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -30,9 +30,9 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="icon">样式或图标</label>
-                    <input type="text" class="form-control" name="icon" id="icon" placeholder="图标样式" value="" />
-                    <input type="file" id="dict_icon" name="dict_icon">
+                    <label for="image">样式或图标</label>
+                    <input type="text" class="form-control" name="image" id="image" placeholder="图标样式" value="" />
+                    <input class="image-up-field" widget-type="auto-upload" data-target="image" target-type="input" type="file" id="dict_icon" name="dict_icon">
                   </div>
 
                   <div class="form-group">
@@ -58,7 +58,9 @@
                           <div class="form-controls">
                               <select name="parent_id" class="form-control" id="parent_id">
                                   <option value="0">无上级</option>
-
+                                  @foreach( $parents as $parent)
+                                      <option value="{{ $parent->id }}">{{ $parent->var_name }}</option>
+                                  @endforeach
                               </select>
                           </div>
                       </div>
@@ -97,7 +99,7 @@
 <script type="text/javascript" src="{{ $staticDir }}/js/jquery-validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="{{ $staticDir }}/js/extends/form.func.js"></script>
 <script type="text/javascript" src="{{ $staticDir }}/js/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="{{ $staticDir }}/js/lightyear.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/kkadmin.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $("#parent_id").find("option[value=0]").attr("selected",true);
@@ -167,6 +169,7 @@
           let Data = {
             var_name:$("#var_name").val(),
             var_code:$("#var_code").val(),
+            root_id:$("#root_id").val(),
             parent_id:$("#parent_id").val(),
             var_value:$("#var_value").val(),
             sort:$("#sort").val(),

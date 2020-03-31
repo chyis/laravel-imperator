@@ -14,8 +14,8 @@ class CreateRoleMenusTable extends Migration
     public function up()
     {
         Schema::create(config('admin.tables.role_menu'), function (Blueprint $table) {
-            $table->integer('role_id');
-            $table->integer('menu_id');
+            $table->integer('role_id')->comment('角色ID');
+            $table->integer('menu_id')->comment('菜单ID');
             $table->index(['role_id', 'menu_id']);
 
             $table->timestamps();

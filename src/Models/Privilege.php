@@ -59,17 +59,31 @@ class Privilege extends Model
     public static $http_method = ['get', 'put', 'post', 'delete', 'options', 'connect', 'head', 'trace'];
     public static $sourceMethod = ['index', 'create', 'edit', 'delete', 'show'];
 
+
     public static function getTree()
     {
-        $privGroup = Dictionary::PrivType()->pluck('var_name','id')->all();
-        
-        $privileges = Privilege::get(['id','name']);
-
-        foreach ($privileges as $key=>$value) {
-            $privGroup[$value->group_id]['child'][$value->id] = $value;
+        $privGroup = Dictionary::where('var_code', 'prigroup')
+            ->where('parent_id', '>' , 0)
+            ->get();
+        $roots = [];
+        foreach ($privGroup as $k=>$value)
+        {
+            if ($value->type == 1) {
+                $roots[$value->id] = $value->toarray();
+            } else {
+                $roots[$value->parent_id]['child'][$value->id] = $value->toarray();
+                $branches[$value->id] = $value;
+            }
         }
 
-        return $privGroup;
+        $privileges = self::all();
+
+        foreach ($privileges as $key=>$value) {
+            $branch = $branches[$value->group_id];
+            $roots[$branch->parent_id]['child'][$branch->id]['child'][$value->id] = $value->toArray();
+        }
+
+        return $roots;
     }
 
 
@@ -128,7 +142,7 @@ class Privilege extends Model
                 $data['name'] = $name . ' 列表管理';
                 break;
             case 'show':
-                $data['http_path'] = $httpPath;
+                $data['http_path'] = $httpPath.'/{id}';
                 $data['http_method'] = 'get';
                 $data['code'] = $code . '.show';
                 $data['name'] = $name . ' 详情浏览';
@@ -140,13 +154,13 @@ class Privilege extends Model
                 $data['name'] = $name . ' 信息添加';
                 break;
             case 'edit':
-                $data['http_path'] = $httpPath;
+                $data['http_path'] = $httpPath.'/{id}/edit';
                 $data['http_method'] = 'get';
                 $data['code'] = $code . '.edit';
                 $data['name'] = $name . ' 信息修改';
                 break;
             case 'delete':
-                $data['http_path'] = $httpPath;
+                $data['http_path'] = $httpPath.'/{id}';
                 $data['http_method'] = 'delete';
                 $data['code'] = $code . '.destroy';
                 $data['name'] = $name . ' 信息删除';

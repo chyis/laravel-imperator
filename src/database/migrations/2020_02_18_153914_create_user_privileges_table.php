@@ -15,8 +15,8 @@ class CreateUserPrivilegesTable extends Migration
     {
         Schema::create(config('admin.tables.user_pri'), function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->integer('pri_id');
+            $table->integer('user_id')->comment('用户ID');
+            $table->integer('pri_id')->comment('权限ID');
             $table->index('user_id');
         });
     }

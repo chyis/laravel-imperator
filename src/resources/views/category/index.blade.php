@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -31,7 +31,7 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            <label class="lyear-checkbox checkbox-primary">
+                                            <label class="kkadmin-checkbox checkbox-primary">
                                                 <input type="checkbox" id="check-all"><span></span>
                                             </label>
                                         </th>
@@ -49,7 +49,7 @@
                                     @forelse($lists as $value)
                                     <tr>
                                         <td>
-                                            <label class="lyear-checkbox checkbox-primary">
+                                            <label class="kkadmin-checkbox checkbox-primary">
                                                 <input type="checkbox" name="ids[]" value="{{$value -> id}}"><span></span>
                                             </label>
                                         </td>

@@ -3,6 +3,21 @@
 @section('stylesheet')
   @parent
   <link rel="stylesheet" href="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.css">
+  <style type="text/css">
+    input[type=file]{
+      opacity:0;
+      filter:alpha(opacity=0);
+      height: 150px;
+      width: 150px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+    }
+    .upload-area{
+      overflow: hidden;
+    }
+  </style>
 @stop
 
 @section('pageTitle')
@@ -11,7 +26,7 @@
 
 @section('content')
   <!--页面主要内容-->
-  <main class="lyear-layout-content">
+  <main class="kkadmin-layout-content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
@@ -59,7 +74,7 @@
                   <label>多图上传</label>
                   <div class="form-controls">
 
-                    <ul class="list-inline clearfix lyear-uploads-pic">
+                    <ul class="list-inline clearfix kkadmin-uploads-pic">
                       @foreach( $gallery as $image)
                         <li class="col-xs-4 col-sm-3 col-md-2">
                           <figure>
@@ -71,9 +86,9 @@
                           </figure>
                         </li>
                       @endforeach
-                      <li class="col-xs-4 col-sm-3 col-md-2">
-                        <a class="pic-add" id="add-pic-btn" href="#!" title="点击上传"></a>
-                      </li>
+                        <li class="col-xs-4 col-sm-3 col-md-2 upload-area">
+                          <a class="pic-add" id="add-pic-btn" href="#!" title="点击上传"><input class="image-up-field" widget-type="auto-upload" data-target="preview" target-type="preview" type="file" id="dict_icon" name="dict_icon"></a>
+                        </li>
                     </ul>
                   </div>
                 </div>
@@ -88,14 +103,14 @@
                 <div class="form-group">
                   <label for="status">状态</label>
                   <div class="clearfix">
-                    <label class="lyear-radio radio-inline radio-primary">
+                    <label class="kkadmin-radio radio-inline radio-primary">
                       <input type="radio" name="status" value="-1"  @if($entity->status == -1) checked @endif><span>禁用</span>
                     </label>
-                    <label class="lyear-radio radio-inline radio-primary">
+                    <label class="kkadmin-radio radio-inline radio-primary">
                       <input type="radio" name="status" value="1"  @if($entity->status == 1) checked @endif><span>启用</span>
                     </label>
 
-                    <label class="lyear-radio radio-inline radio-primary">
+                    <label class="kkadmin-radio radio-inline radio-primary">
                       <input type="radio" name="status" value="0" @if($entity->status == 0) checked @endif><span>草稿</span>
                     </label>
                   </div>
@@ -121,7 +136,7 @@
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#mainForm").validate({

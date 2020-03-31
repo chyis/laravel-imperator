@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -37,10 +37,18 @@
 
                   <div class="form-group">
                     <label for="partner_icon">图标</label>
-                    <input type="file" id="partner_icon" name="partner_icon">
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="partner_icon" id="partner_icon" placeholder="图标样式" value="{{ $entity->icon }}" />
+                      <div class="input-group-btn">
+                        <button class="btn btn-default file-btn" type="button">
+                          <input widget-type="auto-upload" data-target="partner_icon" target-type="input" type="file" id="img-upload" name="img-upload" />
+                          点击上传图片
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="form-group col-md-12">
+                  <div class="form-group">
                     <label for="description">描述</label>
                     <textarea class="form-control" id="description" name="description" rows="5" placeholder="描述">{{ $entity->description }}</textarea>
                   </div>
@@ -84,7 +92,7 @@
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $("#mainForm").validate({

@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
         <div class="container-fluid">
             <div class="alert alert-info" role="alert">
                 为指定页面扩展新模块，该模块的内容、形式包括链接地址均可自定义设置。详情请阅读 <a href="/admin/help/template">模块向导</a>。
@@ -111,7 +111,21 @@
                             <!-- .card-actions -->
                         </div>
                         <div class="card-body">
-                            {{ $module->type }} {{ $module->content }}
+                            {{--{{ $module->type }} {{ $module->content }}--}}
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="item active left"><img src="{{$staticDir}}/images/img-slide-3.jpg" alt="图片一"></div>
+                                    <div class="item next left"><img src="{{$staticDir}}/images/img-slide-4.jpg" alt="图片二"></div>
+                                    <div class="item"><img src="{{$staticDir}}/images/img-slide-5.jpg" alt="图片三"></div>
+                                </div>
+                                <a class="left carousel-control" href="#carouselExampleIndicators" role="button" data-slide="prev"><span class="icon-left-open-big icon-prev" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
+                                <a class="right carousel-control" href="#carouselExampleIndicators" role="button" data-slide="next"><span class="icon-right-open-big icon-next" aria-hidden="true"></span><span class="sr-only">Next</span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -147,7 +161,7 @@
 <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
 <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+<script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#mainForm").validate({

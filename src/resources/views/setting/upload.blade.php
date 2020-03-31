@@ -3,7 +3,7 @@
 @section('stylesheet')
   @parent
   <!--标签插件-->
-  <link rel="stylesheet" href="{{ $staticDir }}js/jquery-tags-input/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="{{ $staticDir }}/js/jquery-tags-input/jquery.tagsinput.min.css">
 @stop
 
 @section('pageTitle')
@@ -12,7 +12,7 @@
 
 @section('content')
   <!--页面主要内容-->
-  <main class="lyear-layout-content">
+  <main class="kkadmin-layout-content">
 
     <div class="container-fluid">
 
@@ -68,6 +68,6 @@
 @section('javascript')
   @parent
   <!--标签插件-->
-  <script src="{{ $staticDir }}js/jquery-tags-input/jquery.tagsinput.min.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/perfect-scrollbar.min.js"></script>
+  <script src="{{ $staticDir }}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/perfect-scrollbar.min.js"></script>
 @stop

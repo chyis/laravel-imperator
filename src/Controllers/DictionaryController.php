@@ -2,10 +2,11 @@
 
 namespace Chyis\Imperator\Controllers;
 
-
+use Chyis\Imperator\Models\Privilege;
 use Chyis\Imperator\Requests\DictionaryRequest;
 use Chyis\Imperator\Models\Dictionary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class DictionaryController extends AdminController
@@ -27,7 +28,7 @@ class DictionaryController extends AdminController
         } else if ($keyWord != '' && $searchField == 'code') {
             $condition[] = ['var_code', $keyWord];
         }
-        $query = Dictionary::orderBy('parent_id', 'asc')
+        $query = Dictionary::where('parent_id', 0)
             ->orderBy('sort', 'asc');
         if (!empty($query))
         {
@@ -49,11 +50,13 @@ class DictionaryController extends AdminController
      */
     public function create()
     {
+        $parents = [];
         $menuRoot = Dictionary::where('parent_id', 0)
             ->get();
         return view('Imperator::dictionary.create')
             ->with('pageName', '字典添加')
-            ->with('dictRoot', $menuRoot);
+            ->with('dictRoot', $menuRoot)
+            ->with('parents', $parents);
     }
 
     /**
@@ -113,11 +116,18 @@ class DictionaryController extends AdminController
      * Display the specified resource.
      *
      * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
+     * @param  \Illuminate\Http\Request;  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Dictionary $dictionary)
+    public function show(Dictionary $dictionary, Request $request)
     {
-        return [];
+        $list = Dictionary::getChild(16);
+
+        return view('Imperator::dictionary.show')
+            ->with('dictionary', $dictionary)
+            ->with('lists', $list)
+            ->with('pageName', '字典管理')
+            ->with('request', $request->toArray());
     }
 
     /**
@@ -128,9 +138,7 @@ class DictionaryController extends AdminController
      */
     public function child(Dictionary $dictionary)
     {
-//        return $dictionary;
-        $data = Dictionary::where('parent_id' , $dictionary->id)->get('var_name','id')->all();
-//        return $data;
+        $data = Dictionary::select('var_name', 'id')->where('parent_id' , $dictionary->id)->get();
 
         return $this->messge('获取成功', 0, $data);
     }
@@ -141,16 +149,25 @@ class DictionaryController extends AdminController
      * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $dictionary)
+    public function edit(Dictionary $dictionary)
     {
-        //return $dictionary;
-        $dictionary = Dictionary::findOrFail($dictionary);
         $menuRoot = Dictionary::where('parent_id', 0)
             ->get();
+        $parent = $dictionary->parent();
+        $parents = [];
+        if (isset($parent) && $parent->parent_id > 0)
+        {
+            $parents =  Dictionary::where('parent_id', $parent->parent_id)
+                ->get();
+        } else {
+            $parents =  Dictionary::where('parent_id', $parent->id)
+                ->get();
+        }
         if ($dictionary)
         {
             return view('Imperator::dictionary.edit')
-                ->with('parents', $menuRoot)
+                ->with('dictRoot', $menuRoot)
+                ->with('parents', $parents)
                 ->with('pageName', '字典修改')
                 ->with('entity', $dictionary);
         } else {

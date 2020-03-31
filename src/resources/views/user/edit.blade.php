@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -67,10 +67,10 @@
 
 @section('javascript')
   @parent
-  <script type="text/javascript" src="{{ $staticDir }}js/jquery-validate/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/extends/form.func.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/lightyear.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/jquery-validate/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/extends/form.func.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/bootstrap-notify.min.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/kkadmin.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $("#mainForm").validate({

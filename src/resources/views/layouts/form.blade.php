@@ -6,6 +6,7 @@
     <title>{{ $pageName }} - {{ $siteName }}</title>
     <link rel="icon" href="/favicon.ico" type="image/ico">
     <meta name="author" content="{{ $siteAuthor }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @section('stylesheet')
     <link href="{{$staticDir}}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{$staticDir}}/css/materialdesignicons.min.css" rel="stylesheet">
@@ -15,8 +16,8 @@
 </head>
 
 <body>
-<div class="lyear-layout-web">
-    <div class="lyear-layout-container">
+<div class="kkadmin-layout-web">
+    <div class="kkadmin-layout-container">
     @section('sidebar')
         <!--左侧导航-->
         @include('Imperator::include.sidebar')
@@ -25,7 +26,7 @@
 
     @section('head')
         <!--头部信息-->
-            <header class="lyear-layout-header">
+            <header class="kkadmin-layout-header">
                 <nav class="navbar navbar-default">
                     <div class="topbar">
 
@@ -40,7 +41,7 @@
 
     @section('content')
         <!--页面主要内容-->
-        <main class="lyear-layout-content">
+        <main class="kkadmin-layout-content">
 
             <div class="container-fluid">
 
@@ -67,7 +68,9 @@
 
 @section('javascript')
     <script type="text/javascript" src="{{$staticDir}}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
     <script type="text/javascript" src="{{$staticDir}}/js/perfect-scrollbar.min.js"></script>
+    <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
     <script type="text/javascript" src="{{$staticDir}}/js/main.min.js"></script>
 @show
 </body>

@@ -64,13 +64,13 @@
 </div>
 </main>
 <textarea name="content" id="content" style="display: none;">{!! $entity->content ?? '' !!}</textarea>
-<script src="{{$staticDir}}/ckeditor5/ckeditor.js"></script>
+<script src="/vendor/laravel-imperator/ckeditor5/ckeditor.js"></script>
 <script type="text/javascript">
     DecoupledEditor
         .create( document.querySelector( '#editor' ), {
             toolbar: ["heading", "|", "alignment:left", "alignment:center", "alignment:right", "alignment:adjust", "|", "bold", "italic", "blockQuote", "link", "|", "bulletedList", "numberedList", "imageUpload", "|", "undo", "redo"],
             ckfinder: {
-                uploadUrl: "/admin/attachment/uploadimage"
+                uploadUrl: "/admin/attachment/uploadimage?_token="+$('meta[name="csrf-token"]').attr('content')
             }
         })
         .then( editor => {

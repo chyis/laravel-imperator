@@ -15,17 +15,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create(config('admin.tables.users'), function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_name', 15)->unique();
-            $table->string('nick_name', 20);
-            $table->string('password', 60);
-            $table->string('phone', 11)->unique();
-            $table->timestamp('phone_verified_at')->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('avatar')->nullable();
-            $table->integer('role_id')->default(0);
-            $table->string('description',255)->default('');
-            $table->tinyInteger('status')->default(0);
+            $table->string('user_name', 15)->unique()->comment('用户名');
+            $table->string('nick_name', 20)->comment('昵称');
+            $table->string('password', 60)->comment('密码');
+            $table->string('phone', 11)->unique()->comment('手机号');
+            $table->timestamp('phone_verified_at')->nullable()->comment('手机号验证时间');
+            $table->string('email')->unique()->comment('邮箱地址');
+            $table->timestamp('email_verified_at')->nullable()->comment('邮箱验证时间');
+            $table->string('avatar')->nullable()->comment('头像');
+            $table->integer('role_id')->default(0)->comment('角色ID');
+            $table->string('description',255)->default('')->comment('说明解释');
+            $table->tinyInteger('status')->default(0)->comment('发布状态');
             $table->softDeletes();
             $table->rememberToken();
             //$table->string('remember_token', 100)->nullable();

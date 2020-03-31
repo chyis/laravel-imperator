@@ -11,10 +11,10 @@
   <link href="{{ $staticDir }}/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="{{ $staticDir }}/css/style.min.css" rel="stylesheet">
 <style>
-.lyear-wrapper {
+.kkadmin-wrapper {
     position: relative;
 }
-.lyear-login {
+.kkadmin-login {
     display: flex !important;
     min-height: 100vh;
     align-items: center !important;
@@ -49,8 +49,8 @@
 </style>
 </head>
 <body>
-<div class="row lyear-wrapper">
-  <div class="lyear-login">
+<div class="row kkadmin-wrapper">
+  <div class="kkadmin-login">
     <div class="login-center">
       <div class="login-header text-center">
         <a href="index.html"> <img alt="light year admin" src="{{ $staticDir }}/images/logo-sidebar.png"> </a>

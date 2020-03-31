@@ -3,7 +3,7 @@
 @section('stylesheet')
   @parent
   <!--标签插件-->
-  <link rel="stylesheet" href="{{ $staticDir }}js/jquery-tags-input/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="{{ $staticDir }}/js/jquery-tags-input/jquery.tagsinput.min.css">
 @stop
 
 @section('pageTitle')
@@ -12,7 +12,7 @@
 
 @section('content')
   <!--页面主要内容-->
-  <main class="lyear-layout-content">
+  <main class="kkadmin-layout-content">
 
     <div class="container-fluid">
 
@@ -42,13 +42,13 @@
                   <div class="form-group">
                     <label for="wipe_cache_type">清除缓存类型</label>
                     <div class="controls-box">
-                      <label class="lyear-checkbox checkbox-inline checkbox-primary">
+                      <label class="kkadmin-checkbox checkbox-inline checkbox-primary">
                         <input type="checkbox" name="setting[wipe_cache_type][]" checked><span>应用缓存</span>
                       </label>
-                      <label class="lyear-checkbox checkbox-inline checkbox-primary">
+                      <label class="kkadmin-checkbox checkbox-inline checkbox-primary">
                         <input type="checkbox" name="setting[wipe_cache_type][]"><span>应用日志</span>
                       </label>
-                      <label class="lyear-checkbox checkbox-inline checkbox-primary">
+                      <label class="kkadmin-checkbox checkbox-inline checkbox-primary">
                         <input type="checkbox" name="setting[wipe_cache_type][]"><span>模板缓存</span>
                       </label>
                     </div>
@@ -57,10 +57,10 @@
                   <div class="form-group">
                     <label for="develop_mode">开发模式</label>
                     <div class="controls-box">
-                      <label class="lyear-radio radio-inline radio-primary">
+                      <label class="kkadmin-radio radio-inline radio-primary">
                         <input type="radio" name="setting[develop_mode]" value="0" checked><span>关闭</span>
                       </label>
-                      <label class="lyear-radio radio-inline radio-primary">
+                      <label class="kkadmin-radio radio-inline radio-primary">
                         <input type="radio" name="setting[develop_mode]" value="1"><span>开启</span>
                       </label>
                     </div>
@@ -88,7 +88,7 @@
 @section('javascript')
   @parent
   <!--标签插件-->
-  <script src="{{ $staticDir }}js/jquery-tags-input/jquery.tagsinput.min.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/perfect-scrollbar.min.js"></script>
+  <script src="{{ $staticDir }}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/perfect-scrollbar.min.js"></script>
 @stop
 

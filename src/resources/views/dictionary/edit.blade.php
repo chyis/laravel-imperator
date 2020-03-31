@@ -1,12 +1,12 @@
 @extends('Imperator::layouts.framework')
 
 @section('pageTitle')
-  字典修改
+    开发者配置 - 字典管理 - 字典修改
 @stop
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -31,38 +31,50 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="icon">样式或图标</label>
-                    <input type="text" class="form-control" name="icon" id="icon" placeholder="图标样式" value="" />
-                    <input type="file" id="dict_icon" name="dict_icon">
+                    <label for="image">样式或图标</label>
+                    <input type="text" class="form-control" name="image" id="image" placeholder="图标样式" value="" />
+                      <input class="image-up-field" widget-type="auto-upload" data-target="image" target-type="input" type="file" id="dict_icon" name="dict_icon">
                   </div>
 
                   <div class="form-group">
-                    <label for="parent_id">字典父类</label>
+                    <label for="root_id">字典类型</label>
                     <div class="form-controls">
-                      <select name="parent_id" class="form-control" id="parent_id" onchange="onSelectParent();">
+                      <select name="root_id" class="form-control" id="root_id">
                         <option value="0">独立字典</option>
-                        @foreach( $parents as $parent)
-                          <option value="{{ $parent->id }}" @if($parent->id == $entity->parent_id) selected @endif>{{ $parent->var_name }}</option>
+                        @foreach( $dictRoot as $root)
+                          <option value="{{ $root->id }}" @if($root->var_code == $entity->var_code) selected @endif>{{ $root->var_name }}</option>
                         @endforeach
                       </select>
                     </div>
                   </div>
 
-                  <div class="form-group @if($entity->parent_id > 0) hidden @endif" id="no-parent-type">
+                  <div class="form-group @if($entity->parent_id > 0) hidden @endif" id="no-parent-attr">
                     <label for="var_code">字典标识</label>
                     <input type="text" class="form-control" name="var_code" id="var_code" placeholder="输入字典标识" value="{{ $entity->var_code }}" />
                   </div>
 
                   <div class="@if($entity->parent_id == 0) hidden @endif"  id="parent-attr">
-                  <div class="form-group">
-                    <label for="var_value">字典值</label>
-                    <input type="text" class="form-control" name="var_value" id="var_value" placeholder="输入字典值" value="{{ $entity->var_value }}" />
-                  </div>
+                      <div class="form-group ">
+                          <label for="parent_id">字典上级</label>
+                          <div class="form-controls">
+                              <select name="parent_id" class="form-control" id="parent_id">
+                                  <option value="0">无上级</option>
+                                  @foreach( $parents as $parent)
+                                      <option value="{{ $parent->id }}">{{ $parent->var_name }}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                      </div>
 
-                  <div class="form-group">
-                    <label for="sort">排序</label>
-                    <input class="form-control" type="text" id="sort" name="sort" value="{{ $entity->sort }}" />
-                  </div>
+                      <div class="form-group">
+                        <label for="var_value">字典值</label>
+                        <input type="text" class="form-control" name="var_value" id="var_value" placeholder="输入字典值" value="{{ $entity->var_value }}" />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="sort">排序</label>
+                        <input class="form-control" type="text" id="sort" name="sort" value="{{ $entity->sort }}" />
+                      </div>
                   </div>
                     <button type="submit" class="btn btn-label btn-info">
                         <label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label>
@@ -82,25 +94,13 @@
     <!--End 页面主要内容-->
 @stop
 
-
 @section('javascript')
   @parent
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
 <script type="text/javascript">
-  function onSelectParent() {
-    var parentID = $("#parentID").val();
-    if (parentID == 0) {
-      $("#no-parent-attr").removeClass('hidden');
-      $("#parent-attr").addClass('hidden');
-    } else {
-      $("#no-parent-attr").addClass('hidden');
-      $("#parent-attr").removeClass('hidden');
-    }
-  }
-
   $(document).ready(function(){
       $("#mainForm").validate({
           errorElement : 'span',
@@ -165,6 +165,7 @@
               let Data = {
                   var_name:$("#var_name").val(),
                   var_code:$("#var_code").val(),
+                  root_id:$("#root_id").val(),
                   parent_id:$("#parent_id").val(),
                   var_value:$("#var_value").val(),
                   sort:$("#sort").val(),
@@ -196,7 +197,47 @@
                   }
               });
           }
-      })
+      });
+      $("#root_id").change(function () {
+          var root_id = $(this).val();
+          if (root_id == 0) {
+              $("#no-parent-attr").removeClass('hidden');
+              $("#parent-attr").addClass('hidden');
+          } else {
+              $("#no-parent-attr").addClass('hidden');
+              $("#parent-attr").removeClass('hidden');
+              var optionHtml = '<option selected value="0">无上级</option>';
+              $.ajax({
+                  type: "get",
+                  url: "/admin/dictionary/"+ root_id+"/child",
+                  dataType: 'json',
+                  processData: false,
+                  contentType: "application/json;charset=UTF-8",
+                  cache: false,
+                  async : false,    //同步
+                  success:function (res) {
+                      if(res.code==0) {
+                          if (res.data) {
+                              $("#parent_id").empty();
+                              $("#parent_id").append(optionHtml);
+                              var data = res.data;
+                              for (var i in data) {
+                                  $("#parent_id").append("<option value='"+data[i].id+"'>"+data[i].var_name+"</option>");
+                              }
+                          }
+                      } else if(res.code > 0) {
+                          error(res.msg);
+                      } else {
+                          alert(res.code);
+                      }
+                  },
+                  //请求失败，包含具体的错误信息
+                  error : function(e){
+                      error("error occurred!");
+                  }
+              });
+          }
+      });
   });
 </script>
 @endsection

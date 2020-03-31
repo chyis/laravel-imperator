@@ -6,7 +6,7 @@
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -39,17 +39,44 @@
                     <label for="group_id">权限分组</label>
                     <div class="form-controls">
                       <select name="group_id" class="form-control" id="group_id" onchange="onSelectParent();">
-                          <option value="0">- 新建同名组 -</option>
-                        @foreach( $parents as $parent)
-                          <option value="{{ $parent->id }}" @if($parent->id == $entity->group_id) selected @endif>{{ $parent->var_name }}</option>
-                        @endforeach
+                          @foreach( $parents as $k=>$parent)
+                              @if(!empty($parent['child']))
+                                  <optgroup label="{{ $parent['var_name'] }}">
+                                      @foreach( $parent['child'] as $key=> $child)
+                                          <option value="{{ $child['id']}}" @if($child['id'] == $entity->group_id) selected @endif>{{ $child['var_name'] }}</option>
+                                      @endforeach
+                                  </optgroup>
+                              @endif
+                          @endforeach
                       </select>
                     </div>
                   </div>
+                    <div class="form-group">
+                        <label for="http_method">请求方式</label>
+                        <div class="form-controls">
+                            <select name="http_method" class="form-control" id="http_method">
+                                <option value="view" @if($entity->http_path == 'view') selected @endif>- 非HTTP请求 -</option>
+                                <option value="source" @if($entity->http_path == 'source') selected @endif>- source请求集合 -</option>
+                                <option value="get" @if($entity->http_path == 'get') selected @endif>- GET【查看或管理】 -</option>
+                                <option value="put" @if($entity->http_path == 'put') selected @endif>- PUT【修改】 -</option>
+                                <option value="post" @if($entity->http_path == 'post') selected @endif>- POST【保存】 -</option>
+                                <option value="delete" @if($entity->http_path == 'delete') selected @endif>- DELETE【删除】 -</option>
+                                <option value="head" @if($entity->http_path == 'head') selected @endif>- HEAD【报头】 -</option>
+                                <option value="options" @if($entity->http_path == 'options') selected @endif>- OPTIONS【资源请求】 -</option>
+                                <option value="trace" @if($entity->http_path == 'trace') selected @endif>- TRACE【追踪回显】 -</option>
+                                <option value="connect" @if($entity->http_path == 'connect') selected @endif>- CONNECT【管道代理】 -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="http_path">请求地址</label>
+                        <input type="text" class="form-control" name="http_path" id="http_path" placeholder="如有请求地址请输入相对地址" value="{{ $entity->http_path }}" />
+                    </div>
 
                     <div class="form-group">
                         <label for="ext">权限值</label>
-                        <input type="text" class="form-control" name="ext" id="ext" placeholder="输入权限值" value="{{ $parent->ext }}" />
+                        <input type="text" class="form-control" name="ext" id="ext" placeholder="输入权限值" value="{{ $entity->ext }}" />
                     </div>
 
                     <button type="submit" class="btn btn-label btn-info">
@@ -76,7 +103,7 @@
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/lightyear.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
       $("#mainForm").validate({
@@ -134,6 +161,8 @@
               let Data = {
                   name:$("#name").val(),
                   code:$("#code").val(),
+                  http_method:$("#http_method").val(),
+                  http_path:$("#http_path").val(),
                   group_id:$("#group_id").val(),
                   ext:$("#ext").val()
               };

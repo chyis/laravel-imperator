@@ -16,8 +16,8 @@
     <script type="text/javascript" src="{{$staticDir}}/js/jquery.min.js"></script>
 </head>
 <body>
-<div class="lyear-layout-web">
-    <div class="lyear-layout-container">
+<div class="kkadmin-layout-web">
+    <div class="kkadmin-layout-container">
         @section('sidebar')
             <!--左侧导航-->
             @include('Imperator::include.sidebar')
@@ -26,7 +26,7 @@
 
         @section('head')
         <!--头部信息-->
-        <header class="lyear-layout-header">
+        <header class="kkadmin-layout-header">
             <nav class="navbar navbar-default">
                 <div class="topbar">
                     @include('Imperator::include.topbar-left')
@@ -39,7 +39,7 @@
 
         @section('content')
         <!--页面主要内容-->
-        <main class="lyear-layout-content">
+        <main class="kkadmin-layout-content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -74,7 +74,7 @@
                                         <thead>
                                         <tr>
                                             <th>
-                                                <label class="lyear-checkbox checkbox-primary">
+                                                <label class="kkadmin-checkbox checkbox-primary">
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
@@ -87,7 +87,7 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <label class="lyear-checkbox checkbox-primary">
+                                                <label class="kkadmin-checkbox checkbox-primary">
                                                     <input type="checkbox" name="ids[]" value="1"><span></span>
                                                 </label>
                                             </td>

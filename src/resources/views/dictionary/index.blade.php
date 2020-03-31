@@ -1,12 +1,12 @@
 @extends('Imperator::layouts.framework')
 
 @section('pageTitle')
-    字典管理 - 系统管理
+    开发者配置 - 字典管理
 @stop
 
 @section('content')
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
+    <main class="kkadmin-layout-content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -41,7 +41,7 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            <label class="lyear-checkbox checkbox-primary">
+                                            <label class="kkadmin-checkbox checkbox-primary">
                                                 <input type="checkbox" id="check-all"><span></span>
                                             </label>
                                         </th>
@@ -49,7 +49,6 @@
                                         <th>字典名称</th>
                                         <th>字典标识</th>
                                         <th>字典类型</th>
-                                        <th>排序</th>
                                         <th>创建时间</th>
                                         <th>状态</th>
                                         <th>操作</th>
@@ -60,7 +59,7 @@
                                     @forelse($lists as $value)
                                     <tr>
                                         <td>
-                                            <label class="lyear-checkbox checkbox-primary">
+                                            <label class="kkadmin-checkbox checkbox-primary">
                                                 <input type="checkbox" name="ids[]" value="{{$value -> id}}"><span></span>
                                             </label>
                                         </td>
@@ -68,7 +67,6 @@
                                         <td>{{$value -> dirs}}{{$value -> var_name}} @if($value->type==0)[{{$value -> var_code}}]@endif</td>
                                         <td>{{$value -> var_value}}</td>
                                         <td>{{$value -> type_name}}</td>
-                                        <td>@if($value->type!=0){{$value -> sort}}@endif</td>
                                         <td>{{$value -> created_at}}</td>
                                         <td>@if( $value->is_delete == 0)
                                             <font class="text-success">{{$value -> status_name}}</font>
@@ -78,6 +76,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.dictionary.show', $value->id) }}" title="查看目录" data-toggle="tooltip"><i class="mdi mdi-search-web"></i></a>
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.dictionary.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.dictionary.destroy', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>

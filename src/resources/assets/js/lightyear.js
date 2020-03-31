@@ -1,16 +1,16 @@
-var lightyear = function(){
+var kkadmin = function(){
 	
 	/**
 	 * 页面loading
 	 */
 	var pageLoader = function($mode) {
-		var $loadingEl = jQuery('#lyear-loading');
+		var $loadingEl = jQuery('#kkadmin-loading');
 		    $mode      = $mode || 'show';
 		if ($mode === 'show') {
 			if ($loadingEl.length) {
 				$loadingEl.fadeIn(250);
 			} else {
-				jQuery('body').prepend('<div id="lyear-loading"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>');
+				jQuery('body').prepend('<div id="kkadmin-loading"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>');
 			}
 		} else if ($mode === 'hide') {
 			if ($loadingEl.length) {

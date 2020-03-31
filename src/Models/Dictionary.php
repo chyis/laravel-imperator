@@ -56,12 +56,32 @@ class Dictionary extends Model
      * @var string
      */
     //protected $dateFormat = 'U';
+
     /**
      * The connection name for the models.
      *
-     * @var string
+     * @var integer $id
+     * @var bool $includeSub
+     *
+     * @return mixed
      */
     //protected $connection = 'connection-name';
+
+    public static function getChild($id, $includeSub = true) {
+        $data = Dictionary::where('parent_id', $id)
+            ->get();
+        if ($includeSub == true)
+        {
+            foreach ($data  as $key=>$val) {
+                $child = Dictionary::getChild($val->id, true);
+                if ($child) {
+                    $data[$key]['child'] = $child;
+                }
+            }
+        }
+
+        return $data;
+    }
 
     public static function getNameByID($id)
     {
@@ -94,8 +114,9 @@ class Dictionary extends Model
 
     public function getDirsAttribute()
     {
-        if ($this->getAttribute('type') == 1) return '| —— ';
-        if ($this->getAttribute('type') == 2) return '| ——| —— ';
+        if ($this->getAttribute('type') == 1) return '|—— ';
+        if ($this->getAttribute('type') == 2) return '|——+—— ';
+        if ($this->getAttribute('type') == 3) return '|——+——+—— ';
         return '';
     }
 
@@ -104,6 +125,7 @@ class Dictionary extends Model
         if ($this->getAttribute('type') == 0) return '初代目';
         if ($this->getAttribute('type') == 1) return '二代目';
         if ($this->getAttribute('type') == 2) return '分支';
+        if ($this->getAttribute('type') == 2) return '标签';
         return '未知';
     }
 

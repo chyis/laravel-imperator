@@ -3,7 +3,7 @@
 @section('stylesheet')
   @parent
   <!--标签插件-->
-  <link rel="stylesheet" href="{{ $staticDir }}js/jquery-tags-input/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="{{ $staticDir }}/js/jquery-tags-input/jquery.tagsinput.min.css">
 @stop
 
 @section('pageTitle')
@@ -12,7 +12,7 @@
 
 @section('content')
   <!--页面主要内容-->
-  <main class="lyear-layout-content">
+  <main class="kkadmin-layout-content">
 
     <div class="container-fluid">
 
@@ -32,19 +32,24 @@
                   <input name="group_id" type="hidden" value="34">
                   <div class="form-group">
                     <label for="site_name">网站标题</label>
-                    <input class="form-control" type="text" id="site_name" name="setting[site_name]" value="{{$setting['site_name']}}" placeholder="请输入站点标题" >
+                    <input class="form-control" type="text" id="site_name" name="setting[site_name]" value="{{$setting['site_name']}}" placeholder="请输入站点标题" />
                     <small class="help-block">调用方式：<code>config('web_site_title')</code></small>
                   </div>
                   <div class="form-group">
                     <label for="site_logo">LOGO图片</label>
                     <div class="input-group">
                       <input type="text" class="form-control" name="setting[site_logo]" id="site_logo" value="{{$setting['site_logo']}}" />
-                      <div class="input-group-btn"><button class="btn btn-default" type="button">上传图片</button></div>
+                      <div class="input-group-btn">
+                        <button class="btn btn-default file-btn" type="button">
+                          <input widget-type="auto-upload" data-target="site_logo" target-type="input" type="file" id="img-upload" name="img-upload" />
+                          点击上传图片
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="site_keywords">站点关键词</label>
-                    <input class="form-control" type="text" id="site_keywords" name="setting[site_keywords]" value="{{$setting['site_keywords']}}" placeholder="请输入站点关键词" >
+                    <input class="form-control" type="text" id="site_keywords" name="setting[site_keywords]" value="{{$setting['site_keywords']}}" placeholder="请输入站点关键词" />
                     <small class="help-block">网站搜索引擎关键字</small>
                   </div>
                   <div class="form-group">
@@ -54,17 +59,17 @@
                   </div>
                   <div class="form-group">
                     <label for="site_copyright">版权信息</label>
-                    <input class="form-control" type="text" id="site_copyright" name="setting[site_copyright]" value="{{$setting['site_copyright']}}" placeholder="请输入版权信息" >
+                    <input class="form-control" type="text" id="site_copyright" name="setting[site_copyright]" value="{{$setting['site_copyright']}}" placeholder="请输入版权信息" />
                     <small class="help-block">调用方式：<code>config('site_copyright')</code></small>
                   </div>
                   <div class="form-group">
                     <label for="web_site_icp">备案信息</label>
-                    <input class="form-control" type="text" id="site_icp" name="setting[site_icp]" value="{{$setting['site_icp']}}" placeholder="请输入备案信息" >
+                    <input class="form-control" type="text" id="site_icp" name="setting[site_icp]" value="{{$setting['site_icp']}}" placeholder="请输入备案信息" />
                     <small class="help-block">调用方式：<code>config('site_icp')</code></small>
                   </div>
                   <div class="form-group">
                     <label class="btn-block" for="web_site_status">站点开关</label>
-                    <label class="lyear-switch switch-solid switch-primary">
+                    <label class="kkadmin-switch switch-solid switch-primary">
                       <input name="setting[site_closed]" type="checkbox" @if($setting['site_closed'] == 1) checked="" @endif  value="1">
                       <span></span>
                     </label>
@@ -92,6 +97,6 @@
 @section('javascript')
   @parent
   <!--标签插件-->
-  <script src="{{ $staticDir }}js/jquery-tags-input/jquery.tagsinput.min.js"></script>
-  <script type="text/javascript" src="{{ $staticDir }}js/perfect-scrollbar.min.js"></script>
+  <script src="{{ $staticDir }}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script type="text/javascript" src="{{ $staticDir }}/js/perfect-scrollbar.min.js"></script>
 @stop

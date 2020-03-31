@@ -52,9 +52,19 @@ class PrivilegeController extends AdminController
         $prigroup = Dictionary::where('var_code', 'prigroup')
             ->where('parent_id', '>', 0)
             ->get();
+        $tree = [];
+        foreach ($prigroup as $key=>$priv) {
+            if ($priv->type == 1) {
+                $tree[$priv->id] =  $priv->toarray();
+                $tree[$priv->id]['child'] = [];
+            } elseif ($priv->type == 2) {
+                $tree[$priv->parent_id]['child'][] = $priv->toarray();
+            }
+        }
+
         return view('Imperator::privilege.create')
             ->with('pageName', '权限添加')
-            ->with('parents', $prigroup);
+            ->with('parents', $tree);
     }
 
     /**
@@ -114,18 +124,25 @@ class PrivilegeController extends AdminController
      * @param  \Chyis\Imperator\Models\Privilege  $privilege
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $privilege)
+    public function edit(Privilege $privilege)
     {
-        //return $dictionary;
-        $privilege = Privilege::findOrFail($privilege);
         $prigroup = Dictionary::where('var_code', 'prigroup')
             ->where('parent_id', '>', 0)
             ->get();
+        $tree = [];
+        foreach ($prigroup as $key=>$priv) {
+            if ($priv->type == 1) {
+                $tree[$priv->id] =  $priv->toarray();
+                $tree[$priv->id]['child'] = [];
+            } elseif ($priv->type == 2) {
+                $tree[$priv->parent_id]['child'][] = $priv->toarray();
+            }
+        }
 
         if ($privilege)
         {
             return view('Imperator::privilege.edit')
-                ->with('parents', $prigroup)
+                ->with('parents', $tree)
                 ->with('pageName', '权限修改')
                 ->with('entity', $privilege);
         } else {
