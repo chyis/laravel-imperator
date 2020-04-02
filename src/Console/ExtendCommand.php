@@ -56,8 +56,8 @@ class ExtendCommand extends Command
      * @var array
      */
     protected $dirs = [
-        'database/migrations',
-        'database/seeds',
+        'DataBase/migrations',
+        'DataBase/seeds',
         'resources/assets',
         'resources/views',
         'src/Http/Controllers',
@@ -73,7 +73,7 @@ class ExtendCommand extends Command
     {
         $this->filesystem = $filesystem;
 
-        $this->extensionDir = config('admin.extension_dir');
+        $this->extensionDir = config('imperator.extension_dir');
 
         InputExtensionDir:
         if (empty($this->extensionDir)) {
@@ -109,7 +109,7 @@ class ExtendCommand extends Command
     ├── LICENSE
     ├── README.md
     ├── composer.json
-    ├── database
+    ├── DataBase
     │   ├── migrations
     │   └── seeds
     ├── resources

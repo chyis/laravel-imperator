@@ -36,7 +36,7 @@ class InstallCommand extends Command
     {
         $this->initDatabase();
 
-        $this->initAdminDirectory();
+//        $this->initAdminDirectory();
     }
 
     /**
@@ -48,10 +48,10 @@ class InstallCommand extends Command
     {
         $this->call('migrate');
 
-        $userModel = config('admin.database.users_model');
+        $userModel = config('imperator.tables.users');
 
         if ($userModel::count() == 0) {
-            $this->call('db:seed', ['--class' => \Chyis\Imperator\Auth\Database\AdminTablesSeeder::class]);
+            $this->call('db:seed', ['--class' => \Chyis\Imperator\DataBase\UsersTableSeeder::class]);
         }
     }
 
@@ -62,7 +62,7 @@ class InstallCommand extends Command
      */
     protected function initAdminDirectory()
     {
-        $this->directory = config('admin.directory');
+        $this->directory = config('imperator.directory');
 
         if (is_dir($this->directory)) {
             $this->line("<error>{$this->directory} directory already exists !</error> ");
@@ -95,7 +95,7 @@ class InstallCommand extends Command
 
         $this->laravel['files']->put(
             $homeController,
-            str_replace('DummyNamespace', config('admin.route.namespace'), $contents)
+            str_replace('DummyNamespace', config('imperator.route.namespace'), $contents)
         );
         $this->line('<info>HomeController file was created:</info> '.str_replace(base_path(), '', $homeController));
     }
@@ -112,7 +112,7 @@ class InstallCommand extends Command
 
         $this->laravel['files']->put(
             $authController,
-            str_replace('DummyNamespace', config('admin.route.namespace'), $contents)
+            str_replace('DummyNamespace', config('imperator.route.namespace'), $contents)
         );
         $this->line('<info>AuthController file was created:</info> '.str_replace(base_path(), '', $authController));
     }
@@ -129,7 +129,7 @@ class InstallCommand extends Command
 
         $this->laravel['files']->put(
             $exampleController,
-            str_replace('DummyNamespace', config('admin.route.namespace'), $contents)
+            str_replace('DummyNamespace', config('imperator.route.namespace'), $contents)
         );
         $this->line('<info>ExampleController file was created:</info> '.str_replace(base_path(), '', $exampleController));
     }
@@ -158,7 +158,7 @@ class InstallCommand extends Command
         $file = $this->directory.'/routes.php';
 
         $contents = $this->getStub('routes');
-        $this->laravel['files']->put($file, str_replace('DummyNamespace', config('admin.route.namespace'), $contents));
+        $this->laravel['files']->put($file, str_replace('DummyNamespace', config('imperator.route.namespace'), $contents));
         $this->line('<info>Routes file was created:</info> '.str_replace(base_path(), '', $file));
     }
 

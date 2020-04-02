@@ -32,7 +32,7 @@ class ModuleController extends AdminController
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
         $pages = Dictionary::pageType()->get();
 
         return view('Imperator::module.index')

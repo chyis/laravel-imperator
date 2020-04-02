@@ -3,6 +3,7 @@
 namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class UserPrivilege extends Model
 {
@@ -83,5 +84,9 @@ class UserPrivilege extends Model
     {
         return self::where('code', $code)
             ->findOrFail();
+    }
+
+    public static function insertAll($data) {
+        return DB::table('user_privilege')->insert($data);
     }
 }

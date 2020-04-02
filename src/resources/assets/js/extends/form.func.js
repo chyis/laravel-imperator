@@ -29,21 +29,3 @@ jQuery.validator.addMethod("isPwd", function(value, element) {
         return fasle;
     return this.optional(element) || /[^A-Za-z0-9]/.test(str);
 }, "以字母开头，长度在6-12之间，必须包含数字和特殊字符。");
-
-function success(msg,  url="") {
-    kkadmin.loading('show');
-    // 假设ajax提交操作
-    setTimeout(function() {
-        kkadmin.loading('hide');
-        kkadmin.notify(msg, 'success', 3000);
-    }, 1e3)
-}
-
-function error(msg, url="") {
-    kkadmin.loading('show');
-    // 假设ajax提交操作
-    setTimeout(function() {
-        kkadmin.loading('hide');
-        kkadmin.notify(msg, 'danger', 100);
-    }, 1e3)
-}

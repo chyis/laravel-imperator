@@ -63,7 +63,7 @@
                                         </td>
                                         <td>{{$value -> user_name}}</td>
                                         <td>{{$value -> nick_name}}</td>
-                                        <td>{{$value -> role_name}}</td>
+                                        <td>{{ $value ->role->name }}</td>
                                         <td>{{$value -> created_at}}</td>
                                         <td><font class="text-success">正常</font></td>
                                         <td>

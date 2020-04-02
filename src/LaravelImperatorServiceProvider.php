@@ -85,7 +85,7 @@ class LaravelImperatorServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__.'/config' => config_path()], 'laravel-imperator-config');
             $this->publishes([__DIR__.'/resources/lang' => resource_path('lang')], 'laravel-imperator-lang');
-            $this->publishes([__DIR__.'/database/migrations' => database_path('migrations')], 'laravel-imperator-migrations');
+            $this->publishes([__DIR__ . '/DataBase/migrations' => database_path('migrations')], 'laravel-imperator-migrations');
             $this->publishes([__DIR__.'/resources/assets' => public_path('vendor/laravel-imperator')], 'laravel-imperator-assets');
         }
     }
@@ -97,7 +97,7 @@ class LaravelImperatorServiceProvider extends ServiceProvider
      */
     protected function ensureHttps()
     {
-        if (config('admin.https') || config('admin.secure')) {
+        if (config('imperator.https') || config('imperator.secure')) {
             url()->forceScheme('https');
             $this->app['request']->server->set('HTTPS', true);
         }

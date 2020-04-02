@@ -64,11 +64,11 @@ class Users extends Model
 
     public function role()
     {
-        return $this->belongsTo('App/Models/Role', 'role_id', 'id');
+        return $this->belongsTo('Chyis\Imperator\Models\Role', 'role_id', 'id');
     }
 
     public function privileges()
     {
-        return $this->hasMany('App/Models/UserPrivilege', 'user_id', 'id');
+        return $this->hasMany('Chyis\Imperator\Models\UserPrivilege');
     }
 }

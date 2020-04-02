@@ -177,7 +177,7 @@ class MakeCommand extends GeneratorCommand
             return $namespace;
         }
 
-        return config('admin.route.namespace');
+        return config('imperator.route.namespace');
     }
 
     /**

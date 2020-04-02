@@ -26,6 +26,9 @@
         "sort-packages": true
     },
     "autoload": {
+        "classmap":  [
+            "DataBase","database", "Facades", "Middleware"
+        ],
         "psr-4": {
             "Chyis\\Imperator\\": "src/"
         }

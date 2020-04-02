@@ -31,7 +31,7 @@ class AdvertiseController extends AdminController
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::advertise.index')
             ->with('pageName', '广告管理')

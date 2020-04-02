@@ -32,6 +32,7 @@
                                         </th>
                                         <th>编号</th>
                                         <th>组名称</th>
+                                        <th>标识</th>
                                         <th>成员数</th>
                                         <th>状态</th>
                                         <th>操作</th>
@@ -47,13 +48,14 @@
                                             </label>
                                         </td>
                                         <td>{{$value -> id}}</td>
-                                        <td>{{$value -> title}}</td>
-                                        <td>{{$value -> members}}</td>
+                                        <td>{{$value -> name}}</td>
+                                        <td>{{$value -> code}}</td>
+                                        <td>{{$value -> members ?? 0}}</td>
                                         <td><font class="text-success">正常</font></td>
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.role.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.role.delete', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.role.destroy', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>
                                     </tr>

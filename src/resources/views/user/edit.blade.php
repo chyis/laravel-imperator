@@ -85,14 +85,6 @@
             required:true,
             rangelength: [2,20]
           },
-          pwd:{
-            required:true,
-            rangelength: [6,20]
-          },
-          confirmpwd:{
-            required:true,
-            rangelength: [6,20]
-          },
           email:{
             required:true
           },
@@ -113,14 +105,6 @@
           nickname:{
             required:"昵称不能为空",
             rangelength:"昵称需在2-10个字之间"
-          },
-          confirmpwd:{
-            required:"确认密码不能为空",
-            rangelength:"密码在6-15字符之间"
-          },
-          pwd:{
-            required:"密码不能为空",
-            rangelength:"密码在6-15字符之间"
           },
           phone:{
             required:"电话必须填写",
@@ -170,7 +154,7 @@
             contentType: "application/json;charset=UTF-8",
             cache: false,
             data: JSON.stringify(Data),
-            async : false,    //同步
+            async : false, //同步
             success:function (res) {
               if(res.code==0) {
                 success(res.msg);

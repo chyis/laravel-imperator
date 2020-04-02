@@ -33,7 +33,7 @@ class MenuController extends AdminController
         }
         $list = $query
             ->orderby('order', 'asc')
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::menu.index')
             ->with('pageName', '菜单管理')

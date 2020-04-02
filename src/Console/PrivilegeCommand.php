@@ -87,15 +87,15 @@ class PrivilegeCommand extends Command
     private function getIgnoreTables()
     {
         return [
-            config('admin.database.users_table'),
-            config('admin.database.roles_table'),
-            config('admin.database.permissions_table'),
-            config('admin.database.menu_table'),
-            config('admin.database.operation_log_table'),
-            config('admin.database.user_permissions_table'),
-            config('admin.database.role_users_table'),
-            config('admin.database.role_permissions_table'),
-            config('admin.database.role_menu_table'),
+            config('imperator.DataBase.users_table'),
+            config('imperator.DataBase.roles_table'),
+            config('imperator.DataBase.permissions_table'),
+            config('imperator.DataBase.menu_table'),
+            config('imperator.DataBase.operation_log_table'),
+            config('imperator.DataBase.user_permissions_table'),
+            config('imperator.DataBase.role_users_table'),
+            config('imperator.DataBase.role_permissions_table'),
+            config('imperator.DataBase.role_menu_table'),
         ];
     }
 

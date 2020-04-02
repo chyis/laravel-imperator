@@ -24,13 +24,14 @@ class ManagerController extends AdminController
         {
             $condition[] = ['username', $keyWord];
         }
-        $query = Users::orderBy('id', 'desc');
+        $query = Users::orderBy('id', 'desc')
+            ->with('role');
         if (!empty($query))
         {
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         $roles = Role::getNames();
 
@@ -96,16 +97,16 @@ class ManagerController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \Chyis\Imperator\Models\Users  $manager
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $id)
+    public function edit(Users $manager)
     {
-        $user = Users::find($id);
         $roles = Role::getNames();
 
         return view('Imperator::user.edit')
-            ->with('entity', $user)
+            ->with('entity', $manager)
             ->with('roles', $roles)
             ->with('pageName', '用户修改');
     }
@@ -114,39 +115,45 @@ class ManagerController extends AdminController
      * Update the specified resource in storage.
      *
      * @param  \Chyis\Imperator\Requests\UserRequest  $request
-     * @param  \Chyis\Imperator\Models\Users  $user
+     * @param  \Chyis\Imperator\Models\Users  $manager
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, Users $user)
+    public function update(UserRequest $request, Users $manager)
     {
         $data['user_name'] = $request->input('username');
         $data['nick_name'] = $request->input('nickname');
         $data['role_id'] = intval($request->input('role_id'));
-        $data['password'] = bcrypt($request->input('pwd'));
+        if ($request->input('pwd') != '') {
+            $data['password'] = bcrypt($request->input('pwd'));
+        }
         $data['phone'] = $request->input('phone');
         $data['email'] = $request->input('email');
         $data['description'] = '';
-        $user->update($data);
+        if ($res = $manager->where('id', $manager->id)->update($data)) {
+            return $this->success('修改成功');
+        } else {
+            return $this->error('修改失败', 100, $manager);
+        }
 
-        return $this->success('修改成功');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Chyis\Imperator\Models\Users  $manager
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Users $manager)
     {
-        $user = Users::findOrfail($id);
-        if ($user)
+        $manager = $manager->find();
+        if ($manager)
         {
-            $user->delete();
+            $manager->delete();
 
-            $this->success('删除成功');
+            return $this->success('删除成功');
         } else {
-            $this->error('该内容不存在');
+            return $this->error('该内容不存在');
         }
     }
 }

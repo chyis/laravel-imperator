@@ -3,7 +3,9 @@
 return [
     'title' => 'KK Imperator',
     'url' => env('APP_URL', '/admin'). '/admin',
-
+    'DataBase'=>[
+        'prefix'=>'news_',
+    ],
     'default-skin' => 'default',
 
     'tools' => [
@@ -60,5 +62,8 @@ return [
             'modules'=>'modules',
             'advertises'=>'advertises',
         ],
+    'models'=>[
+            'users'=>\Chyis\Imperator\Models\Users::class,
 
+    ],
 ];

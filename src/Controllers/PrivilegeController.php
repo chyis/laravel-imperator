@@ -34,7 +34,7 @@ class PrivilegeController extends AdminController
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::privilege.index')
             ->with('lists', $list)

@@ -30,7 +30,7 @@ class CategoryController extends AdminController
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::category.index')
             ->with('lists', $list)

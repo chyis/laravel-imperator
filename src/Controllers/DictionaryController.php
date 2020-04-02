@@ -35,7 +35,7 @@ class DictionaryController extends AdminController
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::dictionary.index')
             ->with('lists', $list)
@@ -67,7 +67,6 @@ class DictionaryController extends AdminController
      */
     public function store(DictionaryRequest $request)
     {
-        $dictRoot = $request->input('root_id');
         $dict = new Dictionary();
         $dict->var_name = $request->input('var_name');
         $dict->var_code = $request->input('var_code') == '' ? '' : $request->input('var_code');
@@ -121,7 +120,7 @@ class DictionaryController extends AdminController
      */
     public function show(Dictionary $dictionary, Request $request)
     {
-        $list = Dictionary::getChild(16);
+        $list = Dictionary::getChild($dictionary->id);
 
         return view('Imperator::dictionary.show')
             ->with('dictionary', $dictionary)
@@ -154,7 +153,6 @@ class DictionaryController extends AdminController
         $menuRoot = Dictionary::where('parent_id', 0)
             ->get();
         $parent = $dictionary->parent();
-        $parents = [];
         if (isset($parent) && $parent->parent_id > 0)
         {
             $parents =  Dictionary::where('parent_id', $parent->parent_id)
@@ -236,7 +234,7 @@ class DictionaryController extends AdminController
      * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $dictionary)
+    public function destroy(Dictionary $dictionary)
     {
         $dictionary = Dictionary::findOrfail($dictionary);
         if ($dictionary)

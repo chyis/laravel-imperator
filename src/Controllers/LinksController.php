@@ -30,7 +30,7 @@ class LinksController extends AdminController
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::link.index')
             ->with('pageName', '合作伙伴管理')

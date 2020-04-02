@@ -45,7 +45,7 @@ class AttachmentController extends Controller
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::attachment.index')
             ->with('pageName', '附件管理')

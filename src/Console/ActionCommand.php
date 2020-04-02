@@ -112,7 +112,7 @@ CODE;
             return $namespace;
         }
 
-        $segments = explode('\\', config('admin.route.namespace'));
+        $segments = explode('\\', config('imperator.route.namespace'));
 
         array_pop($segments);
 

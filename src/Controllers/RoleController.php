@@ -2,12 +2,12 @@
 
 namespace Chyis\Imperator\Controllers;
 
-use App\Http\Controllers\Controller;
 use Chyis\Imperator\Models\Privilege;
 use Chyis\Imperator\Models\Role;
-use Illuminate\Http\Request;
+use Chyis\Imperator\Models\RolePrivilege;
+use Chyis\Imperator\Requests\RoleRequest;
 
-class RoleController extends Controller
+class RoleController extends AdminController
 {
 
     public function index()
@@ -19,13 +19,13 @@ class RoleController extends Controller
         {
             $condition[] = ['title', $keyWord];
         }
-        $query = Role::orderBy('sort', 'asc');
+        $query = Role::orderBy('id', 'asc');
         if (!empty($query))
         {
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
         return view('Imperator::role.index')
             ->with('lists', $list)
             ->with('pageName', '角色管理');
@@ -52,27 +52,45 @@ class RoleController extends Controller
      * Store a newly created resource in storage.
      * POST /news
      *
-     * @return Response
+     * @param  \Chyis\Imperator\Requests\RoleRequest  $request
+     *
+     * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $request = $request->toArray();
-        $title = $request['title'];
-        echo $title;
+        $data = [];
+        $data['name'] = $request->input('role_name');
+        $data['code'] = $request->input('role_code') ?? '';
+        $data['icon'] = $request->input('role_icon') ?? '';
+        $data['min_s'] = $request->input('min_s') ?? 0;
+        $data['max_s'] = $request->input('max_s') ?? 0;
+        $data['department_id'] = $request->input('department_id') ?? 0;
 
-        return 1;
+        $roleID = Role::insertGetId($data);
+        if ($roleID) {
+            $privileges = $request->input('privileges');
+            $rolePrivilege = [];
+            foreach ($privileges as $k =>$priv_id) {
+                $rolePrivilege[] = ['role_id'=>$roleID, 'pri_id'=>$priv_id];
+            }
+            RolePrivilege::insertAll($rolePrivilege);
+            return $this->success('添加成功');
+        } else {
+            return $this->error('添加失败');
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      * GET /role/{id}/edit
      *
-     * @param int $id
+     *@param  \Chyis\Imperator\Models\Role $role
+     *
      * @return Response
      */
 
-    public function edit($id)
+    public function edit(Role $role)
     {
 
         return view('Imperator::role.edit')
@@ -81,16 +99,33 @@ class RoleController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * PUT /role/{id}
+     * PUT /role/{role}
      *
-     * @param int $id
+     * @param  \Chyis\Imperator\Requests\RoleRequest  $request
+     * @param  \Chyis\Imperator\Models\Role $role
+     *
      * @return Response
     */
-    public function update($id)
+    public function update(RoleRequest $request, Role $role)
     {
-        $this->validate([]);
+        $data = [];
+        $data['name'] = $request->input('role_name');
+        $data['code'] = $request->input('role_code') ?? '';
+        $data['icon'] = $request->input('role_icon') ?? '';
+        $data['min_s'] = $request->input('min_s') ?? 0;
+        $data['max_s'] = $request->input('max_s') ?? 0;
+        $data['department_id'] = $request->input('department_id') ?? 0;
 
-        return;
+        $role->saveOrFail($data);
+        $privileges = $request->input('privileges');
+        $userPrivilege = [];
+        foreach ($privileges as $k =>$priv_id) {
+            $userPrivilege[] = ['role_id'=>$role->id, 'pri_id'=>$priv_id];
+        }
+        UserPrivilege::where('role_id', $role->id)->deleted();
+        UserPrivilege::insertAll($userPrivilege);
+
+        return $this->success('保存成功');
     }
 
 

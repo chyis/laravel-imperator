@@ -1,5 +1,5 @@
 /** ----------------------------------
- * KK后台管理系统模板
+ * 后台管理系统模板
  * 基于Bootstrap v3.3.7
  * 
  * JerryLi<dream_imperator@163.com>
@@ -11,7 +11,7 @@ body {
 	font-size: 14px;
 	overflow-x: hidden;
     background-color: #f5f6fa;
-	background-image: url(/statics/admin/images/bg.png);
+	background-image: url(/vendor/laravel-imperator/images/bg.png);
 }
 html,
 body {

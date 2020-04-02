@@ -26,7 +26,7 @@ class NewsController extends AdminController
             $query->where($condition);
         }
         $list = $query
-            ->paginate(config('admin.tools.perPage'));
+            ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::news.index')
             ->with('lists', $list)
