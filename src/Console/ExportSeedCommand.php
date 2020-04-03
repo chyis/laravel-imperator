@@ -39,30 +39,30 @@ class ExportSeedCommand extends Command
         $replaces = [
             'DummyClass' => $name,
 
-            'ClassMenu'       => config('imperator.DataBase.menu_model'),
-            'ClassPermission' => config('imperator.DataBase.permissions_model'),
-            'ClassRole'       => config('imperator.DataBase.roles_model'),
+            'ClassMenu'       => config('imperator.database.menu_model'),
+            'ClassPermission' => config('imperator.database.permissions_model'),
+            'ClassRole'       => config('imperator.database.roles_model'),
 
-            'TableRoleMenu'        => config('imperator.DataBase.role_menu_table'),
-            'TableRolePermissions' => config('imperator.DataBase.role_permissions_table'),
+            'TableRoleMenu'        => config('imperator.database.role_menu_table'),
+            'TableRolePermissions' => config('imperator.database.role_permissions_table'),
 
-            'ArrayMenu'       => $this->getTableDataArrayAsString(config('imperator.DataBase.menu_table'), $exceptFields),
-            'ArrayPermission' => $this->getTableDataArrayAsString(config('imperator.DataBase.permissions_table'), $exceptFields),
-            'ArrayRole'       => $this->getTableDataArrayAsString(config('imperator.DataBase.roles_table'), $exceptFields),
+            'ArrayMenu'       => $this->getTableDataArrayAsString(config('imperator.database.menu_table'), $exceptFields),
+            'ArrayPermission' => $this->getTableDataArrayAsString(config('imperator.database.permissions_table'), $exceptFields),
+            'ArrayRole'       => $this->getTableDataArrayAsString(config('imperator.database.roles_table'), $exceptFields),
 
-            'ArrayPivotRoleMenu'        => $this->getTableDataArrayAsString(config('imperator.DataBase.role_menu_table'), $exceptFields),
-            'ArrayPivotRolePermissions' => $this->getTableDataArrayAsString(config('imperator.DataBase.role_permissions_table'), $exceptFields),
+            'ArrayPivotRoleMenu'        => $this->getTableDataArrayAsString(config('imperator.database.role_menu_table'), $exceptFields),
+            'ArrayPivotRolePermissions' => $this->getTableDataArrayAsString(config('imperator.database.role_permissions_table'), $exceptFields),
         ];
 
         if ($exportUsers) {
             $replaces = array_merge($replaces, [
-                'ClassUsers'            => config('imperator.DataBase.users_model'),
-                'TableRoleUsers'        => config('imperator.DataBase.role_users_table'),
-                'TablePermissionsUsers' => config('imperator.DataBase.user_permissions_table'),
+                'ClassUsers'            => config('imperator.database.users_model'),
+                'TableRoleUsers'        => config('imperator.database.role_users_table'),
+                'TablePermissionsUsers' => config('imperator.database.user_permissions_table'),
 
-                'ArrayUsers'                 => $this->getTableDataArrayAsString(config('imperator.DataBase.users_table'), $exceptFields),
-                'ArrayPivotRoleUsers'        => $this->getTableDataArrayAsString(config('imperator.DataBase.role_users_table'), $exceptFields),
-                'ArrayPivotPermissionsUsers' => $this->getTableDataArrayAsString(config('imperator.DataBase.user_permissions_table'), $exceptFields),
+                'ArrayUsers'                 => $this->getTableDataArrayAsString(config('imperator.database.users_table'), $exceptFields),
+                'ArrayPivotRoleUsers'        => $this->getTableDataArrayAsString(config('imperator.database.role_users_table'), $exceptFields),
+                'ArrayPivotPermissionsUsers' => $this->getTableDataArrayAsString(config('imperator.database.user_permissions_table'), $exceptFields),
             ]);
         } else {
             $contents = preg_replace('/\/\/ users tables[\s\S]*?(?=\/\/ finish)/mu', '', $contents);

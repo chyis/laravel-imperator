@@ -3,7 +3,7 @@
 return [
     'title' => 'KK Imperator',
     'url' => env('APP_URL', '/admin'). '/admin',
-    'DataBase'=>[
+    'database'=>[
         'prefix'=>'news_',
     ],
     'default-skin' => 'default',
