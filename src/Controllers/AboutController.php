@@ -2,7 +2,6 @@
 
 namespace Chyis\Imperator\Controllers;
 
-
 use Chyis\Imperator\Models\Setting;
 use Illuminate\Http\Request;
 

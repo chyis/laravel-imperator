@@ -3,21 +3,6 @@
 @section('stylesheet')
   @parent
   <link rel="stylesheet" href="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.css">
-  <style type="text/css">
-    input[type=file]{
-      opacity:0;
-      filter:alpha(opacity=0);
-      height: 150px;
-      width: 150px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 9;
-    }
-    .upload-area{
-      overflow: hidden;
-    }
-  </style>
 @stop
 
 @section('pageTitle')
@@ -71,26 +56,9 @@
                   @include('Imperator::include.ckEditor')
                 </div>
                 <div class="form-group">
-                  <label>多图上传</label>
-                  <div class="form-controls">
-
-                    <ul class="list-inline clearfix kkadmin-uploads-pic">
-                      @foreach( $gallery as $image)
-                        <li class="col-xs-4 col-sm-3 col-md-2">
-                          <figure>
-                            <img src="{{$staticDir}}/images/gallery/16.jpg" alt="图片二">
-                            <figcaption>
-                              <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
-                              <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
-                            </figcaption>
-                          </figure>
-                        </li>
-                      @endforeach
-                        <li class="col-xs-4 col-sm-3 col-md-2 upload-area">
-                          <a class="pic-add" id="add-pic-btn" href="#!" title="点击上传"><input class="image-up-field" widget-type="auto-upload" data-target="preview" target-type="preview" type="file" id="dict_icon" name="dict_icon"></a>
-                        </li>
-                    </ul>
-                  </div>
+                  <label for="image">封面图</label>
+                  <input class="form-control" type="text" id="image" name="image" value="{{ $entity->image }}">
+                  <input class="image-up-field" widget-type="auto-upload" data-target="image" target-type="input" type="file" id="img-upload" name="img-upload">
                 </div>
                 <div class="form-group">
                   <label for="tags">标签</label>
@@ -204,6 +172,7 @@
             title:$("#title").val(),
             cate_id:$("#cate_id").val(),
             tags:$("#tags").val(),
+            image:$("#image").val(),
             summary:$("#summary").val(),
             content:$("#content").val(),
             sort:$("#sort").val(),

@@ -3,6 +3,7 @@
 namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Article extends Model
 {
@@ -45,25 +46,11 @@ class Article extends Model
         'updated_at'=>'更新时间'
     ];
     protected $needPri = [];
-    /**
-     * 表明模型是否应该被打上时间戳
-     *
-     * @var bool
-     */
+
     //public $timestamps = false;
-    /**
-     * 模型日期列的存储格式
-     *
-     * @var string
-     */
     //protected $dateFormat = 'U';
     //const CREATED_AT = 'creation_date';
     //const UPDATED_AT = 'last_update';
-    /**
-     * The connection name for the model.
-     *
-     * @var string
-     */
     //protected $connection = 'connection-name';
 
 
@@ -72,12 +59,36 @@ class Article extends Model
         return $this->hasOne('Chyis\Imperator\Models\Category', 'id','cate_id');
     }
 
-    function top10()
+    public static function top($type, $num=10)
     {
-        return $this->where()
-            ->order()
-            ->top(10)
+        $orderField = $type . "_count";
+        return self::
+//            ->where()
+            orderBy("$orderField", "DESC")
+            ->take($num);
+    }
+
+    public static function random()
+    {
+        return self::
+//            ->where()
+            orderBy("id", "DESC")
+            ->take(10)
             ->get();
+    }
+
+    public static function latest($num=10)
+    {
+        return self::
+//            ->where()
+            orderBy("created_at", "DESC")
+            ->take($num)
+            ->get();
+    }
+
+    function content()
+    {
+        return $this->hasOne('Chyis\Imperator\Models\ArticleContent', 'id','cate_id');
     }
 
     function getContentAttribute()
@@ -89,6 +100,19 @@ class Article extends Model
             {
                 return $content->content;
             }
+        }
+
+        return '未知';
+    }
+
+
+    function getCreatedDateAttribute()
+    {
+        if ($this->getAttribute('created_at') != '')
+        {
+            $time = explode(' ', $this->getAttribute('created_at'));
+
+            return $time[0];
         }
         return '未知';
     }

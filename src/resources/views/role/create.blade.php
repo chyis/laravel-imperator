@@ -24,11 +24,11 @@
                 <form id="mainForm" action="{{ URL::route('admin.role.store') }}" method="post">
                   {{csrf_field()}}
                   <div class="form-group">
-                    <label for="example-text-input">角色名称</label>
+                    <label for="role_name">角色名称</label>
                     <input class="form-control" type="text" name="role_name" id="role_name" placeholder="新角色名称">
                   </div>
                   <div class="form-group">
-                    <label for="example-text-input">角色标识</label>
+                    <label for="role_code">角色标识</label>
                     <input class="form-control" type="text" name="role_code" id="role_code" placeholder="英文标识">
                   </div>
                   <div class="table-responsive">

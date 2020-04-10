@@ -56,7 +56,7 @@
 
                   <div class="form-group">
                     <label for="cate_icon">栏目图标</label>
-                    <input class="form-control" type="text" id="cate_icon" name="cate_icon" value="{{ $type->image }}">
+                    <input class="form-control" type="text" id="cate_icon" name="cate_icon" value="{{ $entity->image }}">
                     <input class="image-up-field" widget-type="auto-upload" data-target="cate_icon" target-type="input" type="file" id="img-upload" name="img-upload">
                   </div>
 

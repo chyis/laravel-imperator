@@ -30,7 +30,6 @@ class AdminMiddleware
         }
         if (!Request()->ajax() && Request()->isMethod('get'))
         {
-
 //            $userID = $user->id;
             $user = Auth::guard('admin')->user();
 
@@ -39,7 +38,6 @@ class AdminMiddleware
             $menuData = Menu::getTypeTree('admin', 'left', $userID);
             view()->share('sideBar', $menuData);
         }
-
 
         return $next($request);
     }

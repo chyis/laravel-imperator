@@ -2,6 +2,7 @@
 
 namespace Chyis\Imperator\Controllers;
 
+use Chyis\Imperator\Models\Tags;
 use Chyis\Imperator\Requests\ArticleRequest;
 use Chyis\Imperator\Models\Article;
 use Chyis\Imperator\Models\ArticleContent;
@@ -38,7 +39,7 @@ class NewsController extends AdminController
      * Show the form for creating a new resource.
      * GET /news/create
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
 
     public function create()
@@ -53,8 +54,9 @@ class NewsController extends AdminController
     /**
      * Store a newly created resource in storage.
      * POST /news
+     * @param \Chyis\Imperator\Requests\ArticleRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
 
     public function store(ArticleRequest $request)
@@ -64,6 +66,7 @@ class NewsController extends AdminController
         $article->summary = $request->input('summary');
         $article->cate_id = $request->input('cate_id');
         $article->tags = $request->input('tags');
+        $article->image = $request->input('image') ?? '';
         $article->sort = intval($request->input('sort'));
         $article->status = intval($request->input('status'));
 
@@ -78,6 +81,8 @@ class NewsController extends AdminController
                 $content->create_user = 1;
 //                $content->last_modify_user = $id;
                 $content->save();
+                $tag = new Tags();
+                $tag->saveTags(explode(',', $request->input('tags')), $id, 'article');
             }
             return $this->success('成功');
         } else {
@@ -91,12 +96,12 @@ class NewsController extends AdminController
      * GET /news/{id}
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
 
     public function show($id)
     {
-
+        return view('Imperator::news.preview');
     }
 
 
@@ -104,47 +109,48 @@ class NewsController extends AdminController
      * Show the form for editing the specified resource.
      * GET /news/{id}/edit
      *
-     * @param int $id
-     * @return Response
+     * @param \Chyis\Imperator\Models\Article $news
+     * @return \Illuminate\Http\Response
      */
 
-    public function edit(int $id)
+    public function edit(Article $news)
     {
         $category = Category::dirRoot();
-        $article = Article::find($id);
 
         return view('Imperator::news.edit')
-            ->with('pageName', '文档添加')
-            ->with('entity', $article)
-            ->with('gallery', [])
+            ->with('pageName', '文档修改')
+            ->with('entity', $news)
             ->with('category', $category);
     }
 
     /**
      * Update the specified resource in storage.
      * PUT /news/{id}
+     * @param \Chyis\Imperator\Requests\ArticleRequest $request
+     * @param \Chyis\Imperator\Models\Article $news
      *
-     * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
 
-    public function update(ArticleRequest $request, int $id)
+    public function update(ArticleRequest $request, Article $news)
     {
-        $article = Article::findOrFail($id);
-        $article->title = $request->input('title');
-        $article->summary = $request->input('summary');
-        $article->cate_id = $request->input('cate_id');
-        $article->tags = $request->input('tags');
-        $article->sort = intval($request->input('sort'));
-        $article->status = intval($request->input('status'));
+        $news->title = $request->input('title');
+        $news->summary = $request->input('summary');
+        $news->cate_id = $request->input('cate_id');
+        $news->tags = $request->input('tags');
+        $news->image = $request->input('image') ?? '';
+        $news->sort = intval($request->input('sort'));
+        $news->status = intval($request->input('status'));
 
-        if ($res = $article->save())
+        if ($res = $news->save())
         {
-            $content =  ArticleContent::find($id);
+            $content =  ArticleContent::find($news->id);
             $content->content = $request->input('content');;
 //            $content->create_user = 1;
             $content->last_modify_user = 2;
             $content->save();
+            $tag = new Tags();
+            $tag->saveTags(explode(',', $request->input('tags')), $news->id, 'article');
 
             return $this->success('修改成功');
         } else {
@@ -155,20 +161,19 @@ class NewsController extends AdminController
     /**
      * Remove the specified resource from storage.
      * DELETE /news/{id}
+     * @param \Chyis\Imperator\Models\Article $news
      *
-     * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
-    {
-        $article = Article::findOrfail($id);
-        if ($article)
-        {
-            $article->delete();
 
-            $this->success('删除成功');
+    public function destroy(Article $news)
+    {
+        if ($news) {
+            $news->delete();
+
+            return $this->success('删除成功');
         } else {
-            $this->error('该内容不存在');
+            return $this->error('该内容不存在');
         }
     }
 

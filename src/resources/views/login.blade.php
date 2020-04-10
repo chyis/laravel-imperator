@@ -53,7 +53,7 @@
   <div class="kkadmin-login">
     <div class="login-center">
       <div class="login-header text-center">
-        <a href="index.html"> <img alt="light year admin" src="{{ $staticDir }}/images/logo-sidebar.png"> </a>
+        <a href="index.html"> <img alt="KK admin" src="{{ $staticDir }}/images/logo-sidebar.png"> </a>
       </div>
       @if (isset($errors) && count($errors) > 0)
         <div class="alert alert-danger alert-dismissible" role="alert">

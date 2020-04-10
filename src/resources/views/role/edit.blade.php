@@ -21,17 +21,16 @@
             <div class="card">
               <div class="card-header"><h4>设置权限</h4></div>
               <div class="card-body">
-                <form action="{{ URL::route('admin.role.update') }}" method="post">
+                <form id="mainForm" action="{{ URL::route('admin.role.update', $entity->id) }}" method="post">
                   {{csrf_field()}}
-
                   <div class="form-group">
-                    <label for="example-text-input">角色名称</label>
-                    <input class="form-control" type="text" name="role-input" placeholder="角色名称" value="{{ $entity-> }}">
+                    <label for="role_name">角色名称</label>
+                    <input class="form-control" type="text" id="role_name" name="role_name" placeholder="角色名称" value="{{ $entity->name }}">
                   </div>
 
                   <div class="form-group">
-                    <label for="example-text-input">角色标识</label>
-                    <input class="form-control" type="text" name="role-code" placeholder="英文标识">
+                    <label for="role_code">角色标识</label>
+                    <input class="form-control" type="text" id="role_code" name="role_code" placeholder="英文标识" value="{{ $entity->code }}">
                   </div>
 
                   <div class="table-responsive">
@@ -71,7 +70,7 @@
                                 <td class="p-l-40">
                                   @foreach($child['child'] as $h=>$privilege)
                                     <label class="kkadmin-checkbox checkbox-primary checkbox-inline">
-                                      <input name="rules[]" type="checkbox" class="checkbox-child" dataid="id-{{$group['id']}}-{{$child['id']}}-{{$privilege['id']}}" value="{{$privilege['id']}}">
+                                      <input widget-type="check-data" name="rules[]" type="checkbox" class="checkbox-child" @if(in_array($privilege['id'], $rolePrivileges)) checked  @endif dataid="id-{{$group['id']}}-{{$child['id']}}-{{$privilege['id']}}" value="{{$privilege['id']}}">
                                       <span> {{$privilege['name']}}</span>
                                     </label>
                                   @endforeach
@@ -103,11 +102,11 @@
 
 @section('javascript')
   @parent
-  <!--标签插件-->
-  <script src="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
-  <script type="text/javascript" src="{{$staticDir}}/js/perfect-scrollbar.min.js"></script>
-
-  <script type="text/javascript" src="js/chosen.jquery.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/chosen.jquery.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
+  <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
   <script type="text/javascript">
     $(function(){
       //动态选择框，上下级选中状态变化
@@ -142,6 +141,79 @@
           }
         }
       });
+    });
+    $("#mainForm").validate({
+      errorElement : 'span',
+      errorClass : 'help-block',
+      rules:{
+        role_name:{
+          required:true
+        },
+        role_code:{
+          required:true
+        },
+      },
+      messages:{
+        setting:{
+          required:"角色名称不能为空"
+        },
+        role_code:{
+          required:"角色标识不能为空"
+        },
+      },
+      errorPlacement : function(error, element) {
+        element.next().remove();
+        element.after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+        element.closest('.form-group').append(error);
+      },
+      highlight : function(element) {
+        $(element).closest('.form-group').addClass('has-error has-feedback');
+      },
+      success : function(label) {
+        var el=label.closest('.form-group').find("input");
+        el.next().remove();
+        el.after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+        label.closest('.form-group').removeClass('has-error').addClass("has-feedback has-success");
+        label.remove();
+      },
+      submitHandler: function(form) {
+        var vals = [];
+        $("input[widget-type='check-data']:checked").each(function (index, item) {
+          vals.push($(this).val());
+        });
+        let Data = {
+          role_name: $("#role_name").val(),
+          role_code: $("#role_code").val(),
+          privileges: vals
+        };
+        $.ajaxSetup({
+          headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+        });
+        $.ajax({
+          type: "put",
+          url: "{{ route('admin.role.update', $entity->id) }}",
+          dataType: 'json',
+          processData: false,
+          contentType: "application/json;charset=UTF-8",
+          cache: false,
+          data: JSON.stringify(Data),
+          async : false,    //同步
+          success:function (res) {
+            if(res.code==0) {
+              success(res.msg);
+            } else if(res.code > 0) {
+              error(res.msg);
+            } else {
+              alert(res.code);
+            }
+          },
+          //请求失败，包含具体的错误信息
+          error : function(e){
+            if (e.status == 422) error(e.responseJSON.msg);
+            console.log(e);
+          }
+        });
+      }
     });
   </script>
 @stop

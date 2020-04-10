@@ -61,6 +61,8 @@ return [
             'contacts'=>'contacts',
             'modules'=>'modules',
             'advertises'=>'advertises',
+            'tags'=>'tags',
+            'tags_items'=>'tags_items',
         ],
     'models'=>[
             'users'=>\Chyis\Imperator\Models\Users::class,

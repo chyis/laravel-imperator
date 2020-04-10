@@ -40,10 +40,10 @@ class CategoryRequest extends FormRequest
         $rules = [];
         if (Request::isMethod('post'))
         {
-            $rules['cate_name'] = 'required|max:20|min:2|unique:cate_name';
+            $rules['cate_name'] = 'required|max:20|min:2|unique:category,cate_name';
             $rules['parent_id'] = 'required|integer';
         } elseif (Request::isMethod('get')) {
-            $rules['id'] = 'required|max:20|unique:dictionary,var_name';
+            $rules['id'] = 'required|max:20|unique:category,cate_name';
         } elseif (Request::isMethod('put')) {
             //$rules['id'] = 'required|max:20|unique:dictionary,var_name';
             $rules['cate_name'] = 'required|max:20|min:2';

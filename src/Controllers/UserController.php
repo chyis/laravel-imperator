@@ -75,7 +75,7 @@ class UserController extends AdminController
         $data['nick_name'] = $request->input('nickname');
         $data['phone'] = $request->input('phone');
         $data['email'] = $request->input('email');
-        $data['description'] = $request->input('description');
+        $data['description'] = $request->input('description') ?? '';
 
         $user->update($data);
 

@@ -3,21 +3,6 @@
 @section('stylesheet')
   @parent
   <link rel="stylesheet" href="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.css">
-  <style type="text/css">
-      input[type=file]{
-      opacity:0;
-      filter:alpha(opacity=0);
-      height: 150px;
-      width: 150px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 9;
-    }
-    .upload-area{
-        overflow: hidden;
-    }
-  </style>
 @stop
 
 @section('pageTitle')
@@ -69,14 +54,9 @@
                   @include('Imperator::include.ckEditor')
                 </div>
                 <div class="form-group">
-                  <label>封面图</label>
-                  <div class="form-controls">
-                    <ul id="preview" class="list-inline clearfix kkadmin-uploads-pic">
-                      <li class="col-xs-4 col-sm-3 col-md-2 upload-area">
-                          <a class="pic-add" id="add-pic-btn" href="#!" title="点击上传"><input class="image-up-field" widget-type="auto-upload" data-target="preview" target-type="preview" type="file" id="dict_icon" name="dict_icon"></a>
-                      </li>
-                    </ul>
-                  </div>
+                  <label for="image">封面图</label>
+                  <input class="form-control" type="text" id="image" name="image" value="">
+                  <input class="image-up-field" widget-type="auto-upload" data-target="image" target-type="input" type="file" id="img-upload" name="img-upload">
                 </div>
                 <div class="form-group">
                   <label for="tags">标签</label>
@@ -190,6 +170,7 @@
             cate_id:$("#cate_id").val(),
             tags:$("#tags").val(),
             summary:$("#summary").val(),
+            image:$("#image").val(),
             content:$("#content").val(),
             sort:$("#sort").val(),
             status:$('input[name="status"]:checked').val()

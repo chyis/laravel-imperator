@@ -92,8 +92,13 @@ class RoleController extends AdminController
 
     public function edit(Role $role)
     {
+        $privileges = Privilege::getTree();
+        $rolePrivileges = RolePrivilege::getByRoleID($role->id);
 
         return view('Imperator::role.edit')
+            ->with('entity', $role)
+            ->with('privTree', $privileges)
+            ->with('rolePrivileges', $rolePrivileges)
             ->with('pageName', '角色修改');
     }
 
@@ -122,8 +127,8 @@ class RoleController extends AdminController
         foreach ($privileges as $k =>$priv_id) {
             $userPrivilege[] = ['role_id'=>$role->id, 'pri_id'=>$priv_id];
         }
-        UserPrivilege::where('role_id', $role->id)->deleted();
-        UserPrivilege::insertAll($userPrivilege);
+        RolePrivilege::where('role_id', $role->id)->delete();
+        RolePrivilege::insertAll($userPrivilege);
 
         return $this->success('保存成功');
     }

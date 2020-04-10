@@ -13,7 +13,7 @@ class CreateAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attributes', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.attributes'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('type_id')->default(0)->comment('属性类型ID');
             $table->string('attr_name', 20)->default('')->comment('属性名称');
@@ -31,6 +31,6 @@ class CreateAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes');
+        Schema::dropIfExists(config('imperator.tables.attributes'));
     }
 }
