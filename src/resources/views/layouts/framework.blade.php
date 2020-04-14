@@ -19,13 +19,13 @@
 <div class="kkadmin-layout-web">
     <div class="kkadmin-layout-container">
         @section('sidebar')
-            <!--左侧导航-->
+            <!-- Start left side bar-->
             @include('Imperator::include.sidebar')
-            <!--End 左侧导航-->
+            <!--End left side bar-->
         @show
 
         @section('head')
-        <!--头部信息-->
+        <!-- Head information-->
         <header class="kkadmin-layout-header">
             <nav class="navbar navbar-default">
                 <div class="topbar">
@@ -34,11 +34,11 @@
                 </div>
             </nav>
         </header>
-        <!--End 头部信息-->
+        <!--End head information-->
         @show
 
         @section('content')
-        <!--页面主要内容-->
+        <!-- main content -->
         <main class="kkadmin-layout-content">
             <div class="container-fluid">
                 <div class="row">
@@ -121,7 +121,7 @@
             </div>
 
         </main>
-        <!--End 页面主要内容-->
+        <!--End main content-->
         @show
     </div>
 </div>

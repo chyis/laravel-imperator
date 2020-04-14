@@ -18,7 +18,8 @@ class CreateAdvertisesTable extends Migration
             $table->string('title', 50);
             $table->integer('agent_id')->default(0)->comment('广告商ID');
             $table->string('type', 10)->default('text')->comment('广告类型');
-            $table->text('src')->nullable()->comment('广告代码或图片地址');
+            $table->text('src')->nullable()->comment('广告代码或模板内容');
+            $table->string('image', 100)->comment('图片地址');
             $table->string('url', 10)->comment('链接地址');
             $table->string('text', 100)->comment('文字');
             $table->string('size', 100)->comment('广告尺寸');

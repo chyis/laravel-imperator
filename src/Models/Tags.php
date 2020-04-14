@@ -4,6 +4,7 @@ namespace Chyis\Imperator\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Chyis\Imperator\Models\TagsItems;
 
 class Tags extends Model
 {
@@ -72,6 +73,6 @@ class Tags extends Model
 
     public function items()
     {
-        return $this->hasMany('/Chyis/Imperator/Models/TagsItems', 'tag_id', 'id');
+        return $this->hasMany('Chyis\Imperator\Models\TagsItems', 'tag_id', 'id');
     }
 }

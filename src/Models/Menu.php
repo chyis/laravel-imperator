@@ -133,6 +133,19 @@ class Menu extends Model
 
     public function getTypeNameAttribute()
     {
+        if ($this->getAttribute('type_id') > 0)
+        {
+            $type = Dictionary::find($this->getAttribute('type_id'));
+            if ($type) {
+                return $type->var_name;
+            }
+        }
+
+        return '未知';
+    }
+
+    public function getDirNameAttribute()
+    {
         if ($this->getAttribute('parent_id') == 0) return '初代目';
         if ($this->getAttribute('parent_id') > 0) return '二代目';
         return '三代目';

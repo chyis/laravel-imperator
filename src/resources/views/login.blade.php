@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>登录页- </title>
+  <title> {{ __('imperator.login') }} - KKAdmin </title>
   <link rel="icon" href="{{ $staticDir }}/favicon.ico" type="image/ico">
   <link rel="shortcut icon" href="{{ $staticDir }}/favicon.ico" type="image/x-icon" />
   <meta name="author" content="">
@@ -53,7 +53,7 @@
   <div class="kkadmin-login">
     <div class="login-center">
       <div class="login-header text-center">
-        <a href="index.html"> <img alt="KK admin" src="{{ $staticDir }}/images/logo-sidebar.png"> </a>
+        <a href="http://www.yuncongtec.com"> <img alt="KK admin" src="{{ $staticDir }}/images/logo-sidebar.png"> </a>
       </div>
       @if (isset($errors) && count($errors) > 0)
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -68,29 +68,29 @@
       <form action="/admin/login" method="post" onsubmit="javascript::return checkLogin();">
         {{csrf_field()}}
         <div class="form-group has-feedback feedback-left">
-          <input type="text" placeholder="请输入您的用户名" class="form-control" value="{{ old('user_name', '') }}" name="user_name" id="user_name" required />
+          <input type="text" placeholder="{{ __('imperator.userName') }}" class="form-control" value="{{ old('user_name', '') }}" name="user_name" id="user_name" required />
           <span class="mdi mdi-account form-control-feedback" aria-hidden="true"></span>
         </div>
         <div class="form-group has-feedback feedback-left">
-          <input type="password" placeholder="请输入密码" class="form-control" id="password" value="{{ old('password', '') }}" name="password" required />
+          <input type="password" placeholder="{{ __('imperator.password') }}" class="form-control" id="password" value="{{ old('password', '') }}" name="password" required />
           <span class="mdi mdi-lock form-control-feedback" aria-hidden="true"></span>
         </div>
         <div class="form-group has-feedback feedback-left row">
           <div class="col-xs-7">
-            <input type="text" name="captcha" class="form-control {{ $errors->has('captcha') ? ' is-invalid' : '' }}" placeholder="验证码" required />
+            <input type="text" name="captcha" class="form-control {{ $errors->has('captcha') ? ' is-invalid' : '' }}" placeholder="{{ __('imperator.captcha') }}" required />
             <span class="mdi mdi-check-all form-control-feedback" aria-hidden="true"></span>
           </div>
           <div class="col-xs-5">
-            <img class="pull-right captchaImg" src="{{ captcha_src('flat') }}" onclick="this.src='{{ captcha_src('flat') }}?'+Math.random()" title="点击图片重新获取验证码">
+            <img class="pull-right captchaImg" src="{{ captcha_src('flat') }}" onclick="this.src='{{ captcha_src('flat') }}?'+Math.random()" title="{{ __('imperator.reloadCaptcha') }}">
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-block btn-primary" type="submit">立即登录</button>
+          <button class="btn btn-block btn-primary" type="submit">{{ __('imperator.login') }}</button>
         </div>
       </form>
       <hr>
       <footer class="col-sm-12 text-center">
-        <p class="m-b-0">Copyright © 2019 <a href="http://service.yuncong.com">云骢网</a>. All right reserved</p>
+        <p class="m-b-0">Copyright © 2019 <a href="http://service.yuncongtec.com">云骢网</a>. All right reserved</p>
       </footer>
     </div>
   </div>

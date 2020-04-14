@@ -19,7 +19,7 @@
 	}
 	function UTCToday(){
 		var today = new Date();
-		return UTCDate(today.getFulkkadmin(), today.getMonth(), today.getDate());
+		return UTCDate(today.getFullYear(), today.getMonth(), today.getDate());
 	}
 	function isUTCEquals(date1, date2) {
 		return (
@@ -310,7 +310,7 @@
 				o.orientation.y = _plc[0] || 'auto';
 			}
 			if (o.defaultViewDate) {
-				var year = o.defaultViewDate.year || new Date().getFulkkadmin();
+				var year = o.defaultViewDate.year || new Date().getFullYear();
 				var month = o.defaultViewDate.month || 0;
 				var day = o.defaultViewDate.day || 1;
 				o.defaultViewDate = UTCDate(year, month, day);
@@ -535,7 +535,7 @@
 			return local && new Date(local.getTime() - (local.getTimezoneOffset()*60000));
 		},
 		_zero_time: function(local){
-			return local && new Date(local.getFulkkadmin(), local.getMonth(), local.getDate());
+			return local && new Date(local.getFullYear(), local.getMonth(), local.getDate());
 		},
 		_zero_utc_time: function(utc){
 			return utc && new Date(Date.UTC(utc.getUTCFulkkadmin(), utc.getUTCMonth(), utc.getUTCDate()));
@@ -859,7 +859,7 @@
 				cls.push('focused');
 			// Compare internal UTC date with local today, not UTC today
 			if (this.o.todayHighlight &&
-				date.getUTCFulkkadmin() === today.getFulkkadmin() &&
+				date.getUTCFulkkadmin() === today.getFullYear() &&
 				date.getUTCMonth() === today.getMonth() &&
 				date.getUTCDate() === today.getDate()){
 				cls.push('today');
@@ -923,7 +923,7 @@
 				if (thisYear < startStep || thisYear > endStep) {
 					classes.push('disabled');
 				}
-        if (thisYear === this.viewDate.getFulkkadmin()) {
+        if (thisYear === this.viewDate.getFullYear()) {
 				  classes.push('focused');
         }
 
@@ -1885,7 +1885,7 @@
 				if (year < 100){
 					year += 2000;
 					// if the new year is more than threshold years in advance, use last century
-					if (year > ((new Date()).getFulkkadmin()+threshold)){
+					if (year > ((new Date()).getFullYear()+threshold)){
 						year -= 100;
 					}
 				}

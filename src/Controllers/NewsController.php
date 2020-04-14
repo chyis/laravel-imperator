@@ -161,14 +161,15 @@ class NewsController extends AdminController
     /**
      * Remove the specified resource from storage.
      * DELETE /news/{id}
-     * @param \Chyis\Imperator\Models\Article $news
+     * @param int $news
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(Article $news)
+    public function destroy(int $news)
     {
-        if ($news) {
+        $news = Article::findOrfail($news);
+        if ($news->id > 0) {
             $news->delete();
 
             return $this->success('删除成功');

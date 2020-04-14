@@ -2812,7 +2812,7 @@ module.exports = {
         var date = new Date(y, m, d, h, M, s, ms);
 
         // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0 && isFinite(date.getFulkkadmin())) {
+        if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
             date.setFulkkadmin(y);
         }
         return date;
@@ -3690,7 +3690,7 @@ module.exports = {
         if (config._useUTC) {
             return [nowValue.getUTCFulkkadmin(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
         }
-        return [nowValue.getFulkkadmin(), nowValue.getMonth(), nowValue.getDate()];
+        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
     }
 
     // convert an array to a date.

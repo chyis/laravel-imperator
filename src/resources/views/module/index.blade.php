@@ -48,17 +48,9 @@
                                                     <label for="new_type" class="control-label"> 内容来源</label>
                                                     <select class="form-control" name="new_type" id="new_type">
                                                         <option value="">请选择模块内容来源</option>
-                                                        <option value="hot-news">最热新闻</option>
-                                                        <option value="top-news">推荐新闻</option>
-                                                        <option value="fast-news">最新新闻</option>
-                                                        <option value="article">自定义新闻</option>
-                                                        <option value="advertise">自定义广告</option>
-                                                        <option value="manual">自定义html</option>
-                                                        <option value="top-goods">推荐产品 [未开启]</option>
-                                                        <option value="new-goods">最新产品 [未开启]</option>
-                                                        <option value="goods">自定义产品 [未开启]</option>
-                                                        <option value="top-service">推荐服务 [未开启]</option>
-                                                        <option value="service">自定义服务 [未开启]</option>
+                                                        @foreach($moduleTypes as $type)
+                                                            <option value="{{$type->var_value}}" attr-id="{{$type->id}}">{{$type->var_name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
 
@@ -104,7 +96,7 @@
                                         <li> <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">3</span> 更新内容</a> </li>
                                         <li> <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">1</span> 预览效果</a> </li>
                                         <li class="divider"></li>
-                                        <li> <a tabindex="-1" href="javascript:void(0)">删除模块</a> </li>
+                                        <li> <a tabindex="-1" href="javascript:listTable.remove({{$module->id}});">删除模块</a> </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -162,7 +154,14 @@
 <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
 <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/jquery-pagetool/jquery.pagetool.js"></script>
 <script type="text/javascript">
+    listTable.baseurl='{{ URL:: route('admin.module.index')}}';//赋值url
+    listTable.appendID="listTable";//赋值可append的div
+    listTable.recordCount=100;//赋值总数
+    listTable.pageCount = 10;//赋值页数
+    listTable.page = 1;//赋值当前页
+    listTable.filter.xx = "";//赋值参数
     $(document).ready(function() {
         $("#mainForm").validate({
             errorElement : 'span',

@@ -34,11 +34,13 @@ class ModuleController extends AdminController
         $list = $query
             ->paginate(config('imperator.tools.perPage'));
         $pages = Dictionary::pageType()->get();
+        $moduleTypes = Dictionary::moduleType()->get();
 
         return view('Imperator::module.index')
             ->with('pageName', '页面模块管理')
             ->with('lists', $list)
             ->with('pages', $pages)
+            ->with('moduleTypes', $moduleTypes)
             ->with('request', $request->toArray());
     }
 
@@ -50,9 +52,11 @@ class ModuleController extends AdminController
     public function create()
     {
         $pages = Dictionary::pageType()->get();
+        $moduleTypes = Dictionary::moduleType()->get();
 
         return view('Imperator::module.create')
             ->with('pages', $pages)
+            ->with('moduleTypes', $moduleTypes)
             ->with('pageName', '页面模块添加');
     }
 
@@ -105,10 +109,12 @@ class ModuleController extends AdminController
     public function edit(Module $module)
     {
         $pages = Dictionary::pageType()->get();
+        $moduleTypes = Dictionary::moduleType()->get();
 
         return view('Imperator::module.edit')
             ->with('pageName', '页面模块修改')
             ->with('entity', $module)
+            ->with('moduleTypes', $moduleTypes)
             ->with('pages', $pages);
     }
 
@@ -142,7 +148,7 @@ class ModuleController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Chyis\Imperator\Models\Module  $module
+     * @param  \Chyis\Imperator\Models\Module $module
      * @return \Illuminate\Http\Response
      */
     public function destroy(Module $module)
@@ -152,8 +158,8 @@ class ModuleController extends AdminController
             $module->delete();
 
             return $this->success('删除成功');
-        } else {
-            return $this->error('该内容不存在');
         }
+
+        return $this->error('该内容不存在');
     }
 }

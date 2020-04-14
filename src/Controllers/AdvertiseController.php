@@ -46,11 +46,11 @@ class AdvertiseController extends AdminController
      */
     public function create()
     {
-        $types = Dictionary::menuType()->get();
+        $types = Dictionary::advType()->get();
 
         return view('Imperator::advertise.create')
             ->with('types', $types)
-            ->with('pageName', '菜单添加');
+            ->with('pageName', '广告添加');
     }
 
     /**
@@ -66,13 +66,13 @@ class AdvertiseController extends AdminController
         $data['url'] = $request->input('url') ?? '';
         $data['type'] = $request->input('type') ?? '';
         $data['src'] = $request->input('src') ?? '';
+        $data['image'] = $request->input('image') ?? '';
         $data['text'] = $request->input('text') ?? '';
         $data['size'] = $request->input('size') ?? '';
         $data['start_time'] = $request->input('start_time') ?? time();
         $data['end_time'] = $request->input('end_time') ?? 0;
         $res = $advertise->create($data);
-        if ($res)
-        {
+        if ($res) {
             return $this->success('成功');
         } else {
             return $this->error('失败');
@@ -101,7 +101,7 @@ class AdvertiseController extends AdminController
      */
     public function edit(Advertise $advertise)
     {
-        $types = Dictionary::menuType()->get();
+        $types = Dictionary::advType()->get();
 
         return view('Imperator::advertise.edit')
             ->with('types', $types)
@@ -124,6 +124,7 @@ class AdvertiseController extends AdminController
         $data['type'] = $request->input('type') ?? '';
         $data['src'] = $request->input('src') ?? '';
         $data['text'] = $request->input('text') ?? '';
+        $data['image'] = $request->input('image') ?? '';
         $data['size'] = $request->input('size') ?? '';
         $data['start_time'] = $request->input('start_time') ?? time();
         $data['end_time'] = $request->input('end_time') ?? 0;
@@ -139,13 +140,14 @@ class AdvertiseController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Chyis\Imperator\Models\Advertise  $advertise
+     * @param  int  $advertise
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Advertise $advertise)
+    public function destroy(int $advertise)
     {
-        if ($advertise)
+        $advertise = Advertise::findOrFail($advertise);
+        if ($advertise->id >0 )
         {
             $advertise->delete();
 

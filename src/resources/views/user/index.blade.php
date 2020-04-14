@@ -69,7 +69,7 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.manager.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.manager.destroy', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                <a class="btn btn-xs btn-default" href="javascript:listTable.remove({{$value->id}});" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -89,6 +89,26 @@
     <!--End 页面主要内容-->
 @stop
 
+@section('javascript')
+    @parent
+    <script type="text/javascript" src="{{ $staticDir }}/js/kkadmin.js"></script>
+    <script type="text/javascript" src="{{ $staticDir }}/js/jquery-pagetool/jquery.pagetool.js"></script>
+    <script type="text/javascript">
+        listTable.baseurl='{{ URL:: route('admin.manager.index')}}';//赋值url
+        listTable.appendID="listTable";//赋值可append的div
+        listTable.recordCount=100;//赋值总数
+        listTable.pageCount = 10;//赋值页数
+        listTable.page = 1;//赋值当前页
+        listTable.filter.xx = "";//赋值参数
+        $(function(){
+            $('.search-bar .dropdown-menu a').click(function() {
+                var field = $(this).data('field') || '';
+                $('#search-field').val(field);
+                $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
+            });
+        });
+    </script>
+@stop
 @section('copyRight')
     Copyright &copy; 2019. <a target="_blank" href="http://service.yuncongtec.com">云骢网</a> All rights reserved.
 @stop

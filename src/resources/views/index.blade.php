@@ -2,7 +2,7 @@
 
 @section('pageTitle')
   首页面板
-  @stop
+@stop
 
 @section('content')
     <!--页面主要内容-->

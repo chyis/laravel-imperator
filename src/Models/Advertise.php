@@ -20,7 +20,7 @@ class Advertise extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'type', 'src', 'url', 'text', 'size', 'start_time', 'end_time'];
+    protected $fillable = ['title', 'type', 'src', 'image', 'url', 'text', 'size', 'start_time', 'end_time'];
     public $attributeNames = [
         'id'=>'编号',
         'title'=>'名称',
@@ -59,4 +59,14 @@ class Advertise extends Model
      * @var string
      */
     //protected $connection = 'connection-name';
+
+    public function getTypeNameAttribute()
+    {
+        if ($this->getAttribute('type') == 'image') return '图片广告';
+        if ($this->getAttribute('type') == 'text') return '文字广告';
+        if ($this->getAttribute('type') == 'src') return '代码广告';
+        if ($this->getAttribute('type') == 'temp') return '模板广告';
+        return '未定义';
+    }
+
 }

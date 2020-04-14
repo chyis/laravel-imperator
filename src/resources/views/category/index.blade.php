@@ -44,7 +44,7 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="listTable">
                                     @if(isset($lists))
                                     @forelse($lists as $value)
                                     <tr>
@@ -67,7 +67,7 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.category.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.category.destroy', $value->id) }}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                <a class="btn btn-xs btn-default" href="javascript:listTable.remove({{$value->id}});" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -92,7 +92,15 @@
 
 @section('javascript')
 @parent
+<script type="text/javascript" src="{{ $staticDir }}/js/kkadmin.js"></script>
+<script type="text/javascript" src="{{ $staticDir }}/js/jquery-pagetool/jquery.pagetool.js"></script>
 <script type="text/javascript">
+    listTable.baseurl='{{ URL:: route('admin.category.index')}}';//赋值url
+    listTable.appendID="listTable";//赋值可append的div
+    listTable.recordCount=100;//赋值总数
+    listTable.pageCount = 10;//赋值页数
+    listTable.page = 1;//赋值当前页
+    listTable.filter.xx = "";//赋值参数
     $(function(){
         $('.search-bar .dropdown-menu a').click(function() {
             var field = $(this).data('field') || '';

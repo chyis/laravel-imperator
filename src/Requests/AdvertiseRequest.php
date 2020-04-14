@@ -40,8 +40,8 @@ class AdvertiseRequest extends FormRequest
         return [
             'title' => 'required|min:2|max:20',
             'type' => 'required',
-            'text' => 'required',
-            'url' => 'required',
+//            'text' => 'required',
+//            'url' => 'required',
 //            'file' => 'required'
         ];
     }
@@ -53,8 +53,8 @@ class AdvertiseRequest extends FormRequest
             'title.max'=>':attribute 长度不能大于100个字',
             'title.min'=>':attribute 长度不能小于10个字',
             'type.required'=>':attribute 必须有',
-            'text.required'=>':attribute 必须有',
-            'url.required'=>':attribute 必须有',
+//            'text.required'=>':attribute 必须有',
+//            'url.required'=>':attribute 必须有',
 //            'file.required'=>':attribute 必须有'
         ];
         return $message;

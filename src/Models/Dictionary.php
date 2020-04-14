@@ -189,4 +189,16 @@ class Dictionary extends Model
             ->where('parent_id', '>', 0);
     }
 
+    public function scopeAdvType($query)
+    {
+        return $this->where('var_code', 'advtype')
+            ->where('parent_id', '>', 0);
+    }
+
+    public function scopeModuleType($query)
+    {
+        return $this->where('var_code', 'moduleType')
+            ->where('parent_id', '>', 0);
+    }
+
 }

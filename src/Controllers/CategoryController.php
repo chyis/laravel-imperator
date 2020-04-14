@@ -140,22 +140,22 @@ class CategoryController extends AdminController
         }
     }
 
-    /*
+    /**
      * Remove the specified resource from storage.
      *
-     * @param  \Chyis\Imperator\Models\Dictionary  $dictionary
+     * @param  int $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $category)
     {
-        $category = Category::findOrfail($category);
-        if ($category)
+        $category = Category::findOrFail($category);
+        if ($category->id >0 )
         {
             $category->delete();
 
-            $this->success('删除成功');
+            return $this->success('删除成功');
         } else {
-            $this->error('该内容不存在');
+            return $this->error('该内容不存在');
         }
     }
 }

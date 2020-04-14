@@ -65,14 +65,58 @@ class Module extends Model
     {
         $type = $this->getAttribute('type');
 
-        return in_array($type, ['hot-news', 'hot-news', 'fast-news', 'top-goods', 'new-goods', 'top-service']);
+        return in_array($type, ['hot-news', 'top-news', 'fast-news', 'select-news']);
     }
-
 
     public function getManualTypeAttribute()
     {
         $type = $this->getAttribute('type');
 
-        return !in_array($type, ['hot-news', 'hot-news', 'fast-news', 'top-goods', 'new-goods', 'top-service']);
+        return !in_array($type, ['select-news', 'select-adv', 'select-goods', 'select-service']);
+    }
+
+    public function getContentList()
+    {
+        $type = $this->getAttribute('type');
+        $content = $this->getAttribute('content');
+
+        switch ($type)
+        {
+            case 'select-adv':
+                $dataList = Advertise::whereIn('id', explode(',', $content))->get();
+                return $dataList;
+                break;
+            case '':
+
+                break;
+            case '':
+
+                break;
+            case '':
+
+                break;
+            case '':
+
+                break;
+            default:
+
+                break;
+        }
+    }
+
+    public function getPageModules($pageCode)
+    {
+        $modules = $this->where('page_code', $pageCode)->get();
+        $res = [];
+        foreach ($modules as $module) {
+            $res[$module->code] = $module;
+        }
+
+        return $res;
+    }
+
+    public static function getModuleByCode($moduleCode)
+    {
+
     }
 }

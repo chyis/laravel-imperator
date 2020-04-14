@@ -4,6 +4,14 @@
   广告添加
 @stop
 
+@section('stylesheet')
+  @parent
+  <!--时间选择插件-->
+  <link rel="stylesheet" href="{{ $staticDir }}/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+  <!--日期选择插件-->
+  <link rel="stylesheet" href="{{ $staticDir }}/js/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+@stop
+
 @section('content')
     <!--页面主要内容-->
     <main class="kkadmin-layout-content">
@@ -30,30 +38,47 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="start_time">开始时间</label>
+                    <input class="form-control js-datetimepicker" type="text" id="start_time" name="start_time"
+                           placeholder="请选择具体时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="end_time">结束时间</label>
+                    <input class="form-control js-datetimepicker" type="text" id="end_time" name="end_time"
+                           placeholder="请选择具体时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" />
+                  </div>
+
+                  <div class="form-group">
                     <label for="type">广告类型</label>
                     <div class="form-controls">
                       <select name="type" class="form-control" id="type">
                         @foreach($types as $type)
-                          <option value="{{$type->id}}" attr-code="{{$type->code}}">{{$type->var_name}}</option>
+                          <option value="{{$type->var_value}}" attr-id="{{$type->id}}">{{$type->var_name}}</option>
                         @endforeach
                       </select>
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group link-group">
                     <label for="url">链接地址</label>
                     <input class="form-control" type="text" id="url" name="url" placeholder="http://" value="{{old('url', '')}}" />
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group file-group">
                     <label for="file">广告图</label>
                       <input type="text" class="form-control" name="file" id="file" value="">
                       <input class="image-up-field" widget-type="auto-upload" data-target="file" target-type="input" type="file" type="file" id="dict_icon" name="dict_icon">
 
                   </div>
 
-                  <div class="form-group">
-                    <label for="text">文字或代码</label>
+                  <div class="form-group src-group">
+                    <label for="src">代码</label>
+                    <textarea  class="form-control" rows="5" name="src" id="src">{{old('src', '')}}</textarea>
+                  </div>
+
+                  <div class="form-group text-group">
+                    <label for="text">文字</label>
                     <textarea  class="form-control" rows="5" name="text" id="text">{{old('text', '')}}</textarea>
                   </div>
 
@@ -62,7 +87,7 @@
                     保存
                   </button>
 
-                  <button class="btn btn-label btn-warning" type="button" onclick="javascript:history.back(1);"><label><i class="mdi mdi-page-first"></i></label> 返回</button>
+                  <button class="btn btn-label btn-warning" type="button" onclick="javascript:history.back(-1);"><label><i class="mdi mdi-page-first"></i></label> 返回</button>
                 </form>
               </div>
             </div>
@@ -78,12 +103,44 @@
   <script type="text/javascript" src="{{ $staticDir }}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{ $staticDir }}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{ $staticDir }}/js/bootstrap-notify.min.js"></script>
+  <script src="{{ $staticDir }}/js/bootstrap-datetimepicker/moment.min.js"></script>
+  <script src="{{ $staticDir }}/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+  <script src="{{ $staticDir }}/js/bootstrap-datetimepicker/locale/zh-cn.js"></script>
   <script type="text/javascript" src="{{ $staticDir }}/js/kkadmin.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $("#parentID").find("option[value=0]").attr("selected",true);
-      $("#no-parent-attr").removeClass('hidden');
-
+      function changeType() {
+        let type = $("#type").find('option:selected').val();
+        let link = $(".link-group");
+        let file = $(".file-group");
+        let text = $(".text-group");
+        let src = $(".src-group");
+        if (type == 'src') {
+          src.show();
+          link.hide();
+          file.hide();
+          text.hide();
+        } else if(type == 'text') {
+          src.hide();
+          link.show();
+          file.hide();
+          text.show();
+        } else if(type == 'image') {
+          src.hide();
+          link.show();
+          file.show();
+          text.hide();
+        } else {
+          src.show();
+          link.show();
+          file.show();
+          text.hide();
+        }
+      };
+      changeType();
+      $("#type").change(function () {
+        changeType();
+      });
       $("#mainForm").validate({
         errorElement : 'span',
         errorClass : 'help-block',
@@ -137,7 +194,11 @@
             title:$("#title").val(),
             type:$("#type").val(),
             url:$("#url").val(),
-            text:$("#text").val()
+            image:$("#file").val(),
+            text:$("#text").val(),
+            src:$("#src").val(),
+            start_time:$("#start_time").val(),
+            end_time:$("#end_time").val()
           };
           $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }

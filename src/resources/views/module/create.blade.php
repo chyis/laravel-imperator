@@ -1,7 +1,7 @@
 @extends('Imperator::layouts.framework')
 
 @section('pageTitle')
-    字典添加
+    模块添加
 @stop
 
 @section('content')
@@ -47,17 +47,9 @@
                                     <label for="new_type" class="control-label"> 内容来源</label>
                                     <select class="form-control" name="new_type" id="new_type">
                                         <option value="">请选择模块内容来源</option>
-                                        <option value="hot-news">最热新闻</option>
-                                        <option value="top-news">推荐新闻</option>
-                                        <option value="fast-news">最新新闻</option>
-                                        <option value="article">自定义新闻</option>
-                                        <option value="advertise">自定义广告</option>
-                                        <option value="manual">自定义html</option>
-                                        <option value="top-goods">推荐产品 [未开启]</option>
-                                        <option value="new-goods">最新产品 [未开启]</option>
-                                        <option value="goods">自定义产品 [未开启]</option>
-                                        <option value="top-service">推荐服务 [未开启]</option>
-                                        <option value="service">自定义服务 [未开启]</option>
+                                        @foreach($moduleTypes as $type)
+                                            <option value="{{$type->var_value}}" attr-id="{{$type->id}}">{{$type->var_name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
