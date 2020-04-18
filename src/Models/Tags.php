@@ -40,7 +40,7 @@ class Tags extends Model
     //const UPDATED_AT = 'last_update';
     //protected $connection = 'connection-name';
 
-    public static function top($type='manual', $num=10)
+    public static function top($type='manual', $num=12)
     {
         return self::
             where('type', $type)

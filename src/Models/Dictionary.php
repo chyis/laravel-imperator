@@ -201,4 +201,10 @@ class Dictionary extends Model
             ->where('parent_id', '>', 0);
     }
 
+    public function scopeProductType($query)
+    {
+        return $this->where('var_code', 'productType')
+            ->where('parent_id', '>', 0);
+    }
+
 }

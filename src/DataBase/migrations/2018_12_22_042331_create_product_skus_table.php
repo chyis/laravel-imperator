@@ -13,12 +13,14 @@ class CreateProductSkusTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_skus', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.products_sku'), function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->comment('名称');
+            $table->string('sku_code')->comment('sku编码[组合码]');
             $table->string('description')->comment('描述');
             $table->decimal('price', 10, 2)->comment('价格');
             $table->unsignedInteger('product_id')->comment('产品id');
+            $table->unsignedInteger('storage_num')->comment('库存数');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateProductSkusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_skus');
+        Schema::dropIfExists(config('imperator.tables.products_sku'));
     }
 }

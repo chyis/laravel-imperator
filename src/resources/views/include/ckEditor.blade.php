@@ -82,7 +82,6 @@
             })
             window.editor = editor;
         })
-
         .catch( err => {
             console.error( err.stack );
         });

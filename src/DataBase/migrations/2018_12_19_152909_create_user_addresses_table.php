@@ -13,7 +13,7 @@ class CreateUserAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_addresses', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.user_addresses'), function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->comment('用户id');
             $table->string('province')->comment('省份');
@@ -38,6 +38,6 @@ class CreateUserAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_addresses');
+        Schema::dropIfExists(config('imperator.tables.user_addresses'));
     }
 }

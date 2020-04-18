@@ -13,7 +13,7 @@ class CreateSmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('laravel_sms', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.sms'), function (Blueprint $table) {
             $table->increments('id');
 
             //to:用于存储手机号
@@ -61,6 +61,6 @@ class CreateSmsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laravel_sms');
+        Schema::dropIfExists(config('imperator.tables.sms'));
     }
 }

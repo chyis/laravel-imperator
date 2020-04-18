@@ -2,81 +2,125 @@
 
 namespace Chyis\Imperator\Controllers;
 
+use Chyis\Imperator\Models\Dictionary;
 use Chyis\Imperator\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductsController extends AdminController
 {
     /**
-     * Index interface.
+     * Display a listing of the resource.
      *
-     * @param Content $content
-     * @return Content
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(Content $content)
+
+    public function index(Request $request)
     {
-        return $content
-            ->header('服务列表')
-            ->body($this->grid());
+        $keyWord = $request->input('keyword');
+        $searchField = $request->input('search_field');
+        $condition = [];
+
+        if ($keyWord != '' && $searchField == 'name')
+        {
+            $condition[] = ['name', $keyWord];
+        } else if ($keyWord != '' && $searchField == 'group') {
+            $condition[] = ['group_id', $keyWord];
+        }
+        $query = Product::orderBy('created_at', 'asc')
+            ->orderBy('id', 'asc');
+        if (!empty($query))
+        {
+            $query->where($condition);
+        }
+        $list = $query
+            ->paginate(config('imperator.tools.perPage'));
+
+        return view('Imperator::products.index')
+            ->with('lists', $list)
+            ->with('pageName', '产品管理')
+            ->with('request', $request->toArray());
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     * GET /news/create
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function create()
+    {
+        $category = Dictionary::dirRoot();
+
+        return view('Imperator::products.create')
+            ->with('pageName', '产品添加')
+            ->with('category', $category);
     }
 
     /**
-     * Edit interface.
+     * Store a newly created resource in storage.
+     * POST /news
+     * @param \Chyis\Imperator\Requests\ArticleRequest $request
      *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
+     * @return \Illuminate\Http\Response
      */
-    public function edit($id, Content $content)
-    {
-        return $content
-            ->header('编辑服务')
-            ->body($this->form()->edit($id));
-    }
 
-    /**
-     * Create interface.
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function create(Content $content)
+    public function store(ArticleRequest $request)
     {
-        return $content
-            ->header('创建服务')
-            ->body($this->form());
+        $article = new Article();
+        $article->title = $request->input('title');
+        $article->summary = $request->input('summary');
+        $article->cate_id = $request->input('cate_id');
+        $article->tags = $request->input('tags');
+        $article->image = $request->input('image') ?? '';
+        $article->sort = intval($request->input('sort'));
+        $article->status = intval($request->input('status'));
+
+        if ($res = $article->save())
+        {
+            $id = $article->id;
+            if ($id>0)
+            {
+                $content = new ArticleContent();
+                $content->article_id = $id;
+                $content->content = $request->input('content');;
+                $content->create_user = 1;
+//                $content->last_modify_user = $id;
+                $content->save();
+                $tag = new Tags();
+                $tag->saveTags(explode(',', $request->input('tags')), $id, 'article');
+            }
+            return $this->success('成功');
+        } else {
+            return $this->errot('新增失败');
+        }
     }
 
     /**
      * Make a grid builder.
      *
-     * @return Grid
+     * @return Table
      */
     protected function grid()
     {
-        $grid = new Grid(new Product);
+        $table = new Table(new Product);
 
-        $grid->id('ID')->sortable();
-        $grid->title('服务名称');
-        $grid->on_sale('已上架')->display(function ($value) {
-            return $value ? '是' : '否';
-        });
-        $grid->price('价格');
-        $grid->rating('评分');
-        $grid->sold_count('单数');
-        $grid->review_count('评价');
-
-        $grid->actions(function ($actions) {
-            $actions->disableView();
-            $actions->disableDelete();
-        });
-        $grid->tools(function ($tools) {
-            // 禁用批量删除按钮
+        $table->title('服务名称');
+        $table->addCollum('id')->sortable();
+        $table->addCollum('title');
+        $table->addCollum('cate_name')->sortable('cate_id');
+        $table->extralCollum(['view_count', '']);
+        $table->actions(['remove', 'edit', 'delete']);
+        $table->tools(function ($tools) {
             $tools->batch(function ($batch) {
                 $batch->disableDelete();
             });
         });
 
-        return $grid;
+        return $table;
     }
 
     /**

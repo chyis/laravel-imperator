@@ -13,7 +13,7 @@ class CreateCouponCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupon_codes', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.coupon_codes'), function (Blueprint $table) {
             $table->increments('id')->comment('优惠券id');
             $table->string('name')->comment('名称');
             $table->string('code')->unique()->comment('券码');
@@ -35,6 +35,6 @@ class CreateCouponCodesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupon_codes');
+        Schema::dropIfExists(config('imperator.tables.coupon_codes'));
     }
 }

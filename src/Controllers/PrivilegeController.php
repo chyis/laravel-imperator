@@ -2,7 +2,6 @@
 
 namespace Chyis\Imperator\Controllers;
 
-
 use Chyis\Imperator\Requests\PrivilegeRequest;
 use Chyis\Imperator\Models\Privilege;
 use Chyis\Imperator\Models\Dictionary;
@@ -12,6 +11,8 @@ class PrivilegeController extends AdminController
 {
     /**
      * Display a listing of the resource.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -70,7 +71,8 @@ class PrivilegeController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Chyis\Imperator\Requests\PrivilegeRequest  $request
+     * @param  \Chyis\Imperator\Requests\PrivilegeRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(PrivilegeRequest $request)
@@ -82,14 +84,10 @@ class PrivilegeController extends AdminController
             {
                 $data = Privilege::makeSourceData($request->input('name'), $request->input('http_path'), $request->input('code'),  $action);
                 $data['group_id'] = intval($request->input('group_id'));
-                $res = Privilege::create($data);
+                Privilege::create($data);
             }
-            if ($res)
-            {
-                return $this->success('批量生成权限成功', 0, '');
-            } else {
-                return $this->error('失败', 1);
-            }
+
+            return $this->success('批量生成权限成功', 0, '');
         } else {
             $priv = new Privilege();
             $priv->name = $request->input('name');
@@ -101,21 +99,23 @@ class PrivilegeController extends AdminController
             if ($res)
             {
                 return $this->success('保存成功', 0, '');
-            } else {
-                return $this->error('失败', 1);
             }
         }
+        return $this->error('失败', 1);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \Chyis\Imperator\Models\Privilege  $privilege
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Privilege $privilege)
     {
-        return [];
+        return view('Imperator::privilege.show')
+            ->with('pageName', '权限详情')
+            ->with('entity', $privilege);
     }
 
     /**
@@ -145,16 +145,17 @@ class PrivilegeController extends AdminController
                 ->with('parents', $tree)
                 ->with('pageName', '权限修改')
                 ->with('entity', $privilege);
-        } else {
-            return $this->error('没找到');
         }
+
+        return $this->error('没找到');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Chyis\Imperator\Models\Privilege  $privilege
+     * @param  \Chyis\Imperator\Requests\PrivilegeRequest  $request
+     * @param  int  $privilege
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(int $privilege, PrivilegeRequest $request)
@@ -171,15 +172,16 @@ class PrivilegeController extends AdminController
         if ($res)
         {
             return $this->success('修改成功');
-        } else {
-            return $this->error('修改失败');
         }
+
+        return $this->error('修改失败');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Chyis\Imperator\Models\Privilege  $privilege
+     * @param  int $privilege
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $privilege)
@@ -189,10 +191,10 @@ class PrivilegeController extends AdminController
         {
             $privilege->delete();
 
-            $this->success('删除成功');
-        } else {
-            $this->error('该内容不存在');
+            return $this->success('删除成功');
         }
+
+        return $this->error('该内容不存在');
     }
 
 }

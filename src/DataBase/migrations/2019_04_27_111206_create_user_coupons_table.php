@@ -13,7 +13,7 @@ class CreateUserCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_coupons', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.user_coupons'), function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->comment('用户id');
             $table->string('code')->comment('优惠券码');
@@ -30,6 +30,6 @@ class CreateUserCouponsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_coupons');
+        Schema::dropIfExists(config('imperator.tables.user_coupons'));
     }
 }

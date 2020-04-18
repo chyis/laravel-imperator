@@ -116,4 +116,15 @@ class Article extends Model
         }
         return '未知';
     }
+
+    function getUpdatedDateAttribute()
+    {
+        if ($this->getAttribute('updated_at') != '')
+        {
+            $time = explode(' ', $this->getAttribute('updated_at'));
+
+            return $time[0];
+        }
+        return '未知';
+    }
 }

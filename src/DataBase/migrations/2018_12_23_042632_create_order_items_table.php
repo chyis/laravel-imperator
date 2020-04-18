@@ -13,14 +13,14 @@ class CreateOrderItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_items', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create(config('imperator.tables.order_items'), function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedInteger('order_id')->comment('订单id');
             $table->unsignedInteger('product_id')->comment('产品id');
-            $table->unsignedInteger('product_sku_id')->comment('sku_id');
-            $table->decimal('price', 10, 2)->comment('优惠券类型');
+            $table->unsignedInteger('sku_id')->comment('sku_id');
+            $table->decimal('price', 10, 2)->comment('价格');
             $table->unsignedInteger('rating')->nullable()->comment('评价评级');
-            $table->text('review')->nullable()->comment('评价内容');
+            $table->string('review')->nullable()->comment('评价内容');
             $table->timestamp('reviewed_at')->nullable()->comment('评价时间');
         });
     }
@@ -32,6 +32,6 @@ class CreateOrderItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_items');
+        Schema::dropIfExists(config('imperator.tables.order_items'));
     }
 }

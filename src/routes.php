@@ -56,6 +56,9 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('setting-upload','SettingController@upload')->name('admin.setting-upload');
     Route::post('setting-save','SettingController@store')->name('admin.setting-save');
     Route::put('setting-update','SettingController@update')->name('admin.setting-update');
+
+    Route::resource('config', 'ConfigController', ['as'=>'admin']);
+
     //图片上传
     Route::get('upload','UploadController@upload')->name('admin.upload');
     Route::post('upload','UploadController@doupload')->name('admin.do-upload');
@@ -67,6 +70,21 @@ Route::group(['middleware' => ['admin']], function(){
     Route::resource('manager', 'ManagerController', ['as'=>'admin']);
     //模板管理选择
     Route::resource('module', 'ModuleController', ['as'=>'admin']);
+    //模型属性
+    Route::resource('attributes', 'AttributesController', ['as'=>'admin']);
+    //新建功能
+    Route::resource('actions', 'ActionsController', ['as'=>'admin']);
+
+    //产品商品类
+    Route::resource('products', 'ProductsController', ['as'=>'admin']);
+    Route::resource('classification', 'ClassificationController', ['as'=>'admin']);
+    Route::resource('orders', 'OrdersController', ['as'=>'admin']);
+    Route::get('ordersheet', 'SheetsController@order', ['as'=>'admin']);
+
+    Route::resource('yiyuan', 'YiyuanController', ['as'=>'admin']);
+    Route::resource('flash', 'FlashController', ['as'=>'admin']);
+    Route::resource('groupon', 'GrouponController', ['as'=>'admin']);
+
     Route::get('template', 'TemplateController@index')->name('admin.template');
 });
 });

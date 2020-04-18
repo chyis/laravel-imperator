@@ -7,9 +7,16 @@ use Illuminate\Console\GeneratorCommand;
 class FormCommand extends GeneratorCommand
 {
     /**
-     * The console command name.
+     * The Imperator form command .
      *
      * @var string
+     *
+     * @sample:
+     * The Imperator form command-line tools can be as simple as this:
+     *  >:  php artisan imperator:form login
+     * Or it can be complex with a plethora of options, as in the following:
+     *  >:  php artisan imperator:form login --title=login --step=3 --namespace=App/Forms
+     *
      */
     protected $signature = 'imperator:form {name} 
         {--title=}

@@ -13,11 +13,11 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.areas'), function (Blueprint $table) {
             $table->increments('id');
-			$table->string('areaname');
+			$table->string('area_name');
 			$table->tinyInteger('level')->default(1);
-			$table->integer('parentid');
+			$table->integer('parent_id');
 			$table->tinyInteger('enabled');
         });
     }
@@ -29,6 +29,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists(config('imperator.tables.areas'));
     }
 }

@@ -1,7 +1,7 @@
 @extends('Imperator::layouts.framework')
 
 @section('pageTitle')
-    内容列表 - 内容管理
+    产品列表 - 产品管理
 @stop
 
 @section('content')
@@ -17,7 +17,7 @@
                                     <div class="input-group-btn">
                                         <input type="hidden" name="search_field" id="search-field" value="title">
                                         <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
-                                            标题 <span class="caret"></span>
+                                            {{__('imperator.name')}}<span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li> <a tabindex="-1" href="javascript:void(0)" data-field="title">标题</a> </li>
@@ -28,10 +28,10 @@
                                 </div>
                             </form>
                             <div class="toolbar-btn-action">
-                                <a class="btn btn-primary m-r-5" href="{{ URL::route('admin.news.create') }}"><i class="mdi mdi-plus"></i> 新增</a>
-                                <a class="btn btn-success m-r-5" href="javascript:return enableSlt();"><i class="mdi mdi-check"></i> 启用</a>
-                                <a class="btn btn-warning m-r-5" href="javascript:return disableSlt();"><i class="mdi mdi-block-helper"></i> 禁用</a>
-                                <a class="btn btn-danger" href="javascript:return deleteSlt();"><i class="mdi mdi-window-close"></i> 删除</a>
+                                <a class="btn btn-primary m-r-5" href="{{ URL::route('admin.products.create') }}"><i class="mdi mdi-plus"></i> 新增</a>
+                                <a class="btn btn-success m-r-5" href="javascript:listTable.enableSlt();"><i class="mdi mdi-check"></i> 启用</a>
+                                <a class="btn btn-warning m-r-5" href="javascript:listTable.disableSlt();"><i class="mdi mdi-block-helper"></i> 禁用</a>
+                                <a class="btn btn-danger" href="javascript:listTable.deleteSlt();"><i class="mdi mdi-window-close"></i> 删除</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -68,7 +68,7 @@
                                         <td><font class="text-success">正常</font></td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.news.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                <a class="btn btn-xs btn-default" href="{{ URL::route('admin.products.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                 <a class="btn btn-xs btn-default" href="javascript:listTable.remove({{$value->id}});" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                             </div>
                                         </td>

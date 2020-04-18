@@ -13,11 +13,12 @@ class CreateQrcodeAdvertisingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('qrcode_advertisings', function (Blueprint $table) {
+        Schema::create(config('imperator.tables.qrcode_advertisings'), function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('agentid')->default(0);
-            $table->integer('cleanid')->default(0);
-            $table->integer('uid')->default(0);
+            $table->integer('agent_id')->default(0)->comment('第三方id');
+            $table->integer('invitor_id')->default(0)->comment('邀请人id');
+            $table->integer('uid')->default(0)->comment('被邀请人id');
+
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateQrcodeAdvertisingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('qrcode_advertisings');
+        Schema::dropIfExists(config('imperator.tables.qrcode_advertisings'));
     }
 }
