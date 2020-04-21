@@ -22,12 +22,12 @@ class Setting extends Model
     protected $fillable = ['title', 'group_id', 'type', 'code', 'default_value', 'value_text', 'order'];
     public $attributeNames = [
         'id'=>'编号',
-        'title'=>'菜单名称',
-        'group_id'=>'分组',
+        'title'=>'配置名称',
+        'group_id'=>'配置分组',
         'type'=>'类型代码',
         'code'=>'配置代码',
-        'default_value'=>'权限ID',
-        'value_text'=>'权限名称',
+        'default_value'=>'默认值',
+        'value_text'=>'当前值',
         'order'=>'排序',
         'deleted_at'=>'删除时间',
         'created_at'=>'创建时间',

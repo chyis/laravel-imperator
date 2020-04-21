@@ -2,7 +2,6 @@
 
 @section('stylesheet')
   @parent
-  <link rel="stylesheet" href="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.css">
 @stop
 
 @section('pageTitle')
@@ -30,7 +29,7 @@
               <form id="mainForm" action="{{ URL::route('admin.news.store') }}" method="post" class="site-form">
                 {{csrf_field()}}
                 <div class="form-group">
-                  <label for="cate_id">栏目</label>
+                  <label for="cate_id">产品分类</label>
                   <div class="form-controls">
                       <select name="cate_id" class="form-control" id="cate_id">
                         <option value="0">分类选择</option>
@@ -38,16 +37,12 @@
                           <option value="{{ $cate->id }}">{{ $cate->cate_name }}</option>
                         @endforeach
                       </select>
-                      <a href="{{ URL::route('admin.category.create') }}"> 添加新分类</a>
+                      <a href="{{ URL::route('admin.classification.create') }}"> 添加新分类</a>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="title">标题</label>
                   <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="请输入标题" />
-                </div>
-                <div class="form-group">
-                  <label for="summary">描述</label>
-                  <textarea class="form-control" id="summary" name="summary" rows="5"  placeholder="描述"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="content">详细内容</label>
@@ -57,14 +52,6 @@
                   <label for="image">封面图</label>
                   <input class="form-control" type="text" id="image" name="image" value="">
                   <input class="image-up-field" widget-type="auto-upload" data-target="image" target-type="input" type="file" id="img-upload" name="img-upload">
-                </div>
-                <div class="form-group">
-                  <label for="tags">标签</label>
-                  <input class="js-tags-input form-control" type="text" id="tags" name="tags" value="{{old('tags')}}" />
-                </div>
-                <div class="form-group">
-                  <label for="sort">排序</label>
-                  <input type="text" class="form-control" id="sort" name="sort" value="{{old('title', 0)}}" />
                 </div>
                 <div class="form-group">
                   <label for="status">状态</label>
@@ -97,7 +84,6 @@
 
 @section('javascript')
   @parent
-  <script type="text/javascript" src="{{$staticDir}}/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/jquery-validate/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>

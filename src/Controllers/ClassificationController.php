@@ -33,7 +33,7 @@ class ClassificationController extends AdminController
 
         return view('Imperator::classification.index')
             ->with('lists', $list)
-            ->with('pageName', '栏目管理')
+            ->with('pageName', '分类管理')
             ->with('request', $request->toArray());
     }
 
@@ -48,7 +48,7 @@ class ClassificationController extends AdminController
         $types = Dictionary::ProductType()->get();
 
         return view('Imperator::classification.create')
-            ->with('pageName', '栏目添加')
+            ->with('pageName', '分类添加')
             ->with('types', $types)
             ->with('parents', $parents);
     }
@@ -105,7 +105,7 @@ class ClassificationController extends AdminController
         if ($cate)
         {
             return view('Imperator::classification.edit')
-                ->with('pageName', '栏目修改')
+                ->with('pageName', '分类修改')
                 ->with('parents', $parents)
                 ->with('types', $types)
                 ->with('entity', $cate);

@@ -2,9 +2,11 @@
 
 namespace Chyis\Imperator\Controllers;
 
-use Chyis\Imperator\Models\Dictionary;
+use Chyis\Imperator\Models\Classification;
 use Chyis\Imperator\Models\Product;
+use Chyis\Imperator\Models\ProductContent;
 use Illuminate\Http\Request;
+use Chyis\Imperator\Requests\ProductRequest;
 
 class ProductsController extends AdminController
 {
@@ -53,7 +55,7 @@ class ProductsController extends AdminController
 
     public function create()
     {
-        $category = Dictionary::dirRoot();
+        $category = Classification::dirRoot();
 
         return view('Imperator::products.create')
             ->with('pageName', '产品添加')
@@ -68,24 +70,20 @@ class ProductsController extends AdminController
      * @return \Illuminate\Http\Response
      */
 
-    public function store(ArticleRequest $request)
+    public function store(ProductRequest $request)
     {
-        $article = new Article();
+        $article = new Product();
         $article->title = $request->input('title');
-        $article->summary = $request->input('summary');
         $article->cate_id = $request->input('cate_id');
-        $article->tags = $request->input('tags');
         $article->image = $request->input('image') ?? '';
-        $article->sort = intval($request->input('sort'));
-        $article->status = intval($request->input('status'));
 
         if ($res = $article->save())
         {
             $id = $article->id;
             if ($id>0)
             {
-                $content = new ArticleContent();
-                $content->article_id = $id;
+                $content = new ProductContent();
+                $content->product_id = $id;
                 $content->content = $request->input('content');;
                 $content->create_user = 1;
 //                $content->last_modify_user = $id;
@@ -108,7 +106,7 @@ class ProductsController extends AdminController
     {
         $table = new Table(new Product);
 
-        $table->title('服务名称');
+        $table->title('产品列表管理');
         $table->addCollum('id')->sortable();
         $table->addCollum('title');
         $table->addCollum('cate_name')->sortable('cate_id');

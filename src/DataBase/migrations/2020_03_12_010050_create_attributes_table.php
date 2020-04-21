@@ -18,7 +18,9 @@ class CreateAttributesTable extends Migration
             $table->integer('type_id')->default(0)->comment('属性类型ID');
             $table->string('attr_name', 20)->default('')->comment('属性名称');
             $table->string('attr_code', 20)->default('')->comment('属性标识');
-            $table->enum('input_type', 'input,select,text,checkbox,radio,file')->default('input')->comment('属性值录入方式');
+            $table->string('input_type', 20)->default('input')->comment('内容录入方式');
+            $table->string('validate', 100)->default('input')->comment('内容录入方式');
+            $table->enum('data_source', ['input', 'model', 'assign'])->default('input')->comment('数据来源');
             $table->text('place_holder')->comment('属性默认值及备选值');
             $table->timestamps();
         });
