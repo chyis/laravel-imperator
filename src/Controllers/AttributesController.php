@@ -4,6 +4,7 @@ namespace Chyis\Imperator\Controllers;
 
 use Chyis\Imperator\Models\Attributes;
 use Chyis\Imperator\Models\Dictionary;
+use Chyis\Imperator\Requests\AttributesRequest;
 use Illuminate\Http\Request;
 
 class AttributesController extends AdminController
@@ -32,27 +33,31 @@ class AttributesController extends AdminController
     public function create()
     {
         $types = Dictionary::ContentType()->get();
+        $inputTypes = Attributes::getInputTypes();
 
         return view('Imperator::attributes.create')
-            ->with('pageName', '栏目添加')
+            ->with('pageName', '属性添加')
+            ->with('inputTypes', $inputTypes)
             ->with('types', $types);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Chyis\Imperator\Requests\AttributesRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AttributesRequest $request)
     {
         $attribute = new Attributes();
-        $attribute->cate_name = $request->input('cate_name');
-        $attribute->parent_id = $request->input('parent_id');
+        $attribute->attr_name = $request->input('attr_name');
+        $attribute->attr_code = $request->input('attr_code');
         $attribute->type_id = $request->input('type_id');
-        $attribute->sort = $request->input('sort');
-        $attribute->image = $request->input('image') ?? '';
-        $attribute->create_uid = 1;
+        $attribute->input_type = $request->input('input_type');
+        $attribute->data_source = $request->input('data_source') ?? '';
+        $attribute->validate = $request->input('validate') ?? '';
+        $attribute->place_holder = $request->input('place_holder') ?? '';
         $res = $attribute->saveOrFail();
         if ($res)
         {
@@ -83,12 +88,14 @@ class AttributesController extends AdminController
     public function edit(Attributes $attributes)
     {
         $types = Dictionary::ContentType()->get();
+        $inputTypes = Attributes::getInputTypes();
 
 //        $attributes = Category::findOrFail($attributes);
         if ($attributes)
         {
             return view('Imperator::attributes.edit')
-                ->with('pageName', '栏目修改')
+                ->with('pageName', '属性修改')
+                ->with('inputTypes', $inputTypes)
                 ->with('types', $types)
                 ->with('entity', $attributes);
         } else {
@@ -107,11 +114,13 @@ class AttributesController extends AdminController
     {
         $attributes = Attributes::findOrFail($attributes);
 
-        $attributes->cate_name = $request->input('cate_name');
-        $attributes->parent_id = $request->input('parent_id');
+        $attributes->attr_name = $request->input('attr_name');
+        $attributes->attr_code = $request->input('attr_code');
         $attributes->type_id = $request->input('type_id');
-        $attributes->sort = $request->input('sort');
-        $attributes->image = $request->input('image') ?? '';
+        $attributes->input_type = $request->input('input_type');
+        $attributes->data_source = $request->input('data_source') ?? '';
+        $attributes->validate = $request->input('validate') ?? '';
+        $attributes->place_holder = $request->input('place_holder') ?? '';
         $res = $attributes->saveOrFail();
         if ($res)
         {

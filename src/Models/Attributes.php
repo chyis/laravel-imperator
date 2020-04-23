@@ -27,9 +27,32 @@ class Attributes extends Model
         'type_name'=>'类型名称',
         'attr_code'=>'属性标识',
         'input_type'=>'输入类型',
-        'place_holder'=>'数据源及默认值',
+        'data_source'=>'备选数据来源',
+        'validate'=>'验证方法',
+        'place_holder'=>'占位内容',
         'created_at'=>'创建时间',
         'updated_at'=>'更新时间'
+    ];
+
+    protected $inputTypes = [
+        'text'=>'输入框',
+        'select'=>'下拉列表',
+        'radio'=>'单选框',
+        'file'=>'文件上传',
+        'image'=>'图片上传',
+        'checkbox'=>'多选框',
+        'textarea'=>'文本框',
+        'date'=>'日期控件',
+        'time'=>'时刻控件',
+        'datetime'=>'时间控件',
+        'hidden'=>'隐藏域',
+        'color'=>'选色卡',
+        'captcha'=>'验证码',
+        'map'=>'地图',
+        'area'=>'省市区',
+        'password'=>'密码',
+        'switch'=>'开关',
+        'html'=>'html'
     ];
     protected $needPri = [];
     /*
@@ -53,6 +76,11 @@ class Attributes extends Model
      */
     //protected $connection = 'connection-name';
 
+
+
+    public static function getInputTypes() {
+        return (new static)->inputTypes;
+    }
 
     public function getTypeNameAttribute()
     {
@@ -130,7 +158,7 @@ class Attributes extends Model
 
     public function getInputNameAttribute()
     {
-        if ($this->getAttribute('input_type') == 'input') return '输入框';
+        if ($this->getAttribute('input_type') == 'text') return '输入框';
         if ($this->getAttribute('input_type') == 'select') return '下拉列表';
         if ($this->getAttribute('input_type') == 'radio') return '单选框';
         if ($this->getAttribute('input_type') == 'file') return '文件上传';
@@ -149,7 +177,6 @@ class Attributes extends Model
         if ($this->getAttribute('input_type') == 'html') return 'html';
         return '未定义';
     }
-
 
 
     function scopeArticle($query)

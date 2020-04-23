@@ -1,7 +1,7 @@
 @extends('Imperator::layouts.framework')
 
 @section('pageTitle')
-    栏目管理 - 系统管理
+    开发者配置管理 - 属性管理
 @stop
 
 @section('content')
@@ -34,8 +34,8 @@
                                             </label>
                                         </th>
                                         <th>编号</th>
-                                        <th>栏目名称</th>
-                                        <th>栏目类型</th>
+                                        <th>属性名称</th>
+                                        <th>属性类型</th>
                                         <th>属性标识</th>
                                         <th>输入类型</th>
                                         <th>操作</th>

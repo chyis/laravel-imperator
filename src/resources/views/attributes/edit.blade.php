@@ -22,48 +22,61 @@
                     </ul>
                   </div>
                 @endif
-                <form id="mainForm" method="post" action="{{ URL:: route('admin.category.update', $entity->id) }}" class="site-form">
+                <form id="mainForm" method="post" action="{{ URL:: route('admin.attributes.update', $entity->id) }}" class="site-form">
                   {{csrf_field()}}
                   <input name="_method" type="hidden" value="PUT">
-                  <div class="form-group">
-                    <label for="cateName">栏目名称</label>
-                    <input type="text" class="form-control" name="cateName" id="cateName" placeholder="栏目名称必须唯一" value="{{$entity->cate_name}}" />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="parentID">栏目父类</label>
-                    <div class="form-controls">
-                      <select name="parentID" class="form-control" id="parentID">
-                        <option value="0">独立栏目</option>
-                        @foreach( $parents as $parent)
-                          <option value="{{ $parent->id }}"  @if($entity->parent_id == $parent->id) selected @endif>{{ $parent->cate_name }}</option>
-                        @endforeach
-                      </select>
+                    <div class="form-group">
+                        <label for="field_attr_name">属性名称</label>
+                        <input type="text" class="form-control" name="field_attr_name" id="field_attr_name" placeholder="栏目名称必须唯一" value="{{$entity->attr_name}}" />
                     </div>
-                  </div>
 
-                  <div class="form-group">
-                    <label for="typeID">栏目类型</label>
-                    <div class="form-controls">
-                      <select name="typeID" class="form-control" id="typeID">
-                        <option value="0">普通内容</option>
-                        @foreach( $types as $type)
-                          <option value="{{ $type->id }}" @if($entity->type_id == $type->id) selected @endif>{{ $type->var_name }}</option>
-                        @endforeach
-                      </select>
+                    <div class="form-group">
+                        <label for="field_typeID">属性类型</label>
+                        <div class="form-controls">
+                            <select name="field_typeID" class="form-control" id="field_typeID">
+                                @foreach( $types as $type)
+                                    <option value="{{ $type->id }}" @if($entity->type_id == $type->id) selected @endif>{{ $type->var_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                  </div>
 
-                  <div class="form-group">
-                    <label for="cate_icon">栏目图标</label>
-                    <input class="form-control" type="text" id="cate_icon" name="cate_icon" value="{{ $entity->image }}">
-                    <input class="image-up-field" widget-type="auto-upload" data-target="cate_icon" target-type="input" type="file" id="img-upload" name="img-upload">
-                  </div>
+                    <div class="form-group">
+                        <label for="field_attr_code">属性标识</label>
+                        <input class="form-control" type="text" id="field_attr_code" name="field_attr_code" placeholder="英文标识" value="{{$entity->attr_code}}">
+                    </div>
 
-                  <div class="form-group">
-                    <label for="sort">排序</label>
-                    <input class="form-control" type="text" id="sort" name="sort" value="{{$entity->sort}}" />
-                  </div>
+                    <div class="form-group">
+                        <label for="field_input_type">输入类型</label>
+                        <div class="form-controls">
+                            <select name="field_input_type" class="form-control" id="field_input_type">
+                                @foreach( $inputTypes as $code=>$name)
+                                    <option value="{{ $code }}" @if($entity->attr_code == $code) selected @endif>{{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group source-group">
+                        <label for="field_data_source">数据来源</label>
+                        <div class="form-controls">
+                      <textarea class="form-control" id="field_data_source" name="field_data_source" rows="5"  placeholder="Model:App/models/xx::class,key,value
+或者
+key1,value1:selected
+key1,value1
+...">{{$entity->data_source}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group validate-group">
+                        <label for="field_validate">验证函数</label>
+                        <input class="form-control" type="text" id="field_validate" name="field_validate" placeholder="validate方式: min:20|max:100|..." value="{{$entity->validate}}">
+                    </div>
+
+                    <div class="form-group value-group">
+                        <label for="field_place_holder">占位符</label>
+                        <input class="form-control" type="text" id="field_place_holder" name="field_place_holder" placeholder="" value="{{$entity->place_holder}}">
+                    </div>
 
                   <button type="submit" class="btn btn-label btn-info">
                     <label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label>
@@ -90,52 +103,43 @@
   <script type="text/javascript" src="{{$staticDir}}/js/extends/form.func.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/bootstrap-notify.min.js"></script>
   <script type="text/javascript" src="{{$staticDir}}/js/kkadmin.js"></script>
-<script type="text/javascript">
+  <script type="text/javascript">
   $(document).ready(function(){
     $("#mainForm").validate({
-      errorElement : 'span',
-      errorClass : 'help-block',
-      rules:{
-        cateName:{
-          required:true,
-          rangelength: [2,20],
+        errorElement : 'span',
+        errorClass : 'help-block',
+        rules:{
+            field_attr_name:{
+                required:true,
+                rangelength: [2,20],
+            },
+            field_typeID:{
+                required:true,
+                digits:true,
+            },
+            field_attr_code:{
+                required:true
+            },
+            field_input_type:{
+                required:true
+            },
         },
-        typeID:{
-          required:true,
-          digits:true,
+        messages:{
+            field_attr_name:{
+                required:"栏目名称不能为空",
+                rangelength:"栏目必须小于十个字"
+            },
+            field_typeID:{
+                digits:"类型选择错误"
+            },
+            field_attr_code:{
+                required:"父类未选择",
+                digits:"父类选择错误"
+            },
+            field_input_type:{
+                required:"输入类型必须填",
+            }
         },
-        parentID:{
-          required:true,
-          digits:true,
-        },
-        cate_icon:{
-          //required:true,
-          //file: true,
-        },
-        sort:{
-          //required:false,
-          digits:true,
-        },
-      },
-      messages:{
-        cateName:{
-          required:"栏目名称不能为空",
-          rangelength:"栏目必须小于十个字"
-        },
-        typeID:{
-          digits:"类型选择错误"
-        },
-        parentID:{
-          required:"父类未选择",
-          digits:"父类选择错误"
-        },
-        cate_icon:{
-          file:"文件上传",
-        },
-        sort:{
-          digits:"排序必须为数字",
-        },
-      },
       errorPlacement : function(error, element) {
         element.next().remove();
         element.after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
@@ -153,18 +157,20 @@
       },
       submitHandler: function(form) {
         let Data = {
-          cate_name:$("#cateName").val(),
-          type_id:$("#typeID").val(),
-          parent_id:$("#parentID").val(),
-          image:$("#cate_icon").val(),
-          sort:$("#sort").val(),
+            attr_name:$("#field_attr_name").val(),
+            type_id:$("#field_typeID").val(),
+            attr_code:$("#field_attr_code").val(),
+            input_type:$("#field_input_type").val(),
+            data_source:$("#field_data_source").val(),
+            validate:$("#field_validate").val(),
+            place_holder:$("#field_place_holder").val(),
         };
         $.ajaxSetup({
           headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
         });
         $.ajax({
           type: "put",
-          url: "{{ route('admin.category.update', $entity->id) }}",
+          url: "{{ route('admin.attributes.update', $entity->id) }}",
           dataType: 'json',
           processData: false,
           contentType: "application/json;charset=UTF-8",
