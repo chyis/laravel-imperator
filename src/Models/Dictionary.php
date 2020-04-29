@@ -207,4 +207,10 @@ class Dictionary extends Model
             ->where('parent_id', '>', 0);
     }
 
+    public static function getType($type)
+    {
+        return (new static)->where('var_code', $type)
+            ->where('parent_id', '>', 0)
+            ->get();
+    }
 }
