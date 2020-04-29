@@ -5,6 +5,7 @@ namespace Chyis\Imperator\Controllers;
 use Chyis\Imperator\Requests\SettingRequest;
 use Chyis\Imperator\Models\Dictionary;
 use Chyis\Imperator\Models\Setting;
+use Chyis\Imperator\Models\Attributes;
 use Illuminate\Http\Request;
 
 
@@ -18,13 +19,13 @@ class ConfigController extends AdminController
      */
     public function index()
     {
-        $query = Setting::orderBy('id', 'desc');
+        $query = Setting::orderBy('group_id', 'asc');
         $list = $query
             ->paginate(config('imperator.tools.perPage'));
 
         return view('Imperator::config.index')
             ->with('lists', $list)
-            ->with('pageName', '内容属性管理');
+            ->with('pageName', '配置项管理');
     }
 
     /**
@@ -34,28 +35,30 @@ class ConfigController extends AdminController
      */
     public function create()
     {
-        $types = Dictionary::ContentType()->get();
+        $types = Dictionary::getType('setting');
+        $inputTypes = Attributes::getInputTypes();
 
         return view('Imperator::config.create')
-            ->with('pageName', '栏目添加')
+            ->with('pageName', '配置项添加')
+            ->with('inputTypes', $inputTypes)
             ->with('types', $types);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Chyis\Imperator\Requests\SettingRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
         $setting = new Setting();
-        $setting->cate_name = $request->input('cate_name');
-        $setting->parent_id = $request->input('parent_id');
-        $setting->type_id = $request->input('type_id');
-        $setting->sort = $request->input('sort');
-        $setting->image = $request->input('image') ?? '';
-        $setting->create_uid = 1;
+        $setting->title = $request->input('title');
+        $setting->group_id = $request->input('group_id');
+        $setting->input_type = $request->input('input_type');
+        $setting->order = intval($request->input('order'));
+        $setting->validate = $request->input('validate') ?? '';
+        $setting->default_value = $request->input('default_value') ?? '';
         $res = $setting->saveOrFail();
         if ($res)
         {
@@ -85,13 +88,15 @@ class ConfigController extends AdminController
      */
     public function edit(Setting $config)
     {
-        $types = Dictionary::ContentType()->get();
+        $types = Dictionary::getType('setting');
+        $inputTypes = Attributes::getInputTypes();
 
 //        $attributes = Category::findOrFail($attributes);
         if ($config)
         {
             return view('Imperator::config.edit')
-                ->with('pageName', '栏目修改')
+                ->with('pageName', '配置项修改')
+                ->with('inputTypes', $inputTypes)
                 ->with('types', $types)
                 ->with('entity', $config);
         } else {
@@ -109,14 +114,16 @@ class ConfigController extends AdminController
      */
     public function update(Request $request, Setting $config)
     {
-        $setting = Attributes::findOrFail($config);
+//        $setting = Setting::findOrFail($config);
 
-        $setting->cate_name = $request->input('cate_name');
-        $setting->parent_id = $request->input('parent_id');
-        $setting->type_id = $request->input('type_id');
-        $setting->sort = $request->input('sort');
-        $setting->image = $request->input('image') ?? '';
-        $res = $setting->saveOrFail();
+        $config->title = $request->input('title');
+        $config->group_id = $request->input('group_id');
+        $config->input_type = $request->input('input_type');
+        $config->data_source = $request->input('data_source') ?? '';
+        $config->validate = $request->input('validate') ?? '';
+        $config->default_value = $request->input('default_value') ?? '';
+        $config->order = intval($request->input('order'));
+        $res = $config->saveOrFail();
         if ($res)
         {
             return $this->success('修改成功');

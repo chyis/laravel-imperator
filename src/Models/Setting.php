@@ -19,12 +19,14 @@ class Setting extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'group_id', 'type', 'code', 'default_value', 'value_text', 'order'];
+    protected $fillable = ['title', 'group_id', 'input_type', 'data_source','validate', 'code', 'default_value', 'value_text', 'order'];
     public $attributeNames = [
         'id'=>'编号',
         'title'=>'配置名称',
         'group_id'=>'配置分组',
-        'type'=>'类型代码',
+        'input_type'=>'类型代码',
+        'data_source'=>'数据来源',
+        'validate'=>'验证函数',
         'code'=>'配置代码',
         'default_value'=>'默认值',
         'value_text'=>'当前值',
@@ -94,6 +96,19 @@ class Setting extends Model
         }
 
         return $data;
+    }
+
+    public function getGroupNameAttribute()
+    {
+        if ($this->getAttribute('group_id') > 0)
+        {
+            $type = Dictionary::find($this->getAttribute('group_id'));
+            if ($type)
+            {
+                return $type->var_name;
+            }
+        }
+        return '未知';
     }
 
     public static function saveAll($setting, $group_id)
