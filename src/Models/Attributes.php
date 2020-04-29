@@ -19,7 +19,7 @@ class Attributes extends Model
      *
      * @var array
      */
-    protected $fillable = ['cate_name', 'parent_id', 'sort'];
+    protected $fillable = ['title', 'attr_code', 'type_id', 'input_type', 'data_source', 'validate',  'place_holder'];
     public $attributeNames = [
         'id'=>'编号',
         'attr_name'=>'属性名',
