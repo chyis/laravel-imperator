@@ -9,8 +9,16 @@ class Area extends Model
     public $timestamps = false;
     protected $fillable = [
         'id',
-        'areaname',
+        'area_name',
         'level',
-        'parentid'
+        'parent_id'
     ];
+    public $attributeNames = [
+        'id'=>'编号',
+        'area_name'=>'标题',
+        'level'=>'级别',
+        'parent_id'=>'上级'
+    ];
+    protected $needPri = [];
+
 }
