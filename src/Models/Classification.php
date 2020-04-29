@@ -59,14 +59,14 @@ class Classification extends Model
      */
     //protected $connection = 'connection-name';
 
-    function article()
+    function products()
     {
-        return $this->hasMany(Chyis\Imperator\Models\Article, 'cate_id', 'id');
+        return $this->hasMany(\Chyis\Imperator\Models\Product, 'cate_id', 'id');
     }
 
-    function articleCount()
+    function productCount()
     {
-        return $this->attributes('id') ? Article::where('cate_id', $this->attributes('id'))->count() : 0;
+        return $this->attributes('id') ? Product::where('cate_id', $this->attributes('id'))->count() : 0;
     }
 
     public function getTypeNameAttribute()
