@@ -47,6 +47,27 @@ class Order extends Model
         'extra',
     ];
 
+    public $attributeNames = [
+        'no'=>'编号',
+        'user_id'=>'用户id',
+        'address'=>'地址',
+        'total_amount'=>'总金额',
+        'remark'=>'客户备注',
+        'coupon_code_id'=>'用户使用优惠券',
+        'paid_at'=>'支付时间',
+        'payment_method'=>'支付方式',
+        'payment_no'=>'第三方支付流水号',
+        'refund_status'=>'退款状态',
+        'refund_no'=>'退款流水单号',
+        'closed'=>'关闭此单',
+        'reviewed'=>'评论与否',
+        'ship_status'=>'物流状态',
+        'extra'=>'订单额外信息',
+        'created_at'=>'创建时间',
+        'updated_at'=>'更新时间'
+    ];
+    protected $needPri = [];
+
     protected $casts = [
         'closed'    => 'boolean',
         'reviewed'  => 'boolean',
@@ -103,7 +124,7 @@ class Order extends Model
                 return $no;
             }
         }
-        \Log::warning('find order no failed');
+        \Log::warning('find orderNO failed');
 
         return false;
     }

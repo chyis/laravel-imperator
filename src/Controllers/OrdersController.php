@@ -2,73 +2,105 @@
 
 namespace Chyis\Imperator\Controllers;
 
+use Chyis\Imperator\Models\Classification;
 use Chyis\Imperator\Models\Order;
 use Illuminate\Http\Request;
 
 class OrdersController extends AdminController
 {
-    public function index(Content $content)
+    public function index(Request $request)
     {
-        return $content
-            ->header('工单列表')
-            ->body($this->grid());
+        $keyWord = $request->input('keyword');
+        $condition = [];
+
+        if ($keyWord != '')
+        {
+            $condition[] = ['no', $keyWord];
+        }
+        $query = Order::orderBy('id', 'desc');
+        if (!empty($query))
+        {
+            $query->where($condition);
+        }
+        $list = $query
+            ->paginate(config('imperator.tools.perPage'));
+
+        return view('Imperator::orders.index')
+            ->with('lists', $list)
+            ->with('pageName', '订单列表')
+            ->with('request', $request->toArray());
     }
 
-    public function show(Order $order, Content $content)
+
+    /*
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        return $content
-            ->header('查看工单')
-            // body 方法可以接受 Laravel 的视图作为参数
-            ->body(view('admin.orders.show', ['order' => $order]));
+        $classes = Classification::dirRoot();
+
+        return view('Imperator::orders.create')
+            ->with('pageName', '订单添加')
+            ->with('classes', $classes);
     }
 
-    protected function form()
+    /*
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(OrderRequest $request)
     {
-        $grid = new Grid(new Order);
+        $cate = new Order();
 
-        // 只展示已支付的工单，并且默认按支付时间倒序排序
-        //$grid->model()->whereNotNull('paid_at')->orderBy('paid_at', 'desc');
-        $grid->no('工单流水号');
-        // 展示关联关系的字段时，使用 column 方法
-        $grid->column('user.name', '建单人');
-        $grid->total_amount('总金额')->sortable();
-        $grid->paid_at('支付时间')->sortable()->display(function($value){
-            return $value ?? '未支付';
-        });
-        $grid->ship_status('服务状态')->display(function($value) {
-            return Order::$shipStatusMap[$value];
-        });
-        $grid->refund_status('退款状态')->display(function($value) {
-            return Order::$refundStatusMap[$value];
-        });
-        // 禁用创建按钮，后台不需要创建工单
-        $grid->disableCreateButton();
-        $grid->actions(function ($actions) {
-            // 禁用删除和编辑按钮
-            $actions->disableDelete();
-            $actions->disableEdit();
-        });
-        $grid->tools(function ($tools) {
-            // 禁用批量删除按钮
-            $tools->batch(function ($batch) {
-                $batch->disableDelete();
-            });
-        });
 
-        return $grid;
+        $cate->no = $request->input('cate_name');
+        $cate->parent_id = $request->input('parent_id');
+        $cate->type_id = $request->input('type_id');
+        $cate->sort = $request->input('sort');
+        $cate->image = $request->input('image') ?? '';
+        $cate->create_uid = 1;
+        $res = $cate->saveOrFail();
+        if ($res)
+        {
+            return $this->success('成功');
+        } else {
+            return $this->error('失败');
+        }
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Chyis\Imperator\Models\Order  $orders
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Order $orders)
+    {
+        return view('Imperator:orders.show')
+            ->with('pageName', '订单详情')
+            ->with('order', $orders);
+    }
+
+    /**
+     * edit order shipping status.
+     *
+     * @param  \Chyis\Imperator\Models\Order $order
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function ship(Order $order, Request $request)
     {
-        // 判断当前工单是否已支付
         if (!$order->paid_at) {
             throw new InvalidRequestException('该工单未付款');
         }
-        // 判断当前工单发货状态是否为未发货
         if ($order->ship_status !== Order::SHIP_STATUS_PENDING) {
             throw new InvalidRequestException('该工单已发货');
         }
-        // Laravel 5.5 之后 validate 方法可以返回校验过的值
         $data = $this->validate($request, [
             'express_company' => ['required'],
             'express_no'      => ['required'],
@@ -76,16 +108,12 @@ class OrdersController extends AdminController
             'express_company' => '物流公司',
             'express_no'      => '物流单号',
         ]);
-        // 将工单发货状态改为已发货，并存入物流信息
         $order->update([
             'ship_status' => Order::SHIP_STATUS_DELIVERED,
-            // 我们在 Order 模型的 $casts 属性里指明了 ship_data 是一个数组
-            // 因此这里可以直接把数组传过去
             'ship_data'   => $data,
         ]);
 
-        // 返回上一页
-        return redirect()->back();
+        return $this->success('物流状态');
     }
 
     public function handleRefund(Order $order, HandleRefundRequest $request)
@@ -171,5 +199,15 @@ class OrdersController extends AdminController
                 throw new InternalException('未知工单支付方式：'.$order->payment_method);
                 break;
         }
+    }
+
+    public function destroy(int $orders)
+    {
+        $order = Order::find($orders);
+        if ($order) {
+
+        }
+
+        return $this->error('参数错误，操作失败');
     }
 }
