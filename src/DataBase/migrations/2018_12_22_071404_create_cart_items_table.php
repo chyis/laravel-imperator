@@ -18,9 +18,9 @@ class CreateCartItemsTable extends Migration
             $table->unsignedInteger('user_id')->comment('用户id');
             $table->unsignedInteger('sku_id')->comment('sku_id');
             $table->unsignedInteger('num')->default(1)->comment('订购数量');
-			$table->timestamp('assign_at')->comment('预约时间');
+			$table->integer('assign_at')->default(0)->comment('预约时间');
 			$table->string('session_id', 64)->default('')->comment('非登录用户session');
-            $table->timestamp('expired_at');
+            $table->integer('expired_at')->default(0)->comment('过期时间');
         });
     }
     /**

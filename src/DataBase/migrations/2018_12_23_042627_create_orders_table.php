@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create(config('imperator.tables.orders'), function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no')->unique()->comment('订单号');
+            $table->string('no')->comment('订单号');
             $table->unsignedInteger('user_id')->comment('用户id');
             $table->text('address')->comment('地址');
             $table->decimal('total_amount', 10, 2)->comment('总金额');
@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment_method')->nullable()->comment('支付方式');
             $table->string('payment_no')->nullable()->comment('第三方支付流水号');
             $table->string('refund_status')->default(\Chyis\Imperator\Models\Order::REFUND_STATUS_PENDING)->comment('退款状态');
-            $table->string('refund_no')->unique()->nullable()->comment('退款流水单号');
+            $table->string('refund_no')->nullable()->comment('退款流水单号');
             $table->boolean('closed')->default(false)->comment('关闭此单');
             $table->boolean('reviewed')->default(false)->comment('此单已经评论了');
             $table->string('ship_status')->default(\Chyis\Imperator\Models\Order::SHIP_STATUS_PENDING)->comment('配送[服务]状态');

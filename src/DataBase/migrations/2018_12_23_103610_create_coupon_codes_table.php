@@ -16,7 +16,7 @@ class CreateCouponCodesTable extends Migration
         Schema::create(config('imperator.tables.coupon_codes'), function (Blueprint $table) {
             $table->increments('id')->comment('优惠券id');
             $table->string('name')->comment('名称');
-            $table->string('code')->unique()->comment('券码');
+            $table->string('code')->comment('券码');
             $table->string('type')->comment('优惠券类型');
             $table->decimal('value')->comment('优惠额度');
             $table->unsignedInteger('total')->comment('总数');

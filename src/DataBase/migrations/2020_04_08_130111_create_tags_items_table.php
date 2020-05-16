@@ -21,11 +21,11 @@ class CreateTagsItemsTable extends Migration
 
             $table->index('tag_id', 'idx_tag_id');
 
-            $table->foreign('tag_id')
-                ->references('id')
-                ->on('tags')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+//            $table->foreign('tag_id')
+//                ->references('id')
+//                ->on('tags')
+//                ->onUpdate('cascade')
+//                ->onDelete('cascade');
 
             $table->timestamps();
         });
