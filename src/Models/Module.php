@@ -86,13 +86,13 @@ class Module extends Model
                 $dataList = Advertise::whereIn('id', explode(',', $content))->get();
                 return $dataList;
                 break;
-            case '':
+            case 'select-goods':
 
                 break;
-            case '':
+            case 'select-article':
 
                 break;
-            case '':
+            case 'hot-':
 
                 break;
             case '':
