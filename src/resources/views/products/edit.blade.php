@@ -27,7 +27,7 @@
                   </ul>
                 </div>
               @endif
-              <form id="mainForm" action="{{ URL::route('admin.news.update', $entity->id) }}" method="post" class="site-form">
+              <form id="mainForm" action="{{ URL::route('admin.products.update', $entity->id) }}" method="post" class="site-form">
                 {{csrf_field()}}
                 <input name="_method" type="hidden" value="PUT">
                 <div class="form-group">
@@ -43,12 +43,13 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="title">标题</label>
-                  <input type="text" class="form-control" id="title" name="title" value="{{$entity->title}}" placeholder="请输入标题" />
+                  <label for="title">产品名称</label>
+                  <input type="text" class="form-control" id="title" name="title" value="{{$entity->title}}" placeholder="请输入产品名称" />
                 </div>
+
                 <div class="form-group">
-                  <label for="summary">描述</label>
-                  <textarea class="form-control" id="summary" name="summary" rows="5" value="" placeholder="描述">{{$entity->summary}}</textarea>
+                  <label for="description">描述</label>
+                  <textarea class="form-control" id="description" name="description" rows="5" placeholder="描述">{{$entity->description}}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -60,26 +61,68 @@
                   <input class="form-control" type="text" id="image" name="image" value="{{ $entity->image }}">
                   <input class="image-up-field" widget-type="auto-upload" data-target="image" target-type="input" type="file" id="img-upload" name="img-upload">
                 </div>
+
                 <div class="form-group">
-                  <label for="tags">标签</label>
-                  <input class="js-tags-input form-control" type="text" id="tags" name="tags" value="{{$entity->tags}}" />
+                  <label>图册</label>
+                  <div class="form-controls">
+                    <ul class="list-inline clearfix kkadmin-uploads-pic" id="multi_pic">
+
+                      @if(isset($albums))
+                        @foreach($albums as $k=>$image)
+                        <li class="col-xs-4 col-sm-3 col-md-2">
+                        <figure>
+                          <img src="{{$image->url}}" alt="{{$image->url}}">
+                          <figcaption>
+                            <a class="btn btn-round btn-square btn-primary" href="{{$image->url}}"><i class="mdi mdi-eye"></i></a>
+                            <a class="btn btn-round btn-square btn-danger" href="javascript:remove({{$image->id}});"><i class="mdi mdi-delete"></i></a>
+                          </figcaption>
+                        </figure>
+                      </li>
+                      @endforeach
+                      @endif
+
+                      <li class="col-xs-4 col-sm-3 col-md-2">
+                        <figure>
+                          <img src="/uploads/gallery/17.jpg" alt="图片三">
+                          <figcaption>
+                            <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
+                            <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
+                          </figcaption>
+                        </figure>
+                      </li>
+
+                      <li class="col-xs-4 col-sm-3 col-md-2">
+                        <a class="pic-add" id="add-pic-btn" href="javascript:multi_up();" title="点击上传">
+                        </a>
+                        <input id="multi_up" multiple accept="image/*" class="hidden" widget-type="multi-upload" data-target="multi_pic" type="file" name="target_upload" value="" />
+                      </li>
+
+                    </ul>
+                  </div>
                 </div>
+
                 <div class="form-group">
-                  <label for="sort">排序</label>
-                  <input type="text" class="form-control" id="sort" name="sort" value="{{$entity->sort}}" />
+                  <label for="org_price">市价</label>
+                  <input type="text" class="form-control" id="org_price" name="org_price" value="{{$entity->org_price}}" placeholder="市场价格" />
                 </div>
+
+                <div class="form-group">
+                  <label for="price">售价</label>
+                  <input type="text" class="form-control" id="price" name="price" value="{{$entity->price}}" placeholder="销售价格" />
+                </div>
+
                 <div class="form-group">
                   <label for="status">状态</label>
                   <div class="clearfix">
                     <label class="kkadmin-radio radio-inline radio-primary">
-                      <input type="radio" name="status" value="-1"  @if($entity->status == -1) checked @endif><span>禁用</span>
+                      <input type="radio" name="on_sale" value="-1"  @if($entity->on_sale == -1) checked @endif><span>禁用</span>
                     </label>
                     <label class="kkadmin-radio radio-inline radio-primary">
-                      <input type="radio" name="status" value="1"  @if($entity->status == 1) checked @endif><span>启用</span>
+                      <input type="radio" name="on_sale" value="1"  @if($entity->on_sale == 1) checked @endif><span>启用</span>
                     </label>
 
                     <label class="kkadmin-radio radio-inline radio-primary">
-                      <input type="radio" name="status" value="0" @if($entity->status == 0) checked @endif><span>草稿</span>
+                      <input type="radio" name="on_sale" value="0" @if($entity->on_sale == 0) checked @endif><span>草稿</span>
                     </label>
                   </div>
                 </div>
@@ -115,19 +158,25 @@
             required:true,
             rangelength: [2,50],
           },
-          tags:{
-            //required:true,
-            rangelength: [2,20],
-          },
           cate_id:{
             required:true,
             digits:true,
           },
-          sort:{
+          description:{
+            required:true
+          },
+          content:{
+            required:true
+          },
+          org_price:{
             required:true,
             digits:true,
           },
-          status:{
+          price:{
+            required:true,
+            digits:true,
+          },
+          on_sale:{
             required:false,
             digits:true,
           },
@@ -137,20 +186,23 @@
             required:"标题不能为空",
             rangelength:"标题必须小于十个字"
           },
-          tags:{
+          content:{
             required:"菜单类型必须选择",
           },
           cate_id:{
             required:"必须有parent选择",
             digits:"选择错误"
           },
-          status:{
+          on_sale:{
             required:"必须有类型选择",
             digits:"选择错误"
           },
-          sort:{
-            digits:"请确认排序",
+          price:{
+            digits:"价格填写错误",
           },
+          org_price:{
+            digits:"市场价格填写错误",
+          }
         },
         errorPlacement : function(error, element) {
           element.next().remove();
@@ -171,19 +223,19 @@
           let Data = {
             title:$("#title").val(),
             cate_id:$("#cate_id").val(),
-            tags:$("#tags").val(),
+            description:$("#description").val(),
             image:$("#image").val(),
-            summary:$("#summary").val(),
             content:$("#content").val(),
-            sort:$("#sort").val(),
-            status:$('input[name="status"]:checked').val()
+            price:$("#price").val(),
+            org_price:$("#org_price").val(),
+            on_sale:$('input[name="on_sale"]:checked').val()
           };
           $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
           });
           $.ajax({
             type: "put",
-            url: "{{ route('admin.news.update', $entity->id) }}",
+            url: "{{ route('admin.products.update', $entity->id) }}",
             dataType: 'json',
             processData: false,
             contentType: "application/json;charset=UTF-8",

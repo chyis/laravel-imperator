@@ -46,10 +46,8 @@
                                             </label>
                                         </th>
                                         <th>编号</th>
-                                        <th>标题</th>
-                                        <th>类别</th>
-                                        <th>阅读量</th>
-                                        <th>状态</th>
+                                        <th>名称</th>
+                                        <th>分类</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -64,8 +62,6 @@
                                         <td>{{$value -> id}}</td>
                                         <td>{{$value -> title}}</td>
                                         <td>《{{ $value -> category -> cate_name ?? '无分类' }}》</td>
-                                        <td>{{$value -> view_count}}</td>
-                                        <td><font class="text-success">正常</font></td>
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-xs btn-default" href="{{ URL::route('admin.products.edit', $value->id) }}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
@@ -74,7 +70,7 @@
                                         </td>
                                     </tr>
                                     @empty
-                                        <tr><td colspan="8" align="center">暂无数据</td></tr>
+                                        <tr><td colspan="6" align="center">暂无数据</td></tr>
                                     @endforelse
                                     </tbody>
                                 </table>

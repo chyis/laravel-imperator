@@ -70,7 +70,7 @@ class Menu extends Model
         return $query->where('parent_id', '0');
     }
 
-    public static function getTypeTree($type, $position = '', $userID = 0)
+    public static function getTypeTree(string $type, string $position = '', int $userID = 0):array
     {
         $tree = [];
         $query = self::where('type', $type);

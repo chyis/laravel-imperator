@@ -7,6 +7,14 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
+    /**
+     * 关联到模型的数据表
+     *
+     * @var string
+     */
+    protected $table = 'products';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
     //protected $dateFormat = 'U';
     protected $fillable = [
         'title',
@@ -18,13 +26,60 @@ class Product extends Model
         'review_count',
         'price'
     ];
+    public $attributeNames = [
+        'id'=>'编号',
+        'title'=>'产品名称',
+        'cate_id'=>'分类id',
+        'cate_name'=>'分类名称',
+        'description'=>'简述',
+        'content'=>'详细介绍',
+        'image'=>'封面图',
+        'org_price'=>'市价',
+        'price'=>'售价',
+        'created_at'=>'创建时间',
+        'updated_at'=>'更新时间'
+    ];
+    protected $needPri = [];
+
+
     protected $casts = [
         'on_sale' => 'boolean', // on_sale 是一个布尔类型的字段
     ];
-    // 与服务SKU关联
+    // 与SKU关联
     public function skus()
     {
         return $this->hasMany(ProductSku::class);
+    }
+
+    public function content()
+    {
+        return $this->hasOne('Chyis\Imperator\Models\ProductContent', 'product_id', 'id');
+    }
+
+
+    function getContentAttribute()
+    {
+        if ($this->getAttribute('id') > 0)
+        {
+            $content = ProductContent::where('product_id', $this->getAttribute('id'))->first();
+            if ($content)
+            {
+                return $content->content;
+            }
+        }
+
+        return '未知';
+    }
+
+
+
+    public function getExtendsAttribute()
+    {
+        // 如果 image 字段本身就已经是完整的 url 就直接返回
+        if ($this->detail()) {
+            return $this->detail()->extends;
+        }
+        return  '';
     }
 
     public function getImageUrlAttribute()

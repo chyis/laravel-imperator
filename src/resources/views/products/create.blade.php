@@ -26,7 +26,7 @@
                 </ul>
               </div>
             @endif
-              <form id="mainForm" action="{{ URL::route('admin.news.store') }}" method="post" class="site-form">
+              <form id="mainForm" action="{{ URL::route('admin.products.store') }}" method="post" class="site-form">
                 {{csrf_field()}}
                 <div class="form-group">
                   <label for="cate_id">产品分类</label>
@@ -40,38 +40,83 @@
                       <a href="{{ URL::route('admin.classification.create') }}"> 添加新分类</a>
                   </div>
                 </div>
+
                 <div class="form-group">
-                  <label for="title">标题</label>
-                  <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="请输入标题" />
+                  <label for="title">产品名称</label>
+                  <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="请输入产品名称" />
                 </div>
+
                 <div class="form-group">
-                  <label for="content">详细内容</label>
+                  <label for="description">描述</label>
+                  <textarea class="form-control" id="description" name="description" rows="5" placeholder="描述">{{old('description')}}</textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="content">详细描述</label>
                   @include('Imperator::include.ckEditor')
                 </div>
+
                 <div class="form-group">
                   <label for="image">封面图</label>
                   <input class="form-control" type="text" id="image" name="image" value="">
                   <input class="image-up-field" widget-type="auto-upload" data-target="image" target-type="input" type="file" id="img-upload" name="img-upload">
                 </div>
+
+                <div class="form-group">
+                  <label>图册</label>
+                  <div class="form-controls">
+
+                    <ul class="list-inline clearfix kkadmin-uploads-pic" id="multi_pic">
+                      <li class="col-xs-4 col-sm-3 col-md-2">
+                        <figure>
+                          <img src="/uploads/gallery/15.jpg" alt="图片一">
+                          <figcaption>
+                            <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
+                            <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
+                          </figcaption>
+                        </figure>
+                      </li>
+                      <li class="col-xs-4 col-sm-3 col-md-2">
+                        <a class="pic-add" id="add-pic-btn" href="javascript:multi_up();" title="点击上传">
+                        </a>
+                        <input id="multi_up" multiple accept="image/*" class="hidden" widget-type="multi-upload" data-target="multi_pic" type="file" name="target_upload" value="" />
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="org_price">市价</label>
+                  <input type="text" class="form-control" id="org_price" name="org_price" value="{{old('org_price')}}" placeholder="市场价格" />
+                </div>
+
+                <div class="form-group">
+                  <label for="price">售价</label>
+                  <input type="text" class="form-control" id="price" name="price" value="{{old('price')}}" placeholder="销售价格" />
+                </div>
+
                 <div class="form-group">
                   <label for="status">状态</label>
                   <div class="clearfix">
                     <label class="kkadmin-radio radio-inline radio-primary">
-                      <input type="radio" name="status" value="-1"><span>禁用</span>
-                    </label>
-                    <label class="kkadmin-radio radio-inline radio-primary">
-                      <input type="radio" name="status" value="1"><span>启用</span>
+                      <input type="radio" name="on_sale" value="-1"><span>下架</span>
                     </label>
 
                     <label class="kkadmin-radio radio-inline radio-primary">
-                      <input type="radio" name="status" value="0" checked><span>草稿</span>
+                      <input type="radio" name="on_sale" value="1"><span>上架</span>
+                    </label>
+
+                    <label class="kkadmin-radio radio-inline radio-primary">
+                      <input type="radio" name="on_sale" value="0"><span>草稿</span>
                     </label>
                   </div>
                 </div>
+
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary ajax-post" target-form="add-form">确 定</button>
                   <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
                 </div>
+
               </form>
             </div>
           </div>
@@ -98,19 +143,25 @@
             required:true,
             rangelength: [2,50],
           },
-          tags:{
-            //required:true,
-            rangelength: [2,20],
-          },
           cate_id:{
             required:true,
             digits:true,
           },
-          sort:{
+          description:{
+            required:true
+          },
+          content:{
+            required:true
+          },
+          org_price:{
             required:true,
             digits:true,
           },
-          status:{
+          price:{
+            required:true,
+            digits:true,
+          },
+          on_sale:{
             required:false,
             digits:true,
           },
@@ -120,20 +171,23 @@
             required:"标题不能为空",
             rangelength:"标题必须小于十个字"
           },
-          tags:{
+          content:{
             required:"菜单类型必须选择",
           },
           cate_id:{
             required:"必须有parent选择",
             digits:"选择错误"
           },
-          status:{
+          on_sale:{
             required:"必须有类型选择",
             digits:"选择错误"
           },
-          sort:{
-            digits:"请确认排序",
+          price:{
+            digits:"价格填写错误",
           },
+          org_price:{
+            digits:"市场价格填写错误",
+          }
         },
         errorPlacement : function(error, element) {
           element.next().remove();
@@ -154,19 +208,20 @@
           let Data = {
             title:$("#title").val(),
             cate_id:$("#cate_id").val(),
-            tags:$("#tags").val(),
-            summary:$("#summary").val(),
+            description:$("#description").val(),
             image:$("#image").val(),
             content:$("#content").val(),
-            sort:$("#sort").val(),
-            status:$('input[name="status"]:checked').val()
+            price:$("#price").val(),
+            org_price:$("#org_price").val(),
+            on_sale:$('input[name="on_sale"]:checked').val()
           };
+          alert($('input[name="on_sale"]:checked').val());
           $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
           });
           $.ajax({
             type: "post",
-            url: "{{ route('admin.news.store') }}",
+            url: "{{ route('admin.products.store') }}",
             dataType: 'json',
             processData: false,
             contentType: "application/json;charset=UTF-8",

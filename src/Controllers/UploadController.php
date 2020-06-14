@@ -79,9 +79,9 @@ class UploadController extends AdminController
             $att['cate_id'] = 0;
             $att['ref_count'] = 0;
 
-            $attach->create($att);
+            $data = $attach->create($att);
             $res = [];
-            $res['id'] = $attach->id;
+            $res['id'] = $data->id;
             $res['url'] = asset($destinationPath.$fileName);
             return Response()->json(
                 [

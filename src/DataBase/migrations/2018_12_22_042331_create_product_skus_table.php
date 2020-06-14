@@ -21,6 +21,7 @@ class CreateProductSkusTable extends Migration
             $table->decimal('price', 10, 2)->comment('价格');
             $table->unsignedInteger('product_id')->comment('产品id');
             $table->unsignedInteger('storage_num')->comment('库存数');
+            $table->tinyInteger('on_sale')->default(0)->comment('是否上架');
             $table->timestamps();
         });
     }

@@ -17,7 +17,6 @@ class ProductsController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index(Request $request)
     {
         $keyWord = $request->input('keyword');
@@ -26,9 +25,9 @@ class ProductsController extends AdminController
 
         if ($keyWord != '' && $searchField == 'name')
         {
-            $condition[] = ['name', $keyWord];
+            $condition[] = ['title', $keyWord];
         } else if ($keyWord != '' && $searchField == 'group') {
-            $condition[] = ['group_id', $keyWord];
+            $condition[] = ['id', $keyWord];
         }
         $query = Product::orderBy('created_at', 'asc')
             ->orderBy('id', 'asc');
@@ -44,7 +43,6 @@ class ProductsController extends AdminController
             ->with('pageName', '产品管理')
             ->with('request', $request->toArray());
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -65,7 +63,7 @@ class ProductsController extends AdminController
     /**
      * Store a newly created resource in storage.
      * POST /news
-     * @param \Chyis\Imperator\Requests\ArticleRequest $request
+     * @param \Chyis\Imperator\Requests\ProductRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -75,7 +73,11 @@ class ProductsController extends AdminController
         $article = new Product();
         $article->title = $request->input('title');
         $article->cate_id = $request->input('cate_id');
+        $article->price = $request->input('price');
+        $article->org_price = $request->input('org_price');
         $article->image = $request->input('image') ?? '';
+        $article->description = $request->input('description') ?? '';
+        $article->on_sale = intval($request->input('on_sale'));
 
         if ($res = $article->save())
         {
@@ -86,11 +88,66 @@ class ProductsController extends AdminController
                 $content->product_id = $id;
                 $content->content = $request->input('content');;
                 $content->create_user = 1;
+                $content->extends  = '';
 //                $content->last_modify_user = $id;
                 $content->save();
-                $tag = new Tags();
-                $tag->saveTags(explode(',', $request->input('tags')), $id, 'article');
             }
+            return $this->success('成功');
+        } else {
+            return $this->errot('新增失败');
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * GET /news/create
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function edit(int $id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return $this->error('未找到');
+        }
+
+        $category = Classification::dirRoot();
+
+        return view('Imperator::products.edit')
+            ->with('entity', $product)
+            ->with('category', $category)
+            ->with('pageName', '产品修改');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * POST /news
+     *
+     * @param int $id
+     * @param \Chyis\Imperator\Requests\ProductRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update(Product $products, ProductRequest $request)
+    {
+        $products->title = $request->input('title');
+        $products->cate_id = $request->input('cate_id');
+        $products->price = $request->input('price');
+        $products->org_price = $request->input('org_price');
+        $products->image = $request->input('image') ?? '';
+        $products->description = $request->input('description') ?? '';
+        $products->on_sale = intval($request->input('on_sale'));
+
+        if ($res = $products->save())
+        {
+            $content = ProductContent::where("product_id", $products->id)->first();
+            $content->content = $request->input('content');;
+            $content->create_user = 1;
+            $content->extends  = '';
+            $content->save();
             return $this->success('成功');
         } else {
             return $this->errot('新增失败');
@@ -102,7 +159,7 @@ class ProductsController extends AdminController
      *
      * @return Table
      */
-    protected function grid()
+    protected function table()
     {
         $table = new Table(new Product);
 
@@ -156,4 +213,6 @@ class ProductsController extends AdminController
 
         return $form;
     }
+
+
 }

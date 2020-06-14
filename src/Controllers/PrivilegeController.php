@@ -52,6 +52,7 @@ class PrivilegeController extends AdminController
     {
         $prigroup = Dictionary::where('var_code', 'prigroup')
             ->where('parent_id', '>', 0)
+            ->orderby('type', 'asc')
             ->get();
         $tree = [];
         foreach ($prigroup as $key=>$priv) {

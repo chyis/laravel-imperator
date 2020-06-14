@@ -81,9 +81,6 @@ Route::group(['middleware' => ['admin']], function(){
     Route::resource('orders', 'OrdersController', ['as'=>'admin']);
     Route::get('ordersheet', 'SheetsController@order', ['as'=>'admin']);
 
-    Route::resource('yiyuan', 'YiyuanController', ['as'=>'admin']);
-    Route::resource('flash', 'FlashController', ['as'=>'admin']);
-    Route::resource('groupon', 'GrouponController', ['as'=>'admin']);
 
     Route::get('template', 'TemplateController@index')->name('admin.template');
 });

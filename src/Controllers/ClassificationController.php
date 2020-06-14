@@ -5,7 +5,7 @@ namespace Chyis\Imperator\Controllers;
 use Chyis\Imperator\Models\Classification;
 use Chyis\Imperator\Models\Dictionary;
 use Illuminate\Http\Request;
-use Chyis\Imperator\Requests\classificationRequest;
+use Chyis\Imperator\Requests\ClassificationRequest;
 
 class ClassificationController extends AdminController
 {

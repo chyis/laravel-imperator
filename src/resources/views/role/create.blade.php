@@ -49,7 +49,7 @@
                         <td>
                           <label class="kkadmin-checkbox checkbox-primary">
                             <input name="groups[]" type="checkbox" class="checkbox-parent" dataid="id-{{$group['id']}}" value="{{$group['id']}}">
-                            <span> {{$group['var_name']}}</span>
+                            <span> + {{$group['var_name']}}</span>
                           </label>
                         </td>
                       </tr>
@@ -59,7 +59,7 @@
                           <td class="p-l-20">
                             <label class="kkadmin-checkbox checkbox-primary">
                               <input name="child[]" type="checkbox" class="checkbox-parent checkbox-child" dataid="id-{{$group['id']}}-{{$child['id']}}" value="{{$child['id']}}">
-                              <span>{{$child['var_name']}}</span>
+                              <span>└— {{$child['var_name']}}</span>
                             </label>
                           </td>
                         </tr>
@@ -69,7 +69,7 @@
                             @foreach($child['child'] as $h=>$privilege)
                             <label class="kkadmin-checkbox checkbox-primary checkbox-inline">
                               <input widget-type="check-data" name="rules[]" type="checkbox" class="checkbox-child" dataid="id-{{$group['id']}}-{{$child['id']}}-{{$privilege['id']}}" value="{{$privilege['id']}}">
-                              <span> {{$privilege['name']}}</span>
+                              <span>{{$privilege['name']}}</span>
                             </label>
                             @endforeach
                           </td>

@@ -20,7 +20,7 @@ class Users extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_name', 'nick_name', 'phone', 'email', 'role_id', 'description'];
+    protected $fillable = ['user_name', 'password', 'nick_name', 'phone', 'email', 'role_id', 'description'];
     public $attributeNames = [
         'id'=>'编号',
         'user_name'=>'用户名',

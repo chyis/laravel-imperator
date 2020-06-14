@@ -11,8 +11,8 @@ class ProductContent extends Model
      *
      * @var string
      */
-    protected $table = 'product_content';
-    protected $primaryKey = 'product_id';
+    protected $table = 'products_content';
+    protected $primaryKey = 'id';
     protected $guarded = [];
     /**
      * 可以被批量赋值的属性.

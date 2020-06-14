@@ -40,7 +40,11 @@ class ProductRequest extends FormRequest
         return [
             'title' => 'required|min:10|max:100',
             'cate_id' => 'required|integer',
-            'content' => 'required'
+            'description' => 'required',
+            'content' => 'required',
+            'price' => 'required',
+            'org_price' => 'required',
+            'on_sale' => 'required'
         ];
     }
 
@@ -52,7 +56,10 @@ class ProductRequest extends FormRequest
             'title.min'=>':attribute 长度不能小于10个字',
             'cate_id.required'=>':attribute 必须有',
             'cate_id.integer'=>':attribute 选择错误',
-            'content.required'=>':attribute 必须有'
+            'content.required'=>':attribute 必须有',
+            'price.required' => '价格必须填写',
+            'org_price.required' => '市场价格必须填写',
+            'on_sale.required' => '商品状态错误'
         ];
         return $message;
     }

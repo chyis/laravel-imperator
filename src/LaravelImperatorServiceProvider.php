@@ -24,7 +24,7 @@ class LaravelImperatorServiceProvider extends ServiceProvider
         ];
     protected $middlewares = [
         'imperator.admin'       => Middleware\AdminMiddleware::class,
-//        'imperator.auth'       => Middleware\Authenticate::class,
+//        'imperator.auth'       => Mipackages/chyis/laravel-imperator/src/LaravelImperatorServiceProvider.php:34ddleware\Authenticate::class,
 //        'imperator.pjax'       => Middleware\Pjax::class,
 //        'imperator.log'        => Middleware\LogOperation::class,
 //        'imperator.permission' => Middleware\Permission::class,

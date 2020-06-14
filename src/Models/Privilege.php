@@ -64,25 +64,25 @@ class Privilege extends Model
     {
         $privGroup = Dictionary::where('var_code', 'prigroup')
             ->where('parent_id', '>' , 0)
+            ->orderby('type', 'asc')
             ->get();
-        $roots = [];
+        $roots = $branches = [];
         foreach ($privGroup as $k=>$value)
         {
             if ($value->type == 1) {
                 $roots[$value->id] = $value->toarray();
             } else {
-                $roots[$value->parent_id]['child'][$value->id] = $value->toarray();
                 $branches[$value->id] = $value;
+                $roots[$value->parent_id]['child'][$value->id] = $value->toarray();
             }
         }
-
         $privileges = self::all();
 
         foreach ($privileges as $key=>$value) {
             $branch = $branches[$value->group_id];
             $roots[$branch->parent_id]['child'][$branch->id]['child'][$value->id] = $value->toArray();
         }
-
+        
         return $roots;
     }
 
